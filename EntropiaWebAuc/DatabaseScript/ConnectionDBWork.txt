@@ -1,0 +1,4 @@
+﻿<connectionStrings>
+    <add name="DefaultConnection" connectionString="Data Source=CS-STUDY\SQLEXPRESS;Initial Catalog=EntropaAuc;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False" providerName="System.Data.SqlClient" />
+    <add name="EFDbContext" connectionString="Data Source=CS-STUDY\SQLEXPRESS;Initial Catalog=EntropaAuc;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False" providerName="System.Data.SqlClient" />
+  </connectionStrings>
