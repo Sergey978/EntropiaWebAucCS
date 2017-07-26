@@ -1,0 +1,16 @@
+﻿@model IEnumerable<EntropiaWebAuc.Entities.StandartItem>
+@{
+    ViewBag.Title = "StandartItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+@foreach (var p in Model)
+{
+    <div class="item">
+        <h3>@p.Name</h3>
+        @p.Category
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+} 
