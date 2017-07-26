@@ -425,13 +425,13 @@ namespace EntropiaWebAuc.Controllers
             base.Dispose(disposing);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult RoleCreate()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperSuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleCreate(string roleName)
@@ -449,7 +449,7 @@ namespace EntropiaWebAuc.Controllers
             return RedirectToAction("RoleIndex", "Account");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult RoleIndex()
         {
             List<string> roles;
@@ -464,7 +464,7 @@ namespace EntropiaWebAuc.Controllers
             return View(roles.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult RoleDelete(string roleName)
         {
             using (var context = new ApplicationDbContext())
@@ -481,7 +481,7 @@ namespace EntropiaWebAuc.Controllers
             return RedirectToAction("RoleIndex", "Account");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult RoleAddToUser()
         {
             List<string> roles;
@@ -503,7 +503,7 @@ namespace EntropiaWebAuc.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleAddToUser(string roleName, string userName)
@@ -548,7 +548,7 @@ namespace EntropiaWebAuc.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GetRoles(string userName)
@@ -589,7 +589,7 @@ namespace EntropiaWebAuc.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleForUser(string userName, string roleName)
         {
