@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using EntropiaWebAuc.Abstract;
 using EntropiaWebAuc.Entities;
 
-namespace EntropiaWebAuc.Controllers
+namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
     public class StandartItemController : Controller
     { 

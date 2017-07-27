@@ -1,1 +1,4 @@
-﻿
+﻿ <connectionStrings>
+    <add name="DefaultConnection" connectionString="Data Source=MAIN-COMP;Initial Catalog=EntropaAuc;Integrated Security=True" providerName="System.Data.SqlClient" />
+    <add name="EFDbContext" connectionString="Data Source=MAIN-COMP;Initial Catalog=EntropaAuc;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>

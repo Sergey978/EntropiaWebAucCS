@@ -14,9 +14,10 @@ namespace EntropiaWebAuc
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                  name: "DefaultApi",
+                    url: "api/{controller}/{id}",
+                    defaults: new {  id = UrlParameter.Optional }
+                    
             );
         }
     }

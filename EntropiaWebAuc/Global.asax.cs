@@ -19,13 +19,14 @@ namespace EntropiaWebAuc
         {
 
             var adminArea = new AdminAreaRegistration();
-            var adminAreaContext = new
-        AreaRegistrationContext(adminArea.AreaName, RouteTable.Routes);
+            var adminAreaContext = new AreaRegistrationContext(adminArea.AreaName,
+        RouteTable.Routes);
             adminArea.RegisterArea(adminAreaContext);
+
             var defaultArea = new DefaultAreaRegistration();
-            var defaultAreaContext = new
-        AreaRegistrationContext(defaultArea.AreaName, RouteTable.Routes);
-            defaultArea.RegisterArea(defaultAreaContext);
+            var defaultAreaContext = new AreaRegistrationContext(defaultArea.AreaName,
+RouteTable.Routes);
+            defaultArea.RegisterArea(defaultAreaContext); 
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

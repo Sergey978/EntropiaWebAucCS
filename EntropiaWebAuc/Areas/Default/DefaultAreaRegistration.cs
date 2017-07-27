@@ -15,10 +15,10 @@ namespace EntropiaWebAuc.Areas.Default
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Default_default",
-                "Default/{controller}/{action}/{id}",
-                new { area= "Default", controller = "Home", action = "Index", id = UrlParameter.Optional }
-                
+                name: "default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "EntropiaWebAuc.Areas.Default.Controllers" }
             );
         }
     }
