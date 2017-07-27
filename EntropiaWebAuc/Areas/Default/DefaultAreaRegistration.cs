@@ -17,8 +17,8 @@ namespace EntropiaWebAuc.Areas.Default
             context.MapRoute(
                 "Default_default",
                 "Default/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
-                 namespaces: new[] { "LessonProject.Areas.Default.Controllers" }
+                new { area= "Default", controller = "Home", action = "Index", id = UrlParameter.Optional }
+                
             );
         }
     }

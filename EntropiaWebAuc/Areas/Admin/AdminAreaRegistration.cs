@@ -17,7 +17,7 @@ namespace EntropiaWebAuc.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { area = "Admin", controller = "Role", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
