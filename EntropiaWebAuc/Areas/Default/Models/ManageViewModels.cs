@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace EntropiaWebAuc.Models
+namespace EntropiaWebAuc.Areas.Default.Models
 {
     public class IndexViewModel
     {

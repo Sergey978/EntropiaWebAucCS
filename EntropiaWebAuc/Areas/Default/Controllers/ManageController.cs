@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using EntropiaWebAuc.Models;
+using EntropiaWebAuc.Areas.Default.Models;
 
-namespace EntropiaWebAuc.Controllers
+namespace EntropiaWebAuc.Areas.Default.Controllers
 {
     [Authorize]
     public class ManageController : Controller

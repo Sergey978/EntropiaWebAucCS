@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace EntropiaWebAuc.Controllers
+namespace EntropiaWebAuc.Areas.Default.Controllers
 {
     public class HomeController : Controller
     {

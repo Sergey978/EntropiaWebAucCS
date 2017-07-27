@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EntropiaWebAuc.Models
+namespace EntropiaWebAuc.Areas.Default.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
