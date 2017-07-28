@@ -26,7 +26,8 @@ namespace EntropiaWebAuc
             var defaultArea = new DefaultAreaRegistration();
             var defaultAreaContext = new AreaRegistrationContext(defaultArea.AreaName,
 RouteTable.Routes);
-            defaultArea.RegisterArea(defaultAreaContext); 
+            defaultArea.RegisterArea(defaultAreaContext); 
+
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
