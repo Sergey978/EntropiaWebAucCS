@@ -159,7 +159,13 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Default\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Default\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Default\Controllers\ManageController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
+    <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Default\Models\IdentityModels.cs" />
+    <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
     <Compile Include="Domain\Abstract\IStandartItemRepository.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -168,24 +174,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Domain\Concrete\EFDbContext.cs" />
     <Compile Include="Domain\Concrete\EfStandartItemRepository.cs" />
-    <Compile Include="Areas\Default\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Default\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Default\Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
     <Compile Include="Domain\Entities\StandartItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
-    <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
-    <Compile Include="Areas\Default\Models\IdentityModels.cs" />
-    <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Admin\styles.css" />
     <Content Include="DatabaseScript\ConnectionDBHome.txt" />
     <Content Include="DatabaseScript\ConnectionDBWork.txt" />
     <Content Include="DatabaseScript\Script.txt" />
@@ -196,11 +197,35 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ResetPassword.cshtml" />
+    <Content Include="Areas\Default\Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Default\Views\Account\SendCode.cshtml" />
+    <Content Include="Areas\Default\Views\Account\VerifyCode.cshtml" />
+    <Content Include="Areas\Default\Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Default\Views\Home\About.cshtml" />
+    <Content Include="Areas\Default\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Default\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Areas\Default\Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\Default\Views\Web.config" />
+    <Content Include="Areas\Default\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Lockout.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutSideBar.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -220,45 +245,21 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\Default\Views\Web.config" />
-    <Content Include="Areas\Default\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Default\Views\Shared\Error.cshtml" />
-    <Content Include="Areas\Default\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Default\Views\Home\About.cshtml" />
-    <Content Include="Areas\Default\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Default\Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Default\Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Login.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Register.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ResetPassword.cshtml" />
-    <Content Include="Areas\Default\Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Default\Views\Account\SendCode.cshtml" />
-    <Content Include="Areas\Default\Views\Account\VerifyCode.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\Index.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\SetPassword.cshtml" />
-    <Content Include="Areas\Default\Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Areas\Default\Views\Shared\Lockout.cshtml" />
-    <Content Include="Areas\Default\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Role\RoleAddToUser.cshtml" />
     <Content Include="Areas\Admin\Views\Role\RoleCreate.cshtml" />
     <Content Include="Areas\Admin\Views\StandartItem\List.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
