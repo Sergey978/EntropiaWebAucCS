@@ -14,5 +14,36 @@ namespace EntropiaWebAuc.Concrete
     {
         get { return context.StandartItems; }
     }
+
+
+        public void SaveStandartItem(StandartItem item)
+        {
+            if (item.ItemId == 0)
+            {
+                context.StandartItems.Add(item);
+            }
+            else
+            {
+                StandartItem dbEntry = context.StandartItems.Find(item.ItemId);
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = item.Name;
+                    dbEntry.Price = item.Price;
+                    dbEntry.Category = item.Category;
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public StandartItem DeleteStandartItem(int standartItemID)
+        {
+            StandartItem dbEntry = context.StandartItems.Find(standartItemID);
+            if (dbEntry != null)
+            {
+                context.StandartItems.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
     }
 }

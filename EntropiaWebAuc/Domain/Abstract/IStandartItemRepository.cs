@@ -10,5 +10,7 @@ namespace EntropiaWebAuc.Abstract
     public interface IStandartItemRepository
     {
         IQueryable<StandartItem> StandartItems { get; }
+        void SaveStandartItem(StandartItem standartItem);
+        StandartItem DeleteStandartItem(int ItemId);
     }
 }

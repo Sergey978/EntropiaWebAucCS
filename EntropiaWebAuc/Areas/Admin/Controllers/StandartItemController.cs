@@ -18,9 +18,43 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             this.repository = repository;
         }
 
-        public ViewResult List()
+        public ViewResult Index()
         {
             return View(repository.StandartItems);
+        }
+
+        public ViewResult Create()
+        {
+            return View("Edit", new StandartItem());
+        }
+
+        [HttpPost]
+        public ActionResult Edit(StandartItem item)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                repository.SaveStandartItem(item);
+                TempData["message"] = string.Format("{0} has been saved", item.Name);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(item);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int itemId)
+        {
+            StandartItem deleteItem = repository.DeleteStandartItem(itemId);
+            if (deleteItem != null)
+            {
+                TempData["message"] = string.Format("{0} was deleted",
+                    deleteItem.Name);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
