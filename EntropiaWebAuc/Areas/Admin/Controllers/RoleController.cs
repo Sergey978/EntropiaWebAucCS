@@ -39,7 +39,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             }
 
             ViewBag.ResultMessage = "Role created successfully !";
-            return RedirectToAction("RoleIndex", "Account");
+            return RedirectToAction("Index", "Role");
         }
 
 
@@ -71,7 +71,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             }
 
             ViewBag.ResultMessage = "Role deleted succesfully !";
-            return RedirectToAction("RoleIndex", "Account");
+            return RedirectToAction("Index", "Role");
         }
 
 
