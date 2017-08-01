@@ -19,25 +19,26 @@ else
     @Html.ValidationSummary(true)
    
     <div class="form-group">
-        @Html.LabelFor(model => model.ItemId):
+        @Html.LabelFor(model => model.ItemId)
         @Html.DisplayFor(model => model.ItemId)
     </div>
+
     <div class="form-group">
-        @Html.LabelFor(model => model.Name):
-        @Html.EditorFor(model => model.Name)
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Name)
     </div>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Price):
-        @Html.EditorFor(model => model.Price)
+        @Html.LabelFor(model => model.Price)
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Price)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Category):
-        @Html.EditorFor(model => model.Category)
+        @Html.LabelFor(model => model.Category)
+        @Html.TextBoxFor(model => model.Category, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Category)
     </div>
 
@@ -48,3 +49,18 @@ else
         @Html.ActionLink("Back to List", "Index")
     
 }
+
+<form>
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd">
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form> 
