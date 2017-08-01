@@ -1,42 +1,50 @@
 ﻿@model EntropiaWebAuc.Entities.StandartItem
 
 @{
-    ViewBag.Title = "Create Standart Item";
+    ViewBag.Title = "Standart Item";
+}
+@if (Model.Name == null)
+{
+    <h1>Create new Standart Item</h1>
+    ViewBag.button = "Create";
+}
+else
+{
+    <h1>Edit @Model.Name</h1>
+    ViewBag.button = "Edit";
 }
 
-
-    <div>
-        <h4>StandartItem</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Category)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Category)
-            </dd>
-    
-        </dl>
+@using (Html.BeginForm("Edit", "StandartItem"))
+{
+    @Html.ValidationSummary(true)
+   
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemId):
+        @Html.DisplayFor(model => model.ItemId)
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ItemId }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name):
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
 
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price):
+        @Html.EditorFor(model => model.Price)
+        @Html.ValidationMessageFor(model => model.Price)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Category):
+        @Html.EditorFor(model => model.Category)
+        @Html.ValidationMessageFor(model => model.Category)
+    </div>
+
+
+
+   
+        <input type="submit" value="@ViewBag.button" />
+        @Html.ActionLink("Back to List", "Index")
+    
+}

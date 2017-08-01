@@ -28,6 +28,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View("Edit", new StandartItem());
         }
 
+        public ViewResult Edit(int id)
+        {
+            StandartItem item = repository.StandartItems
+                .FirstOrDefault(p => p.ItemId == id);
+            return View(item);
+        }
+
         [HttpPost]
         public ActionResult Edit(StandartItem item)
         {
