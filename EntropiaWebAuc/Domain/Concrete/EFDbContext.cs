@@ -9,6 +9,9 @@ namespace EntropiaWebAuc.Concrete
 {
     public class EFDbContext : DbContext
     {
+        public EFDbContext(): base("DefaultConnection")
+        { }
         public DbSet<StandartItem> StandartItems { get; set; }
+
     }
 }

@@ -53,9 +53,9 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int itemId)
+        public ActionResult Delete(int id)
         {
-            StandartItem deleteItem = repository.DeleteStandartItem(itemId);
+            StandartItem deleteItem = repository.DeleteStandartItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",
