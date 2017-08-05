@@ -8,21 +8,19 @@ using System.ComponentModel;
 
 namespace EntropiaWebAuc.Domain.Entities
 {
-    [Table("StandartItems")]
-    public class StandartItem
+
+    [Table("StandartItemCategories")]
+    public class StandartItemCategory
     {
         [Key]
-        [DisplayName("ItemId:")]
-        public int ItemId { get; set; }
+        [DisplayName("CategoryId:")]
+        public int CategoryId { get; set; }
 
         [DisplayName("Name:")]
         public string Name { get; set; }
 
-        [DisplayName("Price:")]
-        public decimal Price { get; set; }
-
-        [DisplayName("Category:")]
-        public string Category { get; set; }
-
+        [DisplayName("ParentCategory:")]
+        public int ParentCategory { get; set; }
     }
+
 }

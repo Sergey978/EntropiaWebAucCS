@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
-using EntropiaWebAuc.Concrete;
-using EntropiaWebAuc.Abstract;
-using EntropiaWebAuc.Entities;
+using EntropiaWebAuc.Domain.Concrete;
+using EntropiaWebAuc.Domain.Abstract;
+using EntropiaWebAuc.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 

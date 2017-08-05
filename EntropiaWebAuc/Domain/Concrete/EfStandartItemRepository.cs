@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using EntropiaWebAuc.Abstract;
-using EntropiaWebAuc.Entities;
+using EntropiaWebAuc.Domain.Abstract;
+using EntropiaWebAuc.Domain.Entities;
 
-namespace EntropiaWebAuc.Concrete
+namespace EntropiaWebAuc.Domain.Concrete
 {
     public class EfStandartItemRepository : IStandartItemRepository
     {

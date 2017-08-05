@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntropiaWebAuc.Entities;
+using EntropiaWebAuc.Domain.Entities;
 
-namespace EntropiaWebAuc.Abstract
+namespace EntropiaWebAuc.Domain.Abstract
 {
     public interface IStandartItemRepository
     {

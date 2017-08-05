@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EntropiaWebAuc.Abstract;
-using EntropiaWebAuc.Entities;
+using EntropiaWebAuc.Domain.Abstract;
+using EntropiaWebAuc.Domain.Entities;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
