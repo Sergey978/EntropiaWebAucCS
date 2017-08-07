@@ -21,8 +21,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            return View(repository.StandartItems
-                ));
+            return View(repository.StandartItems.ToList());
         }
 
         public ViewResult Create()

@@ -22,8 +22,10 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Price:")]
         public decimal Price { get; set; }
 
+        public int CategoryId { get; set; }
+
         [DisplayName("Category:")]
-        public StandartItemCategory Category { get; set; }
+        public virtual  StandartItemCategory Category { get; set; }
 
     }
 }
