@@ -12,6 +12,7 @@ namespace EntropiaWebAuc.Domain.Entities
     public class StandartItem
     {
         [Key]
+        [ForeignKey("Category")]
         [DisplayName("ItemId:")]
         public int ItemId { get; set; }
 
@@ -22,7 +23,7 @@ namespace EntropiaWebAuc.Domain.Entities
         public decimal Price { get; set; }
 
         [DisplayName("Category:")]
-        public string Category { get; set; }
+        public StandartItemCategory Category { get; set; }
 
     }
 }

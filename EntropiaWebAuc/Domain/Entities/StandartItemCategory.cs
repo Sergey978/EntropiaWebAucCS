@@ -20,7 +20,7 @@ namespace EntropiaWebAuc.Domain.Entities
         public string Name { get; set; }
 
         [DisplayName("ParentCategory:")]
-        public int ParentCategory { get; set; }
+        public int? ParentCategory { get; set; }
     }
 
 }

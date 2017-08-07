@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StandartItemCategoriesController.cs" />
     <Compile Include="Areas\Default\Controllers\AccountController.cs" />
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
@@ -231,6 +232,9 @@
     <Content Include="Areas\Admin\Views\Shared\_RoleMenu.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_StandartItemMenu.cshtml" />
     <Content Include="Areas\Admin\Views\StandartItem\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StandartItemCategories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StandartItemCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_StandartItemCategoryMenu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

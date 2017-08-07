@@ -8,6 +8,7 @@ using EntropiaWebAuc.Domain.Entities;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
+     [Authorize(Roles = "SuperAdmin")]
     public class StandartItemController : Controller
     { 
         private IStandartItemRepository repository;
@@ -20,7 +21,8 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            return View(repository.StandartItems);
+            return View(repository.StandartItems
+                ));
         }
 
         public ViewResult Create()

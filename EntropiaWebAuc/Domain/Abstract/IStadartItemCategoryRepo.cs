@@ -7,7 +7,7 @@ using EntropiaWebAuc.Domain.Entities;
 
 namespace EntropiaWebAuc.Domain.Abstract
 {
-    interface IStadartItemCategoryRepo
+   public interface IStadartItemCategoryRepo
     {
         IQueryable<StandartItemCategory> StandartItemCategories { get; }
         void SaveStandartItemCategory(StandartItemCategory standartItemCategory);
