@@ -17,13 +17,13 @@ namespace EntropiaWebAuc.Domain.Concrete
 
         public void SaveStandartItemCategory(StandartItemCategory standartItemCategory)
         {
-            if (standartItemCategory.CategoryId == 0)
+            if (standartItemCategory.Id == 0)
             {
                 context.StandartItemCategories.Add(standartItemCategory);
             }
             else
             {
-                StandartItemCategory dbEntry = context.StandartItemCategories.Find(standartItemCategory.CategoryId);
+                StandartItemCategory dbEntry = context.StandartItemCategories.Find(standartItemCategory.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.Name = standartItemCategory.Name;

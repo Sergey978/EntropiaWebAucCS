@@ -36,7 +36,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ViewResult Edit(int id)
         {
             StandartItemCategory item = repository.StandartItemCategories
-                .FirstOrDefault(p => p.CategoryId == id);
+                .FirstOrDefault(p => p.Id == id);
             return View(item);
         }
 
