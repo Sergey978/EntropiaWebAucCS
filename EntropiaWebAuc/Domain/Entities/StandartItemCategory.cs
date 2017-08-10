@@ -14,7 +14,7 @@ namespace EntropiaWebAuc.Domain.Entities
     {
         [Key]
         [DisplayName("CategoryId:")]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Name:")]
         public string Name { get; set; }
