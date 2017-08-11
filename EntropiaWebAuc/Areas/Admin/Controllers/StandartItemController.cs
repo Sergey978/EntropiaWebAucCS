@@ -21,7 +21,8 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            return View(repository.StandartItems.ToList());
+            var items = repository.StandartItems;
+            return View(items);
         }
 
         public ViewResult Create()
@@ -32,7 +33,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ViewResult Edit(int id)
         {
             StandartItem item = repository.StandartItems
-                .FirstOrDefault(p => p.ItemId == id);
+                .FirstOrDefault(p => p.Id == id);
             return View(item);
         }
 

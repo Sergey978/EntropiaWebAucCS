@@ -21,6 +21,8 @@ namespace EntropiaWebAuc.Domain.Entities
 
         [DisplayName("ParentCategory:")]
         public int? ParentCategory { get; set; }
+
+        public IEnumerable<StandartItem> Items { get; set; }
     }
 
 }

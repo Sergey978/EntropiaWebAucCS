@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain.Entities;
+using System.Web.Mvc;
+
 
 namespace EntropiaWebAuc.Domain.Concrete
 {

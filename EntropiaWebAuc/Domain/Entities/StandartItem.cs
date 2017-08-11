@@ -12,9 +12,8 @@ namespace EntropiaWebAuc.Domain.Entities
     public class StandartItem
     {
         [Key]
-        [ForeignKey("CategoryId")]
         [DisplayName("ItemId:")]
-        public int ItemId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Name:")]
         public string Name { get; set; }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
+using System.Data.Entity;
+
 
 namespace EntropiaWebAuc.Domain.Concrete
 {
@@ -12,19 +14,22 @@ namespace EntropiaWebAuc.Domain.Concrete
         private EFDbContext context = new EFDbContext();
         public IQueryable<StandartItem> StandartItems
     {
-        get { return context.StandartItems; }
+        get { 
+            var items = context.StandartItems.Include( c => c.Category);
+            return items;
+        }
     }
 
 
         public void SaveStandartItem(StandartItem item)
         {
-            if (item.ItemId == 0)
+            if (item.Id == 0)
             {
                 context.StandartItems.Add(item);
             }
             else
             {
-                StandartItem dbEntry = context.StandartItems.Find(item.ItemId);
+                StandartItem dbEntry = context.StandartItems.Find(item.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.Name = item.Name;
