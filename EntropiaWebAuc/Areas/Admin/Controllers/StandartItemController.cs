@@ -5,23 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
+using EntropiaWebAuc.Domain.Concrete;
+using EntropiaWebAuc.Areas.Admin.ViewModels;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
      [Authorize(Roles = "SuperAdmin")]
     public class StandartItemController : Controller
     { 
-        private IStandartItemRepository repository;
+        private IStandartItemRepository itemRepo;
+        private IStadartItemCategoryRepo categoryRepo;
         // GET: StandartItem
-        public StandartItemController( IStandartItemRepository repository)
+        public StandartItemController( IStandartItemRepository repository, IStadartItemCategoryRepo categoryRepo )
         {
 
-            this.repository = repository;
+            this.itemRepo = repository;
+            this.categoryRepo = categoryRepo;
         }
 
         public ViewResult Index()
         {
-            var items = repository.StandartItems;
+            var items = itemRepo.StandartItems;
             return View(items);
         }
 
@@ -32,18 +36,30 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Edit(int id)
         {
-            StandartItem item = repository.StandartItems
+            
+            StandartItem item = itemRepo.StandartItems
                 .FirstOrDefault(p => p.Id == id);
+
+            List<StandartItemCategory> categories =
+                 categoryRepo.StandartItemCategories.ToList<StandartItemCategory>();
+
+            StandartItemEditViewModel standartItemEditVM = new StandartItemEditViewModel
+            {
+                Item = item,
+                Categories = new SelectList(categories,"Id", "Name")
+            };
             return View(item);
         }
 
         [HttpPost]
         public ActionResult Edit(StandartItem item)
         {
+            
+           
             if (ModelState.IsValid)
             {
-                
-                repository.SaveStandartItem(item);
+               
+                itemRepo.SaveStandartItem(item);
                 TempData["message"] = string.Format("{0} has been saved", item.Name);
                 return RedirectToAction("Index");
             }
@@ -57,7 +73,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            StandartItem deleteItem = repository.DeleteStandartItem(id);
+            StandartItem deleteItem = itemRepo.DeleteStandartItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",
