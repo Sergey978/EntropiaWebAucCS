@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
 using EntropiaWebAuc.Domain.Concrete;
-using EntropiaWebAuc.Areas.Admin.ViewModels;
+
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -43,11 +43,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             List<StandartItemCategory> categories =
                  categoryRepo.StandartItemCategories.ToList<StandartItemCategory>();
 
-            StandartItemEditViewModel standartItemEditVM = new StandartItemEditViewModel
-            {
-                Item = item,
-                Categories = new SelectList(categories,"Id", "Name")
-            };
+            ViewBag.Categories = categories;
             return View(item);
         }
 
