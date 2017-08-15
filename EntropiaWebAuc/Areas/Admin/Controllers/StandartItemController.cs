@@ -10,13 +10,13 @@ using EntropiaWebAuc.Domain.Concrete;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
-     [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class StandartItemController : Controller
-    { 
+    {
         private IStandartItemRepository itemRepo;
         private IStadartItemCategoryRepo categoryRepo;
         // GET: StandartItem
-        public StandartItemController( IStandartItemRepository repository, IStadartItemCategoryRepo categoryRepo )
+        public StandartItemController(IStandartItemRepository repository, IStadartItemCategoryRepo categoryRepo)
         {
 
             this.itemRepo = repository;
@@ -31,30 +31,42 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
+            // Выборка списка   категирий без дочерних 
+            List<StandartItemCategory> categories =
+                 categoryRepo.StandartItemCategories
+                 .Where(c => c.Children.Count == 0)
+                 .ToList<StandartItemCategory>();
+
+            ViewBag.Categories = categories;
+
             return View("Edit", new StandartItem());
         }
 
         public ViewResult Edit(int id)
         {
-            
+
             StandartItem item = itemRepo.StandartItems
                 .FirstOrDefault(p => p.Id == id);
 
+            // Выборка списка   категирий без дочерних  
             List<StandartItemCategory> categories =
-                 categoryRepo.StandartItemCategories.ToList<StandartItemCategory>();
+                 categoryRepo.StandartItemCategories
+                 .Where(c => c.Children.Count == 0)
+                 .ToList<StandartItemCategory>();
 
             ViewBag.Categories = categories;
+
             return View(item);
         }
 
         [HttpPost]
         public ActionResult Edit(StandartItem item)
         {
-            
-           
+
+
             if (ModelState.IsValid)
             {
-               
+
                 itemRepo.SaveStandartItem(item);
                 TempData["message"] = string.Format("{0} has been saved", item.Name);
                 return RedirectToAction("Index");

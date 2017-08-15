@@ -194,12 +194,9 @@
     <Content Include="App_Data\Entropia.mdf" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DatabaseScript\App_Data\Entropia.ldf">
-      <DependentUpon>Entropia.mdf</DependentUpon>
-    </Content>
-    <Content Include="DatabaseScript\App_Data\Entropia.mdf" />
     <Content Include="DatabaseScript\ConnectionDBHome.txt" />
     <Content Include="DatabaseScript\ConnectionDBWork.txt" />
+    <Content Include="DatabaseScript\entropia.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

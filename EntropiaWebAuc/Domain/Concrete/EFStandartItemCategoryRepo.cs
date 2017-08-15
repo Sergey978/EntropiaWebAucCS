@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using EntropiaWebAuc.Domain.Entities;
 using EntropiaWebAuc.Domain.Abstract;
+using System.Data.Entity;
 
 namespace EntropiaWebAuc.Domain.Concrete
 {
@@ -12,7 +13,7 @@ namespace EntropiaWebAuc.Domain.Concrete
         private EFDbContext context = new EFDbContext();
         public IQueryable<StandartItemCategory> StandartItemCategories
         {
-            get { return context.StandartItemCategories; }
+            get { return context.StandartItemCategories.Include(c => c.Parent); }
         }
 
         public void SaveStandartItemCategory(StandartItemCategory standartItemCategory)
@@ -28,7 +29,7 @@ namespace EntropiaWebAuc.Domain.Concrete
                 {
                     dbEntry.Name = standartItemCategory.Name;
                     
-                    dbEntry.ParentCategory = standartItemCategory.ParentCategory;
+                    dbEntry.ParentId = standartItemCategory.ParentId;
                 }
             }
             context.SaveChanges();
