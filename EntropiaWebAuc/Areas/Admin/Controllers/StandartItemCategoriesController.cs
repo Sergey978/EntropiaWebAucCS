@@ -48,6 +48,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             categories.Remove(item);
             categories.Insert(0,null);
+
             ViewBag.Categories = categories;
             return View(item);
         }

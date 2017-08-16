@@ -2669,3 +2669,30 @@ intellisense.annotate(window, {
   },
 });
 
+er that event on an element.</summary>
+    ///   <param name="eventData" type="PlainObject">An object containing data that will be passed to the event handler.</param>
+    ///   <param name="handler(eventObject)" type="Function">A function to execute each time the event is triggered.</param>
+    ///   <returns type="jQuery" />
+    /// </signature>
+  },
+  'keyup': function() {
+    /// <signature>
+    ///   <summary>Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.</summary>
+    ///   <param name="handler(eventObject)" type="Function">A function to execute each time the event is triggered.</param>
+    ///   <returns type="jQuery" />
+    /// </signature>
+    /// <signature>
+    ///   <summary>Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.</summary>
+    ///   <param name="eventData" type="PlainObject">An object containing data that will be passed to the event handler.</param>
+    ///   <param name="handler(eventObject)" type="Function">A function to execute each time the event is triggered.</param>
+    ///   <returns type="jQuery" />
+    /// </signature>
+  },
+  'lang': function() {
+    /// <signature>
+    ///   <summary>Selects all elements of the specified language.</summary>
+    ///   <param name="language" type="String">A language code.</param>
+    /// </signature>
+  },
+  'last': function() {
+    /// <s

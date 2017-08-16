@@ -36,6 +36,7 @@ namespace EntropiaWebAuc.Infrastructure
             // конфигурирование контейнера 
             ninjectKernel.Bind<IStandartItemRepository>().To<EfStandartItemRepository>();
             ninjectKernel.Bind<IStadartItemCategoryRepo>().To<EFStandartItemCategoryRepo>();
+            ninjectKernel.Bind<ICustomItemRepository>().To<EfCustomItemRepository>();
         }
     }
 }
