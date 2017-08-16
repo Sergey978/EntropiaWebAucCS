@@ -30,6 +30,11 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
+            List<StandartItemCategory> categories =
+                repository.StandartItemCategories.ToList<StandartItemCategory>();
+
+            ViewBag.Categories = categories;
+
             return View("Edit", new StandartItemCategory());
         }
 
@@ -37,6 +42,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         {
             StandartItemCategory item = repository.StandartItemCategories
                 .FirstOrDefault(p => p.Id == id);
+
+            List<StandartItemCategory> categories =
+                 repository.StandartItemCategories.ToList<StandartItemCategory>();
+
+            categories.Remove(item);
+            categories.Insert(0,null);
+            ViewBag.Categories = categories;
             return View(item);
         }
 

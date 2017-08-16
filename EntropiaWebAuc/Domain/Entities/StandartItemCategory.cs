@@ -20,7 +20,17 @@ namespace EntropiaWebAuc.Domain.Entities
         public string Name { get; set; }
 
         [DisplayName("ParentCategory:")]
-        public int? ParentCategory { get; set; }
+        public int? ParentId{ get; set; }
+
+        public StandartItemCategory Parent { get; set; }
+
+        public ICollection<StandartItemCategory> Children { get; set; }
+
+        public StandartItemCategory()
+        {
+            Children = new List<StandartItemCategory>();
+        }
+
 
         public IEnumerable<StandartItem> Items { get; set; }
     }
