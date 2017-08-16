@@ -33,6 +33,8 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             List<StandartItemCategory> categories =
                 repository.StandartItemCategories.ToList<StandartItemCategory>();
 
+            categories.Insert(0, null);
+
             ViewBag.Categories = categories;
 
             return View("Edit", new StandartItemCategory());
