@@ -1,3 +1,11 @@
 ﻿@{
-    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Default/Views/Shared/_LayoutSidebar.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    }
+     
 }

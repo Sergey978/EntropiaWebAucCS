@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
 using EntropiaWebAuc.Domain.Concrete;
+using Microsoft.AspNet.Identity;
 
 
-namespace EntropiaWebAuc.Areas.Admin.Controllers
+
+namespace EntropiaWebAuc.Areas.Default.Controllers
 {
     [Authorize]
     public class CustomItemController : Controller
@@ -16,7 +18,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         private ICustomItemRepository itemRepo;
        
         // GET: CustomItem
-        public CustomItemController(ICustomItemRepository repository, IStadartItemCategoryRepo categoryRepo)
+        public CustomItemController(ICustomItemRepository repository)
         {
 
             this.itemRepo = repository;
@@ -31,8 +33,10 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
+            CustomItem newItem = new CustomItem();
+            newItem.UserId = User.Identity.GetUserId();
            
-            return View("Edit", new CustomItem());
+            return View("Edit", newItem);
         }
 
         public ViewResult Edit(int id)
