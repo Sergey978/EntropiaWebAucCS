@@ -16,7 +16,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     public class CustomItemController : Controller
     {
         private ICustomItemRepository itemRepo;
-       
+
+        private string CurrentUserId ;
+        
         // GET: CustomItem
         public CustomItemController(ICustomItemRepository repository)
         {
@@ -27,14 +29,19 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
         public ViewResult Index()
         {
-            var items = itemRepo.CustomItems;
+            CurrentUserId = User.Identity.GetUserId();
+
+            var items = itemRepo.CustomItems.
+                Where(c => c.UserId == CurrentUserId);
             return View(items);
         }
 
         public ViewResult Create()
         {
             CustomItem newItem = new CustomItem();
-            newItem.UserId = User.Identity.GetUserId();
+
+            CurrentUserId = User.Identity.GetUserId();
+            newItem.UserId = CurrentUserId;
            
             return View("Edit", newItem);
         }

@@ -31,13 +31,9 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            // Выборка списка   категирий без дочерних 
-            List<StandartItemCategory> categories =
-                 categoryRepo.StandartItemCategories
-                 .Where(c => c.Children.Count == 0)
-                 .ToList<StandartItemCategory>();
 
-            ViewBag.Categories = categories;
+
+            ViewBag.Categories = getStandartItemCategories();
 
             return View("Edit", new StandartItem());
         }
@@ -48,13 +44,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             StandartItem item = itemRepo.StandartItems
                 .FirstOrDefault(p => p.Id == id);
 
-            // Выборка списка   категирий без дочерних  
-            List<StandartItemCategory> categories =
-                 categoryRepo.StandartItemCategories
-                 .Where(c => c.Children.Count == 0)
-                 .ToList<StandartItemCategory>();
-
-            ViewBag.Categories = categories;
+            ViewBag.Categories = getStandartItemCategories();
 
             return View(item);
         }
@@ -62,7 +52,6 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(StandartItem item)
         {
-
 
             if (ModelState.IsValid)
             {
@@ -74,6 +63,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             else
             {
                 // there is something wrong with the data values
+                ViewBag.Categories = getStandartItemCategories();
                 return View(item);
             }
         }
@@ -88,6 +78,20 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                     deleteItem.Name);
             }
             return RedirectToAction("Index");
+        }
+
+
+        //Helpers
+
+        // Выборка списка   категирий без дочерних 
+        public List<StandartItemCategory> getStandartItemCategories()
+        {
+            
+            
+         return   categoryRepo.StandartItemCategories
+                 .Where(c => c.Children.Count == 0)
+                 .ToList<StandartItemCategory>();
+
         }
     }
 }

@@ -4,21 +4,23 @@ using System.Linq;
 using System.Web;
 using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
-using System.Data.Entity;
-
+using Microsoft.AspNet.Identity;
 
 namespace EntropiaWebAuc.Domain.Concrete
 {
     public class EfCustomItemRepository : ICustomItemRepository
     {
         private EFDbContext context = new EFDbContext();
+
         public IQueryable<CustomItem> CustomItems
-    {
-        get { 
-            var items = context.CustomItems;
-            return items;
+        {
+            get
+            {
+                
+                var items = context.CustomItems;
+                return items;
+            }
         }
-    }
 
 
         public void SaveCustomItem(CustomItem item)
@@ -35,8 +37,8 @@ namespace EntropiaWebAuc.Domain.Concrete
                     dbEntry.Name = item.Name;
                     dbEntry.Price = item.Price;
                     dbEntry.UserId = item.UserId;
-                  
-                    
+
+
                 }
             }
             context.SaveChanges();

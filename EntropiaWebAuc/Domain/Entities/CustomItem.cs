@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+ using Microsoft.AspNet.Identity;
 
 namespace EntropiaWebAuc.Domain.Entities
 {
@@ -22,6 +23,8 @@ namespace EntropiaWebAuc.Domain.Entities
         public decimal Price { get; set; }
 
         public string UserId { get; set; }
+
+        
 
     }
 }
