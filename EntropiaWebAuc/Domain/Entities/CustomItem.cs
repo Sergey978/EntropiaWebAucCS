@@ -21,7 +21,7 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Price:")]
         public decimal Price { get; set; }
 
-        public string UserId { get; set; }
+        
 
     }
 }
