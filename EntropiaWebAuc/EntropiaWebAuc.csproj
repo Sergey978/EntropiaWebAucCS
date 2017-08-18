@@ -243,6 +243,11 @@
     <Content Include="Areas\Admin\Views\StandartItemCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\StandartItemCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_StandartItemCategoryMenu.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_LayoutSideBar.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_CustomItemMenu.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Default\Views\CustomItem\Index.cshtml" />
+    <Content Include="Areas\Default\Views\CustomItem\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -267,7 +272,6 @@
     <Content Include="Areas\Admin\Views\Role\RoleAddToUser.cshtml" />
     <Content Include="Areas\Admin\Views\Role\RoleCreate.cshtml" />
     <Content Include="Areas\Admin\Views\StandartItem\Index.cshtml" />
-    <Content Include="Areas\Default\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Default\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Default\Views\Shared\Lockout.cshtml" />

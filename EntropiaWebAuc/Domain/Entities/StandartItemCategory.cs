@@ -32,7 +32,7 @@ namespace EntropiaWebAuc.Domain.Entities
         }
 
 
-        public IEnumerable<StandartItem> Items { get; set; }
+      //  public IEnumerable<StandartItem> Items { get; set; }
     }
 
 }

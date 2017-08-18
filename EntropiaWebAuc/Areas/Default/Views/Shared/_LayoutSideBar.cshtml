@@ -26,9 +26,14 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Account", "Index", "CustomItem" ) </li>
+                    }
+                    
                     @if (User.IsInRole("SuperAdmin"))
                     {
-                        <li>@Html.ActionLink("Admin", "Index", "standartItem") </li>
+                        <li>@Html.ActionLink("Admin", "Index", "standartItem", new { Area = "Admin" }, new{}) </li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -43,19 +48,12 @@
                 <!--left column-->
                 <div>
                     <div class="list-group">
-                        @Html.Partial("_RoleMenu")
-                        @Html.Partial("_StandartItemMenu")
-                        @Html.Partial("_StandartItemCategoryMenu")
+                        @Html.Partial("_CustomItemMenu")
 
                         <ul class="nav nav-stacked collapse in" id="userMenu">
                             <li class="active"> <a href="#"> Home</a></li>
                             <li><a href="#"> Messages </a></li>
-                            <li><a href="#"> Options</a></li>
-                            <li><a href="#"> Shoutbox</a></li>
-                            <li><a href="#"> Staff List</a></li>
-                            <li><a href="#"> Transactions</a></li>
-                            <li><a href="#">Rules</a></li>
-                            <li><a href="#"> Logout</a></li>
+                           
                         </ul>
                     </div>
 
