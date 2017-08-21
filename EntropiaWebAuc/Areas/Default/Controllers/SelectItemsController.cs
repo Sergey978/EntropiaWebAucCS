@@ -25,6 +25,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             this.customRepo = custRepo;
             this.standartRepo = standRepo;
+            this.ViewModel = new ChoseItemsViewModel();
         }
 
         public ActionResult Index()
