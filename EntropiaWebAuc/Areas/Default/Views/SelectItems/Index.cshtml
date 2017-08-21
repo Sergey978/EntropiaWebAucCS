@@ -1,0 +1,9 @@
+﻿@model EntropiaWebAuc.Areas.Default.ViewModels.ChoseItemsViewModel
+@using EntropiaWebAuc.Domain.Entities
+
+
+    @foreach (StandartItem item in Model.StandartItems)
+    {
+        @item.Name<br>
+
+    }

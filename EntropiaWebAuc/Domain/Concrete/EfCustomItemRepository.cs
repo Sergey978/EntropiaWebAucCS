@@ -37,6 +37,7 @@ namespace EntropiaWebAuc.Domain.Concrete
                     dbEntry.Name = item.Name;
                     dbEntry.Price = item.Price;
                     dbEntry.UserId = item.UserId;
+                    dbEntry.Chosed = dbEntry.Chosed;
 
 
                 }

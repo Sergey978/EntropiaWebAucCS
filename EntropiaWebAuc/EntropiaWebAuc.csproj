@@ -164,8 +164,10 @@
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
     <Compile Include="Areas\Default\Controllers\CustomItemController.cs" />
+    <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Default\ViewModels\ChoseItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
     <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
     <Compile Include="Domain\Abstract\IStadartItemCategoryRepo.cs" />
@@ -248,6 +250,7 @@
     <Content Include="Areas\Default\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Default\Views\CustomItem\Index.cshtml" />
     <Content Include="Areas\Default\Views\CustomItem\Edit.cshtml" />
+    <Content Include="Areas\Default\Views\SelectItems\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

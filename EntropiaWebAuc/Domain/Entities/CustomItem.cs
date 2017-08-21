@@ -25,6 +25,8 @@ namespace EntropiaWebAuc.Domain.Entities
 
         public string UserId { get; set; }
 
+        public bool? Chosed { get; set; }
+
         
 
         
