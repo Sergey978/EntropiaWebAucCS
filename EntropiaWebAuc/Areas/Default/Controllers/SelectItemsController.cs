@@ -12,9 +12,10 @@ using System.Data.Entity;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
+    [Authorize]
     public class SelectItemsController : Controller
     {
-        public ChoseItemsViewModel ViewModel;
+        public SelectItemsViewModel ViewModel;
 
         private ICustomItemRepository customRepo;
         private IStandartItemRepository standartRepo;
@@ -25,15 +26,29 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             this.customRepo = custRepo;
             this.standartRepo = standRepo;
-            this.ViewModel = new ChoseItemsViewModel();
+            this.ViewModel = new SelectItemsViewModel();
         }
 
         public ActionResult Index()
         {
              CurrentUserId = User.Identity.GetUserId();
-
+            // select all standart items 
             ViewModel.StandartItems  = standartRepo.StandartItems;
-            ViewModel.CustomItems = customRepo.CustomItems.Where<CustomItem>(c => c.UserId == CurrentUserId).ToList(); 
+
+            // select standart items selected by user
+
+        //    ViewModel.SelectedStandartItem = standartRepo.StandartItems
+        //        .Where<StandartItem>(item => item.)
+            // select custom items that were not selected
+            ViewModel.CustomItems = customRepo.CustomItems
+                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
+                .ToList();
+ 
+            //select custom items that were selected
+
+            ViewModel.SelectedCustomItem = customRepo.CustomItems
+               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
+               .ToList();
 
             return View(ViewModel);
         }

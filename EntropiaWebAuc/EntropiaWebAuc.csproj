@@ -167,9 +167,10 @@
     <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
-    <Compile Include="Areas\Default\ViewModels\ChoseItemsViewModel.cs" />
+    <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
     <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
+    <Compile Include="Domain\Abstract\ISelectedStandartItemRepo.cs" />
     <Compile Include="Domain\Abstract\IStadartItemCategoryRepo.cs" />
     <Compile Include="Domain\Abstract\ICustomItemRepository.cs" />
     <Compile Include="Domain\Abstract\IStandartItemRepository.cs" />
@@ -179,11 +180,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Domain\Concrete\EFDbContext.cs" />
+    <Compile Include="Domain\Concrete\EFSelectedStandartItemRepo.cs" />
     <Compile Include="Domain\Concrete\EFStandartItemCategoryRepo.cs" />
     <Compile Include="Domain\Concrete\EfCustomItemRepository.cs" />
     <Compile Include="Domain\Concrete\EfStandartItemRepository.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
     <Compile Include="Domain\Entities\CustomItem.cs" />
+    <Compile Include="Domain\Entities\SelectedStandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItemCategory.cs" />
     <Compile Include="Global.asax.cs">

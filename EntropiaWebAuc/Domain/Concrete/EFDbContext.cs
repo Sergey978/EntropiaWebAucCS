@@ -16,6 +16,7 @@ namespace EntropiaWebAuc.Domain.Concrete
         public DbSet<StandartItem> StandartItems { get; set; }
         public DbSet<StandartItemCategory> StandartItemCategories { get; set; }
         public DbSet<CustomItem> CustomItems { get; set; }
+        public DbSet<SelectedStandartItem> SelectedStandartItems { get; set; }
 
     }
 }

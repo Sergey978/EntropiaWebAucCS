@@ -1,17 +1,44 @@
-﻿@model EntropiaWebAuc.Areas.Default.ViewModels.ChoseItemsViewModel
+﻿@model EntropiaWebAuc.Areas.Default.ViewModels.SelectItemsViewModel
 @using EntropiaWebAuc.Domain.Entities
 
 
-    @foreach (StandartItem item in Model.StandartItems)
-    {
-        @item.Name<br>
 
-    }
+<div class="row">
+    <div class="col-xs-6">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Custom Items</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (CustomItem item in Model.CustomItems)
+                {
+                    @item.Name<br>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">You Selected Custom Items</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (CustomItem item in Model.SelectedCustomItem)
+                {
+                    @item.Name<br>
+
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <hr>
 
-@foreach (CustomItem item in Model.CustomItems)
-{
-    @item.Name<br>
-
-}
