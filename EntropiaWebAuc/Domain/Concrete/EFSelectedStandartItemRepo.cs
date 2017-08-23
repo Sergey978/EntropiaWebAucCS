@@ -23,26 +23,22 @@ namespace EntropiaWebAuc.Domain.Concrete
 
         public void SaveSelectedStandartItem(Entities.SelectedStandartItem item)
         {
-            if (item.Id == 0)
-            {
-                context.SelectedStandartItems.Add(item);
-            }
-            else
-            {
-                SelectedStandartItem dbEntry = context.SelectedStandartItems.Find(item.Id);
+           
+           
+                SelectedStandartItem dbEntry = context.SelectedStandartItems.Find(item.UserId , item.ItemId);
                 if (dbEntry != null)
                 {
                     
                     dbEntry.ItemId = item.ItemId;
                     dbEntry.UserId = item.UserId;
                 }
-            }
+            
             context.SaveChanges();
         }
 
-        public Entities.SelectedStandartItem DeleteSelectedStandartItem(int ItemId)
+        public Entities.SelectedStandartItem DeleteSelectedStandartItem(SelectedStandartItem item)
         {
-            SelectedStandartItem dbEntry = context.SelectedStandartItems.Find(ItemId);
+            SelectedStandartItem dbEntry = context.SelectedStandartItems.Find(item.UserId, item.ItemId);
             if (dbEntry != null)
             {
                 context.SelectedStandartItems.Remove(dbEntry);

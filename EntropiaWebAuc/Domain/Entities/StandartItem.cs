@@ -31,5 +31,7 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Category:")]
         public virtual  StandartItemCategory Category { get; set; }
 
+        
+
     }
 }

@@ -19,34 +19,49 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
         private ICustomItemRepository customRepo;
         private IStandartItemRepository standartRepo;
+        private ISelectedStandartItemRepo selectedStandartItemRepo;
         private string CurrentUserId;
         // GET: Default/SelectItems
 
-        public SelectItemsController(ICustomItemRepository custRepo, IStandartItemRepository standRepo )
+        public SelectItemsController(ICustomItemRepository custRepo,
+            IStandartItemRepository standRepo,
+            ISelectedStandartItemRepo selectRepo)
         {
             this.customRepo = custRepo;
             this.standartRepo = standRepo;
+            this.selectedStandartItemRepo = selectRepo;
             this.ViewModel = new SelectItemsViewModel();
         }
 
         public ActionResult Index()
         {
-             CurrentUserId = User.Identity.GetUserId();
-            // select all standart items 
-            ViewModel.StandartItems  = standartRepo.StandartItems;
+            CurrentUserId = User.Identity.GetUserId();
 
-            // select standart items selected by user
+            // select Id standart items that were selected by user
+            int[] selectedStandartItemsId = selectedStandartItemRepo
+                .SelectedStandartItems.Where(x => x.UserId == CurrentUserId)
+                .Select(x => x.ItemId).ToArray();
 
-        //    ViewModel.SelectedStandartItem = standartRepo.StandartItems
-        //        .Where<StandartItem>(item => item.)
+
+            // select  standart items that were not selected
+            ViewModel.StandartItems = standartRepo.StandartItems
+                .Where(s => !selectedStandartItemsId.Contains(s.Id));
+
+
+
+            // select  standart items that were  selected
+            ViewModel.SelectedStandartItems = standartRepo.StandartItems
+                .Where(s => selectedStandartItemsId.Contains(s.Id));
+
+
             // select custom items that were not selected
             ViewModel.CustomItems = customRepo.CustomItems
                 .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
                 .ToList();
- 
+
             //select custom items that were selected
 
-            ViewModel.SelectedCustomItem = customRepo.CustomItems
+            ViewModel.SelectedCustomItems = customRepo.CustomItems
                .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
                .ToList();
 

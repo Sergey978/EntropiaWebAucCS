@@ -7,10 +7,10 @@ using EntropiaWebAuc.Domain.Entities;
 
 namespace EntropiaWebAuc.Domain.Abstract
 {
-    interface ISelectedStandartItemRepo
+   public interface ISelectedStandartItemRepo
     {
         IQueryable<SelectedStandartItem> SelectedStandartItems { get; }
         void SaveSelectedStandartItem(SelectedStandartItem standartItem);
-        SelectedStandartItem DeleteSelectedStandartItem(int ItemId);
+        SelectedStandartItem DeleteSelectedStandartItem(SelectedStandartItem standartItem);
     }
 }

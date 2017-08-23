@@ -10,7 +10,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
         public IEnumerable<StandartItem> StandartItems {get; set;}
         public IEnumerable<CustomItem> CustomItems { get; set; }
 
-        public IEnumerable<StandartItem> SelectedStandartItem { get; set; }
-        public IEnumerable<CustomItem> SelectedCustomItem { get; set; }
+        public IEnumerable<StandartItem> SelectedStandartItems { get; set; }
+        public IEnumerable<CustomItem> SelectedCustomItems { get; set; }
     }
 }
