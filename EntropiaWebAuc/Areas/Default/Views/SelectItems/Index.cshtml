@@ -1,8 +1,7 @@
 ﻿@model EntropiaWebAuc.Areas.Default.ViewModels.SelectItemsViewModel
 @using EntropiaWebAuc.Domain.Entities
 
-
-
+<hr>
 <div class="row">
     <div class="col-xs-6">
 
@@ -12,11 +11,11 @@
                 <h3 class="panel-title">Custom Items</h3>
             </div>
             <div class="panel-body">
-                @foreach (CustomItem item in Model.CustomItems)
-                {
-                    @item.Name<br>
-
-                }
+               @Html.ListBox("CustomItems", 
+               new SelectList(Model.CustomItems, "Id", "Name"), 
+               new { size = 15,
+                   @class = "form-control"})
+                
             </div>
         </div>
     </div>
@@ -29,11 +28,15 @@
                 <h3 class="panel-title">You Selected Custom Items</h3>
             </div>
             <div class="panel-body">
-                @foreach (CustomItem item in Model.SelectedCustomItems)
-                {
-                    @item.Name<br>
 
-                }
+                @Html.ListBox("CustomItems",
+                        new SelectList(Model.SelectedCustomItems, "Id", "Name"),
+               new
+               {
+                   size = 15,
+                   @class = "form-control"
+               })
+              
             </div>
         </div>
 
