@@ -46,7 +46,7 @@
 
                 </div>
             </div>
-    <input type="submit" value="<== Remove from selected " />
+            <input type="submit" value="<== Remove from selected " />
         }
     </div>
 </div>
@@ -55,37 +55,50 @@
 
 <div class="row">
     <div class="col-xs-6">
+        @using (Html.BeginForm("StandartItemSelect", "SelectItems", FormMethod.Post))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Standart Items</h3>
+                </div>
+                <div class="panel-body">
+
+                    @Html.ListBox("StandartItems",
+                        new SelectList(Model.StandartItems, "Id", "Name"),
+               new
+               {
+                   size = 15,
+                   @class = "form-control"
+               })
 
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Standart Items</h3>
+                </div>
             </div>
-            <div class="panel-body">
-                @foreach (StandartItem item in Model.StandartItems)
-                {
-                    @item.Name<br>
-
-                }
-            </div>
-        </div>
+            <input type="submit" value="Add to selected ==>" />
+        }
     </div>
 
     <div class="col-xs-6">
+        @using (Html.BeginForm("StandartItemUnselect", "SelectItems", FormMethod.Post))
+        {
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">You Selected Standart Items</h3>
+                </div>
+                <div class="panel-body">
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">You Selected Standart Items</h3>
+                    @Html.ListBox("SelectedStandartItems",
+                        new SelectList(Model.SelectedStandartItems, "Id", "Name"),
+               new
+               {
+                   size = 15,
+                   @class = "form-control"
+               })
+
+                </div>
             </div>
-            <div class="panel-body">
-                @foreach (StandartItem item in Model.SelectedStandartItems)
-                {
-                    @item.Name<br>
-
-                }
-            </div>
-        </div>
-
+            <input type="submit" value="<== Remove from selected " />
+        }
     </div>
 </div>

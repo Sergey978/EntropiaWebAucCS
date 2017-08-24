@@ -26,11 +26,10 @@ namespace EntropiaWebAuc.Domain.Concrete
            
            
                 SelectedStandartItem dbEntry = context.SelectedStandartItems.Find(item.UserId , item.ItemId);
-                if (dbEntry != null)
+                if (dbEntry == null)
                 {
-                    
-                    dbEntry.ItemId = item.ItemId;
-                    dbEntry.UserId = item.UserId;
+
+                    context.SelectedStandartItems.Add(item);
                 }
             
             context.SaveChanges();

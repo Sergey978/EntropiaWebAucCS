@@ -118,5 +118,56 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult StandartItemSelect(FormCollection formCollection)
+        {
+            CurrentUserId = User.Identity.GetUserId();
+            string[] selectedItems = new string[] { };
+            if (formCollection["StandartItems"] != null)
+            {
+                selectedItems = formCollection["StandartItems"].Split(',');
+            }
+
+
+            foreach (string itemId in selectedItems)
+            {
+                int id = Int32.Parse(itemId);
+
+                SelectedStandartItem selectedStandartItem =
+                    new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+
+                selectedStandartItemRepo.SaveSelectedStandartItem(selectedStandartItem);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult StandartItemUnselect(FormCollection formCollection)
+        {
+            CurrentUserId = User.Identity.GetUserId();
+
+            string[] selectedItems = new string[] { };
+            if (formCollection["SelectedStandartItems"] != null)
+            {
+                selectedItems = formCollection["SelectedStandartItems"].Split(',');
+            }
+
+
+            foreach (string itemId in selectedItems)
+            {
+                int id = Int32.Parse(itemId);
+
+                SelectedStandartItem selectedStandartItem =
+                    selectedStandartItemRepo.SelectedStandartItems
+                    .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
+               
+
+                selectedStandartItemRepo.DeleteSelectedStandartItem(selectedStandartItem);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
