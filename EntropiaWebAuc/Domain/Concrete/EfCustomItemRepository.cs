@@ -45,6 +45,27 @@ namespace EntropiaWebAuc.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void SelectCustomItem (CustomItem item)
+        {
+            CustomItem dbEntry = context.CustomItems.Find(item.Id);
+            if (dbEntry != null)
+            {
+                dbEntry.Chosed = true;
+            }
+            context.SaveChanges();
+        }
+
+
+        public void UnSelectCustomItem(CustomItem item)
+        {
+            CustomItem dbEntry = context.CustomItems.Find(item.Id);
+            if (dbEntry != null)
+            {
+                dbEntry.Chosed = false;
+            }
+            context.SaveChanges();
+        }
+
         public CustomItem DeleteCustomItem(int CustomItemID)
         {
             CustomItem dbEntry = context.CustomItems.Find(CustomItemID);

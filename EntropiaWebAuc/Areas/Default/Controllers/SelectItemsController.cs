@@ -67,5 +67,56 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             return View(ViewModel);
         }
+
+        [HttpPost]
+        public ActionResult CustomItemSelect(FormCollection formCollection)
+        {
+            string[] selectedItems = new string[] { };
+            if (formCollection["CustomItems"] != null)
+            {
+                selectedItems = formCollection["CustomItems"].Split(',');
+            }
+
+
+            foreach (string itemId in selectedItems)
+            {
+                int id = Int32.Parse(itemId);
+
+                CustomItem selectedCustomItem =
+                    customRepo.CustomItems
+                    .FirstOrDefault<CustomItem>(c => c.Id == id);
+
+                customRepo.SelectCustomItem(selectedCustomItem);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult CustomItemUnSelect(FormCollection formCollection)
+        {
+
+            string[] selectedItems = new string[] { };
+
+            if (formCollection["SelectedCustomItems"] != null)
+            {
+                selectedItems = formCollection["SelectedCustomItems"].Split(',');
+            }
+
+
+            foreach (string itemId in selectedItems)
+            {
+                int id = Int32.Parse(itemId);
+
+                CustomItem selectedCustomItem =
+                    customRepo.CustomItems
+                    .FirstOrDefault<CustomItem>(c => c.Id == id);
+
+                customRepo.UnSelectCustomItem(selectedCustomItem);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -59,7 +59,6 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public ActionResult Edit(CustomItem item)
         {
 
-
             if (ModelState.IsValid)
             {
 

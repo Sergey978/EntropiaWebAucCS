@@ -12,5 +12,7 @@ namespace EntropiaWebAuc.Domain.Abstract
         IQueryable<CustomItem> CustomItems { get; }
         void SaveCustomItem(CustomItem CustomItem);
         CustomItem DeleteCustomItem(int ItemId);
+        void SelectCustomItem(CustomItem customItem);
+        void UnSelectCustomItem(CustomItem customItem);
     }
 }
