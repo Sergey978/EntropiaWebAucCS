@@ -254,6 +254,8 @@
     <Content Include="Areas\Default\Views\CustomItem\Index.cshtml" />
     <Content Include="Areas\Default\Views\CustomItem\Edit.cshtml" />
     <Content Include="Areas\Default\Views\SelectItems\Index.cshtml" />
+    <Content Include="Areas\Default\Views\SelectItems\_GetCustomItems.cshtml" />
+    <Content Include="Areas\Default\Views\SelectItems\_GetStandartItems.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
