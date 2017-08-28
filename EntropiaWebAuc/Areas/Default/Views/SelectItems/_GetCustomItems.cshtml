@@ -1,17 +1,13 @@
 ﻿@model EntropiaWebAuc.Areas.Default.ViewModels.SelectItemsViewModel
 @using EntropiaWebAuc.Domain.Entities
 
-
-    <div class="col-xs-6">
-
-        @using (Html.BeginForm("CustomItemSelect", "SelectItems", FormMethod.Post))
-        {
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Custom Items</h3>
-                </div>
-                <div class="panel-body">
-                    @Html.ListBox("CustomItems",
+    <div class="col-xs-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Custom Items</h3>
+            </div>
+            <div class="panel-body">
+                @Html.ListBox("CustomItems",
                new MultiSelectList(Model.CustomItems, "Id", "Name"),
                new
                {
@@ -19,23 +15,28 @@
                    @class = "form-control"
                })
 
-                </div>
             </div>
-            <input type="submit" value="Add to selected ==>" />
-        }
+        </div>
+       
     </div>
 
-    <div class="col-xs-6">
+    <div class="col-xs-2 ">
+        <br />
+        <br />
+        <input type="submit" value=" ==> " name="Command"  class="form-control" />
+        <br />
+        <br />
+        <input type="submit" value=" <== " name="Command" class="form-control" />
 
-        @using (Html.BeginForm("CustomItemUnSelect", "SelectItems", FormMethod.Post))
-        {
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">You Selected Custom Items</h3>
-                </div>
-                <div class="panel-body">
+    </div>
+    <div class="col-xs-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">You Selected Custom Items</h3>
+            </div>
+            <div class="panel-body">
 
-                    @Html.ListBox("SelectedCustomItems",
+                @Html.ListBox("SelectedCustomItems",
                         new SelectList(Model.SelectedCustomItems, "Id", "Name"),
                new
                {
@@ -43,8 +44,7 @@
                    @class = "form-control"
                })
 
-                </div>
             </div>
-            <input type="submit" value="<== Remove from selected " />
-        }
+        </div>
     </div>
+

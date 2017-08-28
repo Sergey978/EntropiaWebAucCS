@@ -35,32 +35,69 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
         public ActionResult Index()
         {
-           
+
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CustomItemSelect(FormCollection formCollection)
+     //   [HttpPost]
+        public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
             string[] selectedItems = new string[] { };
-            if (formCollection["CustomItems"] != null)
+            if (Command == " ==> ")
             {
-                selectedItems = formCollection["CustomItems"].Split(',');
+                if (formCollection["CustomItems"] != null)
+                {
+                    selectedItems = formCollection["CustomItems"].Split(',');
+                }
+
+                foreach (string itemId in selectedItems)
+                {
+                    int id = Int32.Parse(itemId);
+
+                    CustomItem selectedCustomItem =
+                        customRepo.CustomItems
+                        .FirstOrDefault<CustomItem>(c => c.Id == id);
+
+                    customRepo.SelectCustomItem(selectedCustomItem);
+                }
             }
 
-
-            foreach (string itemId in selectedItems)
+            if (Command == " <== ")
             {
-                int id = Int32.Parse(itemId);
+                if (formCollection["SelectedCustomItems"] != null)
+                {
+                    selectedItems = formCollection["SelectedCustomItems"].Split(',');
+                }
 
-                CustomItem selectedCustomItem =
-                    customRepo.CustomItems
-                    .FirstOrDefault<CustomItem>(c => c.Id == id);
+                foreach (string itemId in selectedItems)
+                {
+                    int id = Int32.Parse(itemId);
 
-                customRepo.SelectCustomItem(selectedCustomItem);
+                    CustomItem selectedCustomItem =
+                        customRepo.CustomItems
+                        .FirstOrDefault<CustomItem>(c => c.Id == id);
+
+                    customRepo.UnSelectCustomItem(selectedCustomItem);
+                }
+
             }
 
-            return RedirectToAction("Index");
+            CurrentUserId = User.Identity.GetUserId();
+
+            // select custom items that were not selected
+            ViewModel.CustomItems = customRepo.CustomItems
+                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
+                .ToList();
+
+            //select custom items that were selected
+
+            ViewModel.SelectedCustomItems = customRepo.CustomItems
+               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
+               .ToList();
+
+            
+
+            return PartialView("_GetCustomItems", ViewModel);
         }
 
 
@@ -133,7 +170,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 SelectedStandartItem selectedStandartItem =
                     selectedStandartItemRepo.SelectedStandartItems
                     .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
-               
+
 
                 selectedStandartItemRepo.DeleteSelectedStandartItem(selectedStandartItem);
             }

@@ -1,8 +1,19 @@
-﻿<hr>
-<div class="row">
-    @Html.Action("_GetCustomItems")
-</div>
+﻿@{
+    AjaxOptions customRow = new AjaxOptions { UpdateTargetId = "customItemsRow" };
+}
 
+
+<hr>
+
+
+
+@using (Ajax.BeginForm("CustomItemSelect", "SelectItems", customRow))
+{
+    <div class="row" id="customItemsRow">
+        @Html.Action("_GetCustomItems")
+
+    </div>
+}
 <hr>
 
 <div class="row">
