@@ -1,5 +1,7 @@
 ﻿@{
     AjaxOptions customRow = new AjaxOptions { UpdateTargetId = "customItemsRow" };
+
+    AjaxOptions standartRow = new AjaxOptions { UpdateTargetId = "standartItemRow" };
 }
 
 
@@ -16,7 +18,10 @@
 }
 <hr>
 
-<div class="row">
-    @Html.Action("_GetStandartItems")
-    
-</div>
+@using (Ajax.BeginForm("StandartItemSelect", "SelectItems", standartRow))
+{
+    <div class="row" id="standartItemRow">
+        @Html.Action("_GetStandartItems")
+
+    </div>
+}

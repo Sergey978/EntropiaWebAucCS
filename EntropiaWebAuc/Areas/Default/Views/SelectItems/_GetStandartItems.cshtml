@@ -2,9 +2,8 @@
 @using EntropiaWebAuc.Domain.Entities
 
 
-<div class="col-xs-6">
-    @using (Html.BeginForm("StandartItemSelect", "SelectItems", FormMethod.Post))
-    {
+<div class="col-xs-5">
+  
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Standart Items</h3>
@@ -22,14 +21,20 @@
 
             </div>
         </div>
-        <input type="submit" value="Add to selected ==>" />
+        
     }
 </div>
 
-<div class="col-xs-6">
-    @using (Html.BeginForm("StandartItemUnselect", "SelectItems", FormMethod.Post))
-    {
+<div class="col-xs-2 ">
+    <br />
+    <br />
+    <input type="submit" value=" ==> " name="Command" class="form-control" />
+    <br />
+    <br />
+    <input type="submit" value=" <== " name="Command" class="form-control" />
+</div>
 
+<div class="col-xs-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">You Selected Standart Items</h3>
@@ -46,6 +51,5 @@
 
             </div>
         </div>
-        <input type="submit" value="<== Remove from selected " />
-    }
-</div>
+       
+    </div>

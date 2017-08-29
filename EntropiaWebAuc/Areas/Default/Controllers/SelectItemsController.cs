@@ -39,7 +39,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return View();
         }
 
-     //   [HttpPost]
+        //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
             string[] selectedItems = new string[] { };
@@ -82,122 +82,75 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             }
 
-            CurrentUserId = User.Identity.GetUserId();
-
-            // select custom items that were not selected
-            ViewModel.CustomItems = customRepo.CustomItems
-                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
-                .ToList();
-
-            //select custom items that were selected
-
-            ViewModel.SelectedCustomItems = customRepo.CustomItems
-               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-               .ToList();
-
-            
-
+            RefreshViewModelCustomItems();
             return PartialView("_GetCustomItems", ViewModel);
         }
 
 
-        [HttpPost]
-        public ActionResult CustomItemUnSelect(FormCollection formCollection)
-        {
-
-            string[] selectedItems = new string[] { };
-
-            if (formCollection["SelectedCustomItems"] != null)
-            {
-                selectedItems = formCollection["SelectedCustomItems"].Split(',');
-            }
-
-
-            foreach (string itemId in selectedItems)
-            {
-                int id = Int32.Parse(itemId);
-
-                CustomItem selectedCustomItem =
-                    customRepo.CustomItems
-                    .FirstOrDefault<CustomItem>(c => c.Id == id);
-
-                customRepo.UnSelectCustomItem(selectedCustomItem);
-            }
-
-            return RedirectToAction("Index");
-        }
 
         [HttpPost]
-        public ActionResult StandartItemSelect(FormCollection formCollection)
+        public PartialViewResult StandartItemSelect(FormCollection formCollection, String Command)
         {
             CurrentUserId = User.Identity.GetUserId();
             string[] selectedItems = new string[] { };
-            if (formCollection["StandartItems"] != null)
+           
+
+            if (Command == " ==> ")
             {
-                selectedItems = formCollection["StandartItems"].Split(',');
+                if (formCollection["StandartItems"] != null)
+                {
+                    selectedItems = formCollection["StandartItems"].Split(',');
+                }
+                foreach (string itemId in selectedItems)
+                {
+                    int id = Int32.Parse(itemId);
+
+                    SelectedStandartItem selectedStandartItem =
+                        new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+
+                    selectedStandartItemRepo.SaveSelectedStandartItem(selectedStandartItem);
+                }
+
             }
 
-
-            foreach (string itemId in selectedItems)
+            if (Command == " <== ")
             {
-                int id = Int32.Parse(itemId);
+                if (formCollection["SelectedStandartItems"] != null)
+                {
+                    selectedItems = formCollection["SelectedStandartItems"].Split(',');
+                }
+                foreach (string itemId in selectedItems)
+                {
+                    int id = Int32.Parse(itemId);
 
-                SelectedStandartItem selectedStandartItem =
-                    new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+                    SelectedStandartItem selectedStandartItem =
+                        selectedStandartItemRepo.SelectedStandartItems
+                        .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
 
-                selectedStandartItemRepo.SaveSelectedStandartItem(selectedStandartItem);
+                    selectedStandartItemRepo.DeleteSelectedStandartItem(selectedStandartItem);
+                }
+
             }
 
-            return RedirectToAction("Index");
+            RefreshViewModelStandartItems();
+            return PartialView("_GetStandartItems", ViewModel);
         }
 
-        [HttpPost]
-        public ActionResult StandartItemUnselect(FormCollection formCollection)
-        {
-            CurrentUserId = User.Identity.GetUserId();
-
-            string[] selectedItems = new string[] { };
-            if (formCollection["SelectedStandartItems"] != null)
-            {
-                selectedItems = formCollection["SelectedStandartItems"].Split(',');
-            }
-
-
-            foreach (string itemId in selectedItems)
-            {
-                int id = Int32.Parse(itemId);
-
-                SelectedStandartItem selectedStandartItem =
-                    selectedStandartItemRepo.SelectedStandartItems
-                    .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
-
-
-                selectedStandartItemRepo.DeleteSelectedStandartItem(selectedStandartItem);
-            }
-
-            return RedirectToAction("Index");
-        }
+      
 
         public PartialViewResult _GetCustomItems()
         {
-            CurrentUserId = User.Identity.GetUserId();
-
-            // select custom items that were not selected
-            ViewModel.CustomItems = customRepo.CustomItems
-                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
-                .ToList();
-
-            //select custom items that were selected
-
-            ViewModel.SelectedCustomItems = customRepo.CustomItems
-               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-               .ToList();
-
+            RefreshViewModelCustomItems();
             return PartialView(ViewModel);
-
         }
 
         public PartialViewResult _GetStandartItems()
+        {
+            RefreshViewModelStandartItems();
+            return PartialView(ViewModel);
+        }
+
+        private void RefreshViewModelStandartItems()
         {
             CurrentUserId = User.Identity.GetUserId();
 
@@ -216,8 +169,22 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             // select  standart items that were  selected
             ViewModel.SelectedStandartItems = standartRepo.StandartItems
                 .Where(s => selectedStandartItemsId.Contains(s.Id));
+        }
 
-            return PartialView(ViewModel);
+        private void RefreshViewModelCustomItems()
+        {
+            CurrentUserId = User.Identity.GetUserId();
+
+            // select custom items that were not selected
+            ViewModel.CustomItems = customRepo.CustomItems
+                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
+                .ToList();
+
+            //select custom items that were selected
+
+            ViewModel.SelectedCustomItems = customRepo.CustomItems
+               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
+               .ToList();
         }
     }
 }
