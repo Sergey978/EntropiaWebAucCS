@@ -161,6 +161,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemCategoriesController.cs" />
     <Compile Include="Areas\Default\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Default\Controllers\GraphController.cs" />
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
     <Compile Include="Areas\Default\Controllers\CustomItemController.cs" />
@@ -203,6 +204,7 @@
     <Content Include="App_Data\Entropia.mdf" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="DatabaseScript\ConnectionDBHome.txt" />
     <Content Include="DatabaseScript\ConnectionDBWork.txt" />
     <Content Include="DatabaseScript\entropia.sql" />
@@ -256,7 +258,9 @@
     <Content Include="Areas\Default\Views\SelectItems\Index.cshtml" />
     <Content Include="Areas\Default\Views\SelectItems\_GetCustomItems.cshtml" />
     <Content Include="Areas\Default\Views\SelectItems\_GetStandartItems.cshtml" />
+    <Content Include="Areas\Default\Views\Graph\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\GraphDraw.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

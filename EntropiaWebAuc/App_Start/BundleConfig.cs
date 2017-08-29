@@ -31,6 +31,10 @@ namespace EntropiaWebAuc
              "~/Scripts/jquery.unobtrusive*",
              "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/graphDraw").Include(
+             "~/Scripts/GraphDraw.js"));
+            
+
            
            
         }

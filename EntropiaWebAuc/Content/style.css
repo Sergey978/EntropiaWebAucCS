@@ -1,0 +1,133 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29.10.2016, 20:22:48
+    Author     : Sergey
+*/
+
+.graph-container {
+height:600px; /* высота нашего блока */
+
+background: #fff; /* цвет фона, белый */
+border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+overflow-x: scroll; /* прокрутка по горизонтали */
+overflow-y: scroll; /* прокрутка по вертикали */
+}
+
+.table-container {
+height:500px; /* высота нашего блока */
+
+background: #fff; /* цвет фона, белый */
+border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+overflow-x: auto; /* прокрутка по горизонтали */
+overflow-y: scroll; /* прокрутка по вертикали */
+}
+
+
+/* фиксированая таблица*/
+
+.table-fixed{
+
+border: 1px solid #C1C1C1;
+}
+.table-fixed thead {
+ width: 97%;
+}
+.table-fixed tbody {
+ height: 563px;
+ overflow-y: auto;
+ width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+ display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+ float: left;
+ border-bottom-width: 0;
+}
+
+
+.graph{
+    position: relative;
+    height:2000px; /* высота нашего блока */
+    width: 2000px;
+    background: #fff; /* цвет фона, белый */
+    border: 10px solid #C1C1C1; /* размер и цвет границы блока */
+ 
+}
+
+
+.vertical-axis{
+    position: absolute;
+    width: 3px;
+    background: #111111;    
+    border: 1px solid #111111; /* размер и цвет границы блока */
+}
+
+.horizontal-axis{
+    position: absolute;
+    height:3px;
+    background: #111111; 
+    border: 1px solid #111111; /* размер и цвет границы блока */
+    
+}
+
+.vertical-line{
+    position: absolute;
+    background: #afafaf; 
+    border: 1px solid #afafaf; /* размер и цвет границы блока */
+}
+
+.horizontal-line{
+    position: absolute;
+    background: #afafaf; 
+    border: 1px solid #afafaf; /* размер и цвет границы блока */
+}
+
+
+.slug-x{
+    position: absolute;
+}
+
+.slug-y{
+    position: absolute;
+}
+
+.point{
+    position: absolute;
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+    border:#000000 solid 1px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.point-selected{
+    position: absolute;
+    cursor: pointer;
+    width:12px;
+    height:12px;
+    background: #74CB47;
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+}
+
+.out-of-range{
+    position: absolute;
+    color: purple;
+    font-size: 36px;
+    
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
