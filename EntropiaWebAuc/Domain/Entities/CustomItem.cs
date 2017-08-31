@@ -5,12 +5,12 @@ using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
- using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace EntropiaWebAuc.Domain.Entities
 {
     [Table("CustomItems")]
-    public class CustomItem
+    public class CustomItem : IItem
     {
         [Key]
         [DisplayName("ItemId:")]
@@ -22,14 +22,20 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Price:")]
         public decimal Price { get; set; }
 
+        [DisplayName("Markup:")]
+        public decimal Markup { get; set; }
+
+        [DisplayName("Quantity")]
+        public int Quantity { get; set; }
+
 
         public string UserId { get; set; }
 
         public bool? Chosed { get; set; }
 
-        
 
-        
+
+
 
     }
 }

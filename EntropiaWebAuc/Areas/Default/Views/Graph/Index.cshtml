@@ -1,4 +1,6 @@
-﻿
+﻿@model EntropiaWebAuc.Areas.Default.ViewModels.GraphViewModel
+
+
 @{
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
@@ -10,8 +12,8 @@
                 <div class="form-group">
                     <label for="item" class="col-sm-2 control-label">Item</label>
                     <div class="col-sm-10">
-                        <select id="items" class="form-control input-sm"></select>
-
+                        @Html.DropDownListFor(model => model.Items, new SelectList(Model.Items, "Id", "Name"), new { @class = "form-control" })
+                       
                     </div>
                 </div>
 

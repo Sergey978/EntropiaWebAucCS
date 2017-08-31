@@ -10,7 +10,7 @@ using System.ComponentModel;
 namespace EntropiaWebAuc.Domain.Entities
 {
     [Table("StandartItems")]
-    public class StandartItem
+    public class StandartItem : IItem
     {
         [Key]
         [Required]
@@ -26,7 +26,14 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Price:")]
         public decimal Price { get; set; }
 
+        [DisplayName("Markup:")]
+        public decimal Markup { get; set; }
+
+        [DisplayName("Quantity")]
+        public int Quantity { get; set; }
+
        public int? CategoryId { get; set; }
+
 
         [DisplayName("Category:")]
         public virtual  StandartItemCategory Category { get; set; }

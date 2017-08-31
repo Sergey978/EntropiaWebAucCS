@@ -168,6 +168,7 @@
     <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Default\ViewModels\GraphViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
     <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Domain\Concrete\EfStandartItemRepository.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
     <Compile Include="Domain\Entities\CustomItem.cs" />
+    <Compile Include="Domain\Entities\IItem.cs" />
     <Compile Include="Domain\Entities\SelectedStandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItemCategory.cs" />

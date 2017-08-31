@@ -50,7 +50,7 @@ var item = {
     purchasePrice : 102.5,
     markup        : 2,
     beginQuantity : 500,
-    quantity      : 2000,
+    quantity      : 1000,
     stepQuantity  : 1,
     ky: 1000, // коэф Масштабирования шкалы по у
     kx: 50, // коэф Масштабирования шкалы по x , количество пикселей на %
@@ -65,7 +65,7 @@ var item = {
 
 $(document).ready(function(){
     
-    fillItems();
+    
     calcTable();
     printTable();
     redrawChart();
@@ -115,6 +115,7 @@ document.getElementById('tbody').addEventListener("click",function(event){
 });
 
 // заполнения списка item
+/*
 function fillItems(){
     userData.items.forEach(function(item){
         var itemOption = document.createElement('OPTION');
@@ -123,8 +124,12 @@ function fillItems(){
         document.getElementById("items").appendChild(itemOption);
         
     });
-    
+   
 }
+
+ */
+
+
 // отрисовка осей
 function drawAxis(){
 
