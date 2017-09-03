@@ -261,6 +261,7 @@
     <Content Include="Areas\Default\Views\SelectItems\_GetCustomItems.cshtml" />
     <Content Include="Areas\Default\Views\SelectItems\_GetStandartItems.cshtml" />
     <Content Include="Areas\Default\Views\Graph\Index.cshtml" />
+    <Content Include="Areas\Default\Views\Graph\_GetItem.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

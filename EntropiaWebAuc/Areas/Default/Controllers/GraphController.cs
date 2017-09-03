@@ -34,6 +34,21 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         // GET: Default/Draw
         public ActionResult Index()
         {
+            
+
+            return View();
+        }
+
+        public PartialViewResult _GetItem()
+        {
+            RefreshViewModel();
+
+            return PartialView("_GetItem",ViewModel);
+        }
+
+
+        public void RefreshViewModel()
+        {
             CurrentUserId = User.Identity.GetUserId();
 
             ViewModel.SelectedCustomItems = customRepo.CustomItems
@@ -53,7 +68,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             ViewModel.Items = ViewModel.SelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
            
 
-            return View(ViewModel);
         }
+
+            
     }
 }
