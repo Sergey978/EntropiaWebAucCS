@@ -67,7 +67,19 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             ViewModel.Items = ViewModel.SelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
            
+        }
 
+        [HttpPost]
+        public ActionResult _GetItemJSON(int? val)
+        {
+
+            RefreshViewModel();
+            IItem selectedItem = null ;
+            if (val != null)
+            {
+                 selectedItem =  ViewModel.Items.FirstOrDefault<IItem>(i => i.Id == val);
+            }
+            return Json(new { Succes = "true", Data = selectedItem });
         }
 
             

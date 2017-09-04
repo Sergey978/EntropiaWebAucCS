@@ -395,8 +395,3 @@ function scrollToSelectedPoint(){
     
 }
 
-// выбор нового item
-
-function selectItem(numberItem){
-    
-}
