@@ -14,8 +14,15 @@
             <div class="col-sm-2">
                 <label for="purchasePrice" class="control-label">Purchase Price</label>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <input class="form-control" placeholder="" type="text" id="purchasePrice">
+            </div>
+
+            <div class="col-sm-2">
+                <label for="pricePeritem" class="control-label">Price Per Item</label>
+            </div>
+            <div class="col-sm-1">
+                <input class="form-control" placeholder="" type="text" id="pricePerItem">
             </div>
         </div>
         <div class="form-group">
@@ -28,7 +35,7 @@
             <div class="col-sm-2">
                 <label for="quantity" class="control-label">Quantity</label>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <input class="form-control" id="quantity" placeholder="" type="text">
             </div>
         </div>
@@ -43,7 +50,7 @@
                 $.post("@Url.Action("_GetItemJSON", "Graph")?val=" + t, function (res) {
                     if (res.Succes === "true") {
                         console.log(res.Data.Markup);
-                        $("#murkap").val(res.Data.Markup);
+                        $("#markup").val(res.Data.Markup);
                         $("#quantity").val(res.Data.Quantity);
                     }
                     else {
