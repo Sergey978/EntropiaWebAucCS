@@ -26,11 +26,7 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Price:")]
         public decimal Price { get; set; }
 
-        [DisplayName("Markup:")]
-        public decimal Markup { get; set; }
-
-        [DisplayName("Quantity")]
-        public int Quantity { get; set; }
+       
 
        public int? CategoryId { get; set; }
 

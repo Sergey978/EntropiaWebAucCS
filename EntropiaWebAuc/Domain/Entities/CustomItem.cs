@@ -25,17 +25,15 @@ namespace EntropiaWebAuc.Domain.Entities
         [DisplayName("Markup:")]
         public decimal Markup { get; set; }
 
-        [DisplayName("Quantity")]
-        public int Quantity { get; set; }
-
-
         public string UserId { get; set; }
 
         public bool? Chosed { get; set; }
 
+        public int? BeginQuantity { get; set; }
 
+        public decimal? PurchasePrice { get; set; }
 
-
+        public int? Step { get; set; }
 
     }
 }

@@ -16,7 +16,10 @@ namespace EntropiaWebAuc.Domain.Entities
         public string UserId { get; set; }
         [Key, Column(Order = 1)]
         public int ItemId { get; set; }
-
+        public int? BeginQuantity { get; set; }
+        public int? Step { get; set; }
+        public decimal? Markup { get; set; }
+        public decimal? PurchasePrice { get; set; }
 
     }
 }

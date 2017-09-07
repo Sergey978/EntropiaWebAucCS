@@ -55,17 +55,24 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
              .ToList();
 
-
+            /*
             // select Id standart items that were selected by user
             int[] selectedStandartItemsId = selectedStandartItemRepo
                 .SelectedStandartItems.Where(x => x.UserId == CurrentUserId)
                 .Select(x => x.ItemId).ToArray();
 
             // select  standart items that were  selected
-            ViewModel.SelectedStandartItems = standartRepo.StandartItems
+            ViewModel.ComplexSelectedStandartItems = standartRepo.StandartItems
                 .Where(s => selectedStandartItemsId.Contains(s.Id));
+            */
+            ViewModel.ComplexSelectedStandartItems =
+                standartRepo.StandartItems.Join(selectedStandartItemRepo.SelectedStandartItems,
+                a => a.Id, b => b.ItemId,
+                (a, b) => new ComplexStandartItem  ( a.Id, a.Name, a.Price, b.BeginQuantity, 
+                b.Step, b.Markup, b.PurchasePrice 
+                ));
 
-            ViewModel.Items = ViewModel.SelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
+            ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
            
         }
 

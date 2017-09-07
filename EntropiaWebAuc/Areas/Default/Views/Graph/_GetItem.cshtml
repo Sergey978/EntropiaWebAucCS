@@ -33,7 +33,7 @@
                 <input class="form-control" id="markup" placeholder="" type="text">
             </div>
             <div class="col-sm-2">
-                <label for="quantity" class="control-label">Quantity</label>
+                <label for="quantity" class="control-label">Begin Quantity</label>
             </div>
             <div class="col-sm-1">
                 <input class="form-control" id="quantity" placeholder="" type="text">
@@ -51,7 +51,7 @@
                     if (res.Succes === "true") {
                         console.log(res.Data.Markup);
                         $("#markup").val(res.Data.Markup);
-                        $("#quantity").val(res.Data.Quantity);
+                        $("#quantity").val(res.Data.BeginQuantity);
                     }
                     else {
                         alert("Error getting data!");
