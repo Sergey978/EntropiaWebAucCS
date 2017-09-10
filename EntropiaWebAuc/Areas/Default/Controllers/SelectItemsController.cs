@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Areas.Default.ViewModels;
-using EntropiaWebAuc.Domain.Entities;
-using EntropiaWebAuc.Domain.Abstract;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using EntropiaWebAuc.Domain;
 
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
@@ -17,19 +16,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     {
         public SelectItemsViewModel ViewModel;
 
-        private ICustomItemRepository customRepo;
-        private IStandartItemRepository standartRepo;
-        private ISelectedStandartItemRepo selectedStandartItemRepo;
+        private IRepository repo;
+        
         private string CurrentUserId;
         // GET: Default/SelectItems
 
-        public SelectItemsController(ICustomItemRepository custRepo,
-            IStandartItemRepository standRepo,
-            ISelectedStandartItemRepo selectRepo)
+        public SelectItemsController(IRepository repo)
         {
-            this.customRepo = custRepo;
-            this.standartRepo = standRepo;
-            this.selectedStandartItemRepo = selectRepo;
+            this.repo = repo;
             this.ViewModel = new SelectItemsViewModel();
         }
 
@@ -55,10 +49,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     int id = Int32.Parse(itemId);
 
                     CustomItem selectedCustomItem =
-                        customRepo.CustomItems
+                        repo.CustomItems
                         .FirstOrDefault<CustomItem>(c => c.Id == id);
+                    selectedCustomItem.Chosed = true;
 
-                    customRepo.SelectCustomItem(selectedCustomItem);
+                    repo.UpdateCustomItem(selectedCustomItem);
                 }
             }
 
@@ -74,10 +69,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     int id = Int32.Parse(itemId);
 
                     CustomItem selectedCustomItem =
-                        customRepo.CustomItems
+                        repo.CustomItems
                         .FirstOrDefault<CustomItem>(c => c.Id == id);
+                    selectedCustomItem.Chosed = false;
 
-                    customRepo.UnSelectCustomItem(selectedCustomItem);
+                    repo.UpdateCustomItem(selectedCustomItem);
                 }
 
             }
@@ -108,7 +104,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     SelectedStandartItem selectedStandartItem =
                         new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
 
-                    selectedStandartItemRepo.SaveSelectedStandartItem(selectedStandartItem);
+                    repo.CreateSelectedStandartItem(selectedStandartItem);
                 }
 
             }
@@ -124,10 +120,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     int id = Int32.Parse(itemId);
 
                     SelectedStandartItem selectedStandartItem =
-                        selectedStandartItemRepo.SelectedStandartItems
+                        repo.SelectedStandartItems
                         .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
 
-                    selectedStandartItemRepo.DeleteSelectedStandartItem(selectedStandartItem);
+                    repo.RemoveSelectedStandartItem(selectedStandartItem);
                 }
 
             }
@@ -155,19 +151,19 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             CurrentUserId = User.Identity.GetUserId();
 
             // select Id standart items that were selected by user
-            int[] selectedStandartItemsId = selectedStandartItemRepo
+            int[] selectedStandartItemsId = repo
                 .SelectedStandartItems.Where(x => x.UserId == CurrentUserId)
                 .Select(x => x.ItemId).ToArray();
 
 
             // select  standart items that were not selected
-            ViewModel.StandartItems = standartRepo.StandartItems
+            ViewModel.StandartItems = repo.StandartItems
                 .Where(s => !selectedStandartItemsId.Contains(s.Id));
 
 
 
             // select  standart items that were  selected
-            ViewModel.SelectedStandartItems = standartRepo.StandartItems
+            ViewModel.SelectedStandartItems = repo.StandartItems
                 .Where(s => selectedStandartItemsId.Contains(s.Id));
         }
 
@@ -176,13 +172,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             CurrentUserId = User.Identity.GetUserId();
 
             // select custom items that were not selected
-            ViewModel.CustomItems = customRepo.CustomItems
+            ViewModel.CustomItems = repo.CustomItems
                 .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
                 .ToList();
 
             //select custom items that were selected
 
-            ViewModel.SelectedCustomItems = customRepo.CustomItems
+            ViewModel.SelectedCustomItems = repo.CustomItems
                .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
                .ToList();
         }

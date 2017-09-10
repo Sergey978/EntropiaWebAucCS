@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EntropiaWebAuc.Domain.Abstract;
-using EntropiaWebAuc.Domain.Entities;
-using EntropiaWebAuc.Domain.Concrete;
-
+using EntropiaWebAuc.Domain;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
     public class StandartItemController : Controller
     {
-        private IStandartItemRepository itemRepo;
-        private IStadartItemCategoryRepo categoryRepo;
-        // GET: StandartItem
-        public StandartItemController(IStandartItemRepository repository, IStadartItemCategoryRepo categoryRepo)
-        {
+        private IRepository repo;
 
-            this.itemRepo = repository;
-            this.categoryRepo = categoryRepo;
+        // GET: StandartItem
+        public StandartItemController(IRepository repo)
+        {
+            this.repo = repo;
+
         }
 
         public ViewResult Index()
         {
-            var items = itemRepo.StandartItems;
+            var items = repo.StandartItems;
             return View(items);
         }
 
@@ -41,7 +37,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ViewResult Edit(int id)
         {
 
-            StandartItem item = itemRepo.StandartItems
+            StandartItem item = repo.StandartItems
                 .FirstOrDefault(p => p.Id == id);
 
             ViewBag.Categories = getStandartItemCategories();
@@ -55,8 +51,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
-                itemRepo.SaveStandartItem(item);
+                repo.UpdateStandartItem(item);
                 TempData["message"] = string.Format("{0} has been saved", item.Name);
                 return RedirectToAction("Index");
             }
@@ -71,7 +66,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            StandartItem deleteItem = itemRepo.DeleteStandartItem(id);
+            StandartItem deleteItem = repo.RemoveStandartItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",
@@ -86,12 +81,9 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         // Выборка списка   категирий без дочерних 
         public List<StandartItemCategory> getStandartItemCategories()
         {
-            
-            
-         return   categoryRepo.StandartItemCategories
-                 .Where(c => c.Children.Count == 0)
-                 .ToList<StandartItemCategory>();
 
+            return repo.StandartItemCategories.ToList();
+                
         }
     }
 }

@@ -10,7 +10,7 @@
     <Snippet>
       <Declarations>
         <Literal>
-          <ID>Table</ID>
+          <Id>Table</Id>
           <ToolTip>Table name for create.</ToolTip>
           <Default>Table</Default>
         </Literal>
@@ -27,7 +27,7 @@
         }
         public bool Create$Table$($Table$ instance)
         {
-            if (instance.ID == 0)
+            if (instance.Id == 0)
             {
                 Db.$Table$s.InsertOnSubmit(instance);
                 Db.$Table$s.Context.SubmitChanges();
@@ -37,8 +37,8 @@
         }
         public bool Update$Table$($Table$ instance)
         {
-            $Table$ cache = Db.$Table$s.Where(p => p.ID == 
-instance.ID).FirstOrDefault();
+            $Table$ cache = Db.$Table$s.Where(p => p.Id == 
+instance.Id).FirstOrDefault();
             if (cache != null)
             {
                 //TODO : Update fields for $Table$
@@ -49,7 +49,7 @@ instance.ID).FirstOrDefault();
         }
         public bool Remove$Table$(int id$Table$)
         {
-            $Table$ instance = Db.$Table$s.Where(p => p.ID == 
+            $Table$ instance = Db.$Table$s.Where(p => p.Id == 
 id$Table$).FirstOrDefault();
             if (instance != null)
             {

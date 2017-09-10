@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -169,29 +170,32 @@
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
     <Compile Include="Areas\Default\ViewModels\GraphViewModel.cs" />
+    <Compile Include="Areas\Default\ViewModels\IItem.cs" />
     <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
     <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
-    <Compile Include="Domain\Abstract\ISelectedStandartItemRepo.cs" />
-    <Compile Include="Domain\Abstract\IStadartItemCategoryRepo.cs" />
-    <Compile Include="Domain\Abstract\ICustomItemRepository.cs" />
-    <Compile Include="Domain\Abstract\IStandartItemRepository.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Domain\Concrete\EFDbContext.cs" />
-    <Compile Include="Domain\Concrete\EFSelectedStandartItemRepo.cs" />
-    <Compile Include="Domain\Concrete\EFStandartItemCategoryRepo.cs" />
-    <Compile Include="Domain\Concrete\EfCustomItemRepository.cs" />
-    <Compile Include="Domain\Concrete\EfStandartItemRepository.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
     <Compile Include="Domain\Entities\CustomItem.cs" />
     <Compile Include="Domain\Entities\IItem.cs" />
     <Compile Include="Domain\Entities\SelectedStandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItem.cs" />
     <Compile Include="Domain\Entities\StandartItemCategory.cs" />
+    <Compile Include="Domain\EntropiaDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntropiaDB.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\SqlRepository.cs" />
+    <Compile Include="Domain\SqlRepositoryParts\CustomItems.cs" />
+    <Compile Include="Domain\SqlRepositoryParts\SelectedStandartItem.cs" />
+    <Compile Include="Domain\SqlRepositoryParts\StandartItem.cs" />
+    <Compile Include="Domain\SqlRepositoryParts\StandartItemCategory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -262,6 +266,11 @@
     <Content Include="Areas\Default\Views\SelectItems\_GetStandartItems.cshtml" />
     <Content Include="Areas\Default\Views\Graph\Index.cshtml" />
     <Content Include="Areas\Default\Views\Graph\_GetItem.cshtml" />
+    <Content Include="Domain\EntropiaDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EntropiaDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -306,7 +315,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Domain\EntropiaDB.dbml.layout">
+      <DependentUpon>EntropiaDB.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

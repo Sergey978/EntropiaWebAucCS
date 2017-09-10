@@ -2,11 +2,11 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
-using EntropiaWebAuc.Domain.Concrete;
-using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using EntropiaWebAuc.Domain;
+using System.Configuration;
 
 namespace EntropiaWebAuc.Infrastructure
 {
@@ -34,10 +34,8 @@ namespace EntropiaWebAuc.Infrastructure
         private void AddBindings()
         {
             // конфигурирование контейнера 
-            ninjectKernel.Bind<IStandartItemRepository>().To<EfStandartItemRepository>();
-            ninjectKernel.Bind<IStadartItemCategoryRepo>().To<EFStandartItemCategoryRepo>();
-            ninjectKernel.Bind<ICustomItemRepository>().To<EfCustomItemRepository>();
-            ninjectKernel.Bind<ISelectedStandartItemRepo>().To<EFSelectedStandartItemRepo>();
+            ninjectKernel.Bind<EntropiaDBDataContext>().ToMethod(c => new EntropiaDBDataContext(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString));
+            ninjectKernel.Bind<IRepository>().To<SqlRepository>();
         }
     }
 }

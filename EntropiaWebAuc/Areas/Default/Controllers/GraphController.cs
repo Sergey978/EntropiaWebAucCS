@@ -1,6 +1,4 @@
 ﻿using EntropiaWebAuc.Areas.Default.ViewModels;
-using EntropiaWebAuc.Domain.Abstract;
-using EntropiaWebAuc.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using EntropiaWebAuc.Domain;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -15,18 +14,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     {
         public GraphViewModel ViewModel;
 
-        private ICustomItemRepository customRepo;
-        private IStandartItemRepository standartRepo;
-        private ISelectedStandartItemRepo selectedStandartItemRepo;
+        private IRepository repo;
+       
         private string CurrentUserId;
 
-          public GraphController(ICustomItemRepository custRepo,
-            IStandartItemRepository standRepo,
-            ISelectedStandartItemRepo selectRepo)
+          public GraphController(IRepository repo)
         {
-            this.customRepo = custRepo;
-            this.standartRepo = standRepo;
-            this.selectedStandartItemRepo = selectRepo;
+            this.repo = repo;
             this.ViewModel = new GraphViewModel();
         }
 
@@ -51,7 +45,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             CurrentUserId = User.Identity.GetUserId();
 
-            ViewModel.SelectedCustomItems = customRepo.CustomItems
+            ViewModel.SelectedCustomItems = repo.CustomItems
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
              .ToList();
 
@@ -66,7 +60,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 .Where(s => selectedStandartItemsId.Contains(s.Id));
             */
             ViewModel.ComplexSelectedStandartItems =
-                standartRepo.StandartItems.Join(selectedStandartItemRepo.SelectedStandartItems,
+                repo.StandartItems.Join(repo.SelectedStandartItems,
                 a => a.Id, b => b.ItemId,
                 (a, b) => new ComplexStandartItem  ( a.Id, a.Name, a.Price, b.BeginQuantity, 
                 b.Step, b.Markup, b.PurchasePrice 
