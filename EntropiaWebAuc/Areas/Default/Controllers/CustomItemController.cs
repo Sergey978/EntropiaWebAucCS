@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EntropiaWebAuc.Domain.Abstract;
-using EntropiaWebAuc.Domain.Entities;
-using EntropiaWebAuc.Domain.Concrete;
+using EntropiaWebAuc.Domain;
 using Microsoft.AspNet.Identity;
 
 
@@ -15,23 +13,23 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     [Authorize]
     public class CustomItemController : Controller
     {
-        private ICustomItemRepository itemRepo;
+        private IRepository repo;
 
-        private string CurrentUserId ;
-        
+        private string CurrentUserId;
+
         // GET: CustomItem
-        public CustomItemController(ICustomItemRepository repository)
+        public CustomItemController(IRepository repository)
         {
 
-            this.itemRepo = repository;
-           
+            this.repo = repository;
+
         }
 
         public ViewResult Index()
         {
             CurrentUserId = User.Identity.GetUserId();
 
-            var items = itemRepo.CustomItems.
+            var items = repo.CustomItems.
                 Where(c => c.UserId == CurrentUserId);
             return View(items);
         }
@@ -42,14 +40,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             CurrentUserId = User.Identity.GetUserId();
             newItem.UserId = CurrentUserId;
-           
+
             return View("Edit", newItem);
         }
 
         public ViewResult Edit(int id)
         {
 
-            CustomItem item = itemRepo.CustomItems
+            CustomItem item = repo.CustomItems
                 .FirstOrDefault(p => p.Id == id);
 
             return View(item);
@@ -61,8 +59,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             if (ModelState.IsValid)
             {
+                if (item.Id == 0)
+                {
+                    repo.CreateCustomItem(item);
 
-                itemRepo.SaveCustomItem(item);
+                }
+                else
+                {
+                    repo.UpdateCustomItem(item);
+                }
+
                 TempData["message"] = string.Format("{0} has been saved", item.Name);
                 return RedirectToAction("Index");
             }
@@ -76,7 +82,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            CustomItem deleteItem = itemRepo.DeleteCustomItem(id);
+            CustomItem deleteItem = repo.RemoveCustomItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",

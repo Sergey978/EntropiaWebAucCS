@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace EntropiaWebAuc.Domain
 {
-    interface IRepository
+   public interface IRepository
     {
         
         #region CustomItem
         IQueryable<CustomItem> CustomItems { get; }
         bool CreateCustomItem(CustomItem instance);
         bool UpdateCustomItem(CustomItem instance);
-        bool RemoveCustomItem(int idCustomItem);
+        CustomItem RemoveCustomItem(int idCustomItem);
         #endregion 
 
         

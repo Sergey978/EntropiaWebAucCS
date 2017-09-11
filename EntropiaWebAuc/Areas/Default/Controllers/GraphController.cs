@@ -45,9 +45,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             CurrentUserId = User.Identity.GetUserId();
 
+            // получаем список выбранных кастомных элементов
             ViewModel.SelectedCustomItems = repo.CustomItems
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-             .ToList();
+             .Select(item => new SelectedCustomItem());
+           
 
             /*
             // select Id standart items that were selected by user
@@ -66,8 +68,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 b.Step, b.Markup, b.PurchasePrice 
                 ));
 
+          //  ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
             ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
-           
         }
 
         [HttpPost]

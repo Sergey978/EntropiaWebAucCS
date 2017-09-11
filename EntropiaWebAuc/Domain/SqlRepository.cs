@@ -8,6 +8,7 @@ namespace EntropiaWebAuc.Domain
 {
     public partial class SqlRepository : IRepository
     {
+        [Inject]
         public EntropiaDBDataContext Db { get; set; }
     }
 }

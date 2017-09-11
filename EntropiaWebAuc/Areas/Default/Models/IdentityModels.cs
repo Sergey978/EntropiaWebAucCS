@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using EntropiaWebAuc.Domain.Abstract;
 using EntropiaWebAuc.Domain.Entities;
 using System.Collections.Generic;
 

@@ -35,13 +35,21 @@ instance.Id).FirstOrDefault();
             if (cache != null)
             {
                 //TODO : Update fields for CustomItem
+                cache.BeginQuantity = instance.BeginQuantity;
+                cache.Chosed = instance.Chosed;
+                cache.Markup = instance.Markup;
+                cache.Name = instance.Name;
+                cache.Price = instance.Price;
+                cache.PurchasePrice = instance.PurchasePrice;
+                cache.Step = instance.Step;
+                
                 Db.CustomItems.Context.SubmitChanges();
                 return true;
             }
             return false;
         }
 
-        public bool RemoveCustomItem(int idCustomItem)
+        public CustomItem RemoveCustomItem(int idCustomItem)
         {
             CustomItem instance = Db.CustomItems.Where(p => p.Id ==
 idCustomItem).FirstOrDefault();
@@ -49,9 +57,9 @@ idCustomItem).FirstOrDefault();
             {
                 Db.CustomItems.DeleteOnSubmit(instance);
                 Db.CustomItems.Context.SubmitChanges();
-                return true;
+               
             }
-            return false;
+            return instance;
         }
         
     }

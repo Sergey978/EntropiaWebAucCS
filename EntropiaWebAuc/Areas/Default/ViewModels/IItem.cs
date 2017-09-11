@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntropiaWebAuc.Areas.Default.ViewModels
 {
-    interface IItem
+   public interface IItem
     {
         int Id { get; set; }
         string Name { get; set; }
