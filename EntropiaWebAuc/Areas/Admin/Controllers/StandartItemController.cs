@@ -22,6 +22,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ViewResult Index()
         {
             var items = repo.StandartItems;
+
             return View(items);
         }
 

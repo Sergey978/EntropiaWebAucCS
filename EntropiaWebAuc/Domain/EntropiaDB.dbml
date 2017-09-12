@@ -70,18 +70,6 @@
       <Association Name="AspNetUser_CustomItem" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SelectedStandartItems" Member="SelectedStandartItems">
-    <Type Name="SelectedStandartItem">
-      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BeginQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Step" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Markup" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
-      <Column Name="PurchasePrice" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Association Name="AspNetUser_SelectedStandartItem" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="StandartItem_SelectedStandartItem" Member="StandartItem" ThisKey="ItemId" OtherKey="Id" Type="StandartItem" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.StandartItemCategories" Member="StandartItemCategories">
     <Type Name="StandartItemCategory">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -96,10 +84,20 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
       <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Markup" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
       <Association Name="StandartItem_SelectedStandartItem" Member="SelectedStandartItems" ThisKey="Id" OtherKey="ItemId" Type="SelectedStandartItem" />
       <Association Name="StandartItemCategory_StandartItem" Member="StandartItemCategory" ThisKey="CategoryId" OtherKey="Id" Type="StandartItemCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SelectedStandartItems" Member="SelectedStandartItems">
+    <Type Name="SelectedStandartItem">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeginQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Step" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Markup" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="PurchasePrice" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Association Name="AspNetUser_SelectedStandartItem" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StandartItem_SelectedStandartItem" Member="StandartItem" ThisKey="ItemId" OtherKey="Id" Type="StandartItem" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

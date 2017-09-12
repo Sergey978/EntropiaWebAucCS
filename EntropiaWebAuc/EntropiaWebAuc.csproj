@@ -180,11 +180,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
-    <Compile Include="Domain\Entities\CustomItem.cs" />
-    <Compile Include="Domain\Entities\IItem.cs" />
-    <Compile Include="Domain\Entities\SelectedStandartItem.cs" />
-    <Compile Include="Domain\Entities\StandartItem.cs" />
-    <Compile Include="Domain\Entities\StandartItemCategory.cs" />
     <Compile Include="Domain\EntropiaDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

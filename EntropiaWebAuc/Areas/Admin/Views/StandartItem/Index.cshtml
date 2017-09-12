@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EntropiaWebAuc.Domain.Entities.StandartItem>
+﻿@model IEnumerable<EntropiaWebAuc.Domain.StandartItem>
 @{
     ViewBag.Title = "StandartItems";
 
@@ -10,7 +10,7 @@
         <th>@Html.DisplayNameFor(model => model.Id)</th>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>@Html.DisplayNameFor(model => model.Price)</th>
-        <th>@Html.DisplayNameFor(model => model.Category)</th>
+        <th>@Html.DisplayNameFor(model => model.StandartItemCategory)</th>
         <th>Action</th>
     </tr>
 
@@ -20,7 +20,7 @@
             <td>@Html.DisplayFor(modelItem => item.Id)</td>
             <td>@Html.DisplayFor(modelItem => item.Name)</td>
             <td>@Html.DisplayFor(modelItem => item.Price)</td>
-            <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.StandartItemCategory.Name)</td>
             <td>
 
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using EntropiaWebAuc.Domain.Entities;
+using EntropiaWebAuc.Domain;
 using System.Collections.Generic;
 
 namespace EntropiaWebAuc.Areas.Default.Models
