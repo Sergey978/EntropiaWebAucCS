@@ -161,6 +161,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemCategoriesController.cs" />
+    <Compile Include="Areas\Admin\ViewModel\CategoryViewModel.cs" />
     <Compile Include="Areas\Default\Controllers\AccountController.cs" />
     <Compile Include="Areas\Default\Controllers\GraphController.cs" />
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />

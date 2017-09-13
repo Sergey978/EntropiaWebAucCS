@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
+using EntropiaWebAuc.Areas.Admin.ViewModel;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -11,11 +12,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
     public class StandartItemController : Controller
     {
         private IRepository repo;
+        private CategoryViewModel categoryVM;
 
         // GET: StandartItem
         public StandartItemController(IRepository repo)
         {
             this.repo = repo;
+            this.categoryVM = new CategoryViewModel();
 
         }
 
@@ -79,11 +82,45 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         //Helpers
 
-        // Выборка списка   категирий без дочерних 
-        public List<StandartItemCategory> getStandartItemCategories()
+        // Выборка списка   категирий c именами родителей (LEFT JOIN)
+        public List<CategoryViewModel> getStandartItemCategories()
         {
 
-            return repo.StandartItemCategories.ToList();
+            return repo.StandartItemCategories.Join(repo.StandartItemCategories,
+                l => l.ParentId, r =>r.Id,
+                (x, y) => new CategoryViewModel()).
+                SelectMany(x => x.DefaultIfEmpty(), (x, y) => )
+                
+
+                );
+
+            /* example on stack
+             * 
+             * https://stackoverflow.com/questions/12075905/left-outer-join-in-lambda-method-syntax-in-linq
+             * 
+             * Parent
+                    {
+                        PID     // PK
+                    }
+
+                    Child
+                    {
+                        CID     // PK
+                        PID     // FK
+                        Text
+                    }
+             * 
+                             * var source = lParent.GroupJoin(
+                                    lChild,
+                                    p => p.PID,
+                                    c => c.PID,
+                                    (p, g) => g
+                                        .Select(c => new { PID = p.PID, CID = c.CID, Text = c.Text })
+                                        .DefaultIfEmpty(new { PID = p.PID, CID = -1, Text = "[[Empty]]" }))
+                                    .SelectMany(g => g);
+                             * 
+             * 
+             */
                 
         }
     }
