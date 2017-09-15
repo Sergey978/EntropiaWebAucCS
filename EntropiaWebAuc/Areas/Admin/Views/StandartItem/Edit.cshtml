@@ -1,4 +1,5 @@
 ﻿@model EntropiaWebAuc.Domain.StandartItem
+@using EntropiaWebAuc.Areas.Admin.ViewModel 
 
 @{
     ViewBag.Title = "Standart Item Category: Edit " + @Model.Name;
@@ -39,12 +40,20 @@ else
 
     <div class="form-group">
         @Html.LabelFor(model => model.StandartItemCategory.Name)
-        @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name","ParentId", 1), new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name","ParentName", 1), new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.StandartItemCategory)
     </div>
 
     <div>
         <input type="submit" class="btn btn-info" value="@ViewBag.button" />
+
+    </div>
+    <div>
+        @foreach(CategoryViewModel category in ViewBag.Categories)
+        {
+            <p>@category.Id, @category.Name,  @category.ParentId, @category.ParentName </p><br>
+            
+        }
 
     </div>
 

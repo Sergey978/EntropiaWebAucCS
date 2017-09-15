@@ -25,7 +25,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ViewResult Index()
         {
             var items = repo.StandartItems;
-
+          
             return View(items);
         }
 
@@ -85,42 +85,20 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         // Выборка списка   категирий c именами родителей (LEFT JOIN)
         public List<CategoryViewModel> getStandartItemCategories()
         {
+            var categories = repo.StandartItemCategories;
+           
+            var source = (from cat1 in categories
+                          join cat2 in categories on
+                              cat1.ParentId equals cat2.Id into a
+                              from b in a.DefaultIfEmpty()
+                          select new CategoryViewModel() { Id = cat1.Id, 
+                              Name = cat1.Name, 
+                              ParentId = cat1.ParentId,
+                              ParentName = b.Name})
+                              .Where(c => c.ParentId != null).ToList<CategoryViewModel>();
 
-            return repo.StandartItemCategories.Join(repo.StandartItemCategories,
-                l => l.ParentId, r =>r.Id,
-                (x, y) => new CategoryViewModel()).
-                SelectMany(x => x.DefaultIfEmpty(), (x, y) => )
-                
-
-                );
-
-            /* example on stack
-             * 
-             * https://stackoverflow.com/questions/12075905/left-outer-join-in-lambda-method-syntax-in-linq
-             * 
-             * Parent
-                    {
-                        PID     // PK
-                    }
-
-                    Child
-                    {
-                        CID     // PK
-                        PID     // FK
-                        Text
-                    }
-             * 
-                             * var source = lParent.GroupJoin(
-                                    lChild,
-                                    p => p.PID,
-                                    c => c.PID,
-                                    (p, g) => g
-                                        .Select(c => new { PID = p.PID, CID = c.CID, Text = c.Text })
-                                        .DefaultIfEmpty(new { PID = p.PID, CID = -1, Text = "[[Empty]]" }))
-                                    .SelectMany(g => g);
-                             * 
-             * 
-             */
+             
+           return source;
                 
         }
     }

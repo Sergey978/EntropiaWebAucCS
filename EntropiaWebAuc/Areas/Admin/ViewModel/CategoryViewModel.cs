@@ -11,12 +11,12 @@ namespace EntropiaWebAuc.Areas.Admin.ViewModel
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public int? ParentIdP { get; set; }
+        public int? ParentId { get; set; }
         public String ParentName { get; set; }
 
     }
 
-    }
+    
 
 
 }
