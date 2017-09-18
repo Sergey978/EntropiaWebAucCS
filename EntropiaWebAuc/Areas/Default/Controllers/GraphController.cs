@@ -15,10 +15,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public GraphViewModel ViewModel;
 
         private IRepository repo;
-       
+
         private string CurrentUserId;
 
-          public GraphController(IRepository repo)
+        public GraphController(IRepository repo)
         {
             this.repo = repo;
             this.ViewModel = new GraphViewModel();
@@ -28,7 +28,6 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         // GET: Default/Draw
         public ActionResult Index()
         {
-            
 
             return View();
         }
@@ -37,7 +36,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             RefreshViewModel();
 
-            return PartialView("_GetItem",ViewModel);
+            return PartialView("_GetItem", ViewModel);
         }
 
 
@@ -48,28 +47,34 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             // получаем список выбранных кастомных элементов
             ViewModel.SelectedCustomItems = repo.CustomItems
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-             .Select(item => new SelectedCustomItem());
-           
-
-            /*
-            // select Id standart items that were selected by user
-            int[] selectedStandartItemsId = selectedStandartItemRepo
-                .SelectedStandartItems.Where(x => x.UserId == CurrentUserId)
-                .Select(x => x.ItemId).ToArray();
-
-            // select  standart items that were  selected
-            ViewModel.ComplexSelectedStandartItems = standartRepo.StandartItems
-                .Where(s => selectedStandartItemsId.Contains(s.Id));
-            */
+             .Select(item => new SelectedCustomItem()
+             {
+                 Id = item.Id,
+                 Name = item.Name,
+                 Price = item.Price,
+                 BeginQuantity = item.BeginQuantity,
+                 Step = item.Step,
+                 Markup = item.Markup,
+                 PurchasePrice = item.PurchasePrice
+             });
+            // select standart items that user has choise
             ViewModel.ComplexSelectedStandartItems =
-                repo.StandartItems.Join(repo.SelectedStandartItems,
-                a => a.Id, b => b.ItemId,
-                (a, b) => new ComplexStandartItem  ( a.Id, a.Name, a.Price, b.BeginQuantity, 
-                b.Step, b.Markup, b.PurchasePrice 
-                ));
+                repo.StandartItems.Join(repo.SelectedStandartItems
+                .Where(u =>u.UserId == CurrentUserId),
+                a => a.Id, b => b.ItemId , 
+                (a, b) => new ComplexStandartItem()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Price = a.Price,
+                    BeginQuantity = b.BeginQuantity,
+                    Step = b.Step,
+                    Markup = b.Markup,
+                    PurchasePrice = b.PurchasePrice
+                });
 
-          //  ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
-            ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
+              ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
+            
         }
 
         [HttpPost]
@@ -77,14 +82,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
 
             RefreshViewModel();
-            IItem selectedItem = null ;
+            IItem selectedItem = null;
             if (val != null)
             {
-                 selectedItem =  ViewModel.Items.FirstOrDefault<IItem>(i => i.Id == val);
+                selectedItem = ViewModel.Items.FirstOrDefault<IItem>(i => i.Id == val);
             }
             return Json(new { Succes = "true", Data = selectedItem });
         }
 
-            
+
     }
 }

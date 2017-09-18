@@ -90,8 +90,8 @@
   </Table>
   <Table Name="dbo.SelectedStandartItems" Member="SelectedStandartItems">
     <Type Name="SelectedStandartItem">
-      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="BeginQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Step" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Markup" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />

@@ -54,6 +54,9 @@ namespace EntropiaWebAuc.Domain
     partial void InsertStandartItem(StandartItem instance);
     partial void UpdateStandartItem(StandartItem instance);
     partial void DeleteStandartItem(StandartItem instance);
+    partial void InsertSelectedStandartItem(SelectedStandartItem instance);
+    partial void UpdateSelectedStandartItem(SelectedStandartItem instance);
+    partial void DeleteSelectedStandartItem(SelectedStandartItem instance);
     #endregion
 		
 		public EntropiaDBDataContext() : 
@@ -877,6 +880,8 @@ namespace EntropiaWebAuc.Domain
 		
 		private EntitySet<CustomItem> _CustomItems;
 		
+		private EntitySet<SelectedStandartItem> _SelectedStandartItems;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -913,6 +918,7 @@ namespace EntropiaWebAuc.Domain
 			this._AspNetUserLogins = new EntitySet<AspNetUserLogin>(new Action<AspNetUserLogin>(this.attach_AspNetUserLogins), new Action<AspNetUserLogin>(this.detach_AspNetUserLogins));
 			this._AspNetUserRoles = new EntitySet<AspNetUserRole>(new Action<AspNetUserRole>(this.attach_AspNetUserRoles), new Action<AspNetUserRole>(this.detach_AspNetUserRoles));
 			this._CustomItems = new EntitySet<CustomItem>(new Action<CustomItem>(this.attach_CustomItems), new Action<CustomItem>(this.detach_CustomItems));
+			this._SelectedStandartItems = new EntitySet<SelectedStandartItem>(new Action<SelectedStandartItem>(this.attach_SelectedStandartItems), new Action<SelectedStandartItem>(this.detach_SelectedStandartItems));
 			OnCreated();
 		}
 		
@@ -1208,6 +1214,19 @@ namespace EntropiaWebAuc.Domain
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetUser_SelectedStandartItem", Storage="_SelectedStandartItems", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<SelectedStandartItem> SelectedStandartItems
+		{
+			get
+			{
+				return this._SelectedStandartItems;
+			}
+			set
+			{
+				this._SelectedStandartItems.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1271,6 +1290,18 @@ namespace EntropiaWebAuc.Domain
 		}
 		
 		private void detach_CustomItems(CustomItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.AspNetUser = null;
+		}
+		
+		private void attach_SelectedStandartItems(SelectedStandartItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.AspNetUser = this;
+		}
+		
+		private void detach_SelectedStandartItems(SelectedStandartItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.AspNetUser = null;
@@ -1724,6 +1755,8 @@ namespace EntropiaWebAuc.Domain
 		
 		private System.Nullable<int> _CategoryId;
 		
+		private EntitySet<SelectedStandartItem> _SelectedStandartItems;
+		
 		private EntityRef<StandartItemCategory> _StandartItemCategory;
 		
     #region Extensibility Method Definitions
@@ -1742,6 +1775,7 @@ namespace EntropiaWebAuc.Domain
 		
 		public StandartItem()
 		{
+			this._SelectedStandartItems = new EntitySet<SelectedStandartItem>(new Action<SelectedStandartItem>(this.attach_SelectedStandartItems), new Action<SelectedStandartItem>(this.detach_SelectedStandartItems));
 			this._StandartItemCategory = default(EntityRef<StandartItemCategory>);
 			OnCreated();
 		}
@@ -1830,6 +1864,19 @@ namespace EntropiaWebAuc.Domain
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StandartItem_SelectedStandartItem", Storage="_SelectedStandartItems", ThisKey="Id", OtherKey="ItemId")]
+		public EntitySet<SelectedStandartItem> SelectedStandartItems
+		{
+			get
+			{
+				return this._SelectedStandartItems;
+			}
+			set
+			{
+				this._SelectedStandartItems.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StandartItemCategory_StandartItem", Storage="_StandartItemCategory", ThisKey="CategoryId", OtherKey="Id", IsForeignKey=true)]
 		public StandartItemCategory StandartItemCategory
 		{
@@ -1883,11 +1930,25 @@ namespace EntropiaWebAuc.Domain
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_SelectedStandartItems(SelectedStandartItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.StandartItem = this;
+		}
+		
+		private void detach_SelectedStandartItems(SelectedStandartItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.StandartItem = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SelectedStandartItems")]
-	public partial class SelectedStandartItem
+	public partial class SelectedStandartItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _UserId;
 		
@@ -1901,11 +1962,36 @@ namespace EntropiaWebAuc.Domain
 		
 		private System.Nullable<decimal> _PurchasePrice;
 		
+		private EntityRef<AspNetUser> _AspNetUser;
+		
+		private EntityRef<StandartItem> _StandartItem;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(string value);
+    partial void OnUserIdChanged();
+    partial void OnItemIdChanging(int value);
+    partial void OnItemIdChanged();
+    partial void OnBeginQuantityChanging(System.Nullable<int> value);
+    partial void OnBeginQuantityChanged();
+    partial void OnStepChanging(System.Nullable<int> value);
+    partial void OnStepChanged();
+    partial void OnMarkupChanging(System.Nullable<decimal> value);
+    partial void OnMarkupChanged();
+    partial void OnPurchasePriceChanging(System.Nullable<decimal> value);
+    partial void OnPurchasePriceChanged();
+    #endregion
+		
 		public SelectedStandartItem()
 		{
+			this._AspNetUser = default(EntityRef<AspNetUser>);
+			this._StandartItem = default(EntityRef<StandartItem>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(128) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(128) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string UserId
 		{
 			get
@@ -1916,12 +2002,20 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._UserId != value))
 				{
+					if (this._AspNetUser.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
 					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ItemId
 		{
 			get
@@ -1932,7 +2026,15 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._ItemId != value))
 				{
+					if (this._StandartItem.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnItemIdChanging(value);
+					this.SendPropertyChanging();
 					this._ItemId = value;
+					this.SendPropertyChanged("ItemId");
+					this.OnItemIdChanged();
 				}
 			}
 		}
@@ -1948,7 +2050,11 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._BeginQuantity != value))
 				{
+					this.OnBeginQuantityChanging(value);
+					this.SendPropertyChanging();
 					this._BeginQuantity = value;
+					this.SendPropertyChanged("BeginQuantity");
+					this.OnBeginQuantityChanged();
 				}
 			}
 		}
@@ -1964,7 +2070,11 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._Step != value))
 				{
+					this.OnStepChanging(value);
+					this.SendPropertyChanging();
 					this._Step = value;
+					this.SendPropertyChanged("Step");
+					this.OnStepChanged();
 				}
 			}
 		}
@@ -1980,7 +2090,11 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._Markup != value))
 				{
+					this.OnMarkupChanging(value);
+					this.SendPropertyChanging();
 					this._Markup = value;
+					this.SendPropertyChanged("Markup");
+					this.OnMarkupChanged();
 				}
 			}
 		}
@@ -1996,8 +2110,100 @@ namespace EntropiaWebAuc.Domain
 			{
 				if ((this._PurchasePrice != value))
 				{
+					this.OnPurchasePriceChanging(value);
+					this.SendPropertyChanging();
 					this._PurchasePrice = value;
+					this.SendPropertyChanged("PurchasePrice");
+					this.OnPurchasePriceChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetUser_SelectedStandartItem", Storage="_AspNetUser", ThisKey="UserId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public AspNetUser AspNetUser
+		{
+			get
+			{
+				return this._AspNetUser.Entity;
+			}
+			set
+			{
+				AspNetUser previousValue = this._AspNetUser.Entity;
+				if (((previousValue != value) 
+							|| (this._AspNetUser.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AspNetUser.Entity = null;
+						previousValue.SelectedStandartItems.Remove(this);
+					}
+					this._AspNetUser.Entity = value;
+					if ((value != null))
+					{
+						value.SelectedStandartItems.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(string);
+					}
+					this.SendPropertyChanged("AspNetUser");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StandartItem_SelectedStandartItem", Storage="_StandartItem", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+		public StandartItem StandartItem
+		{
+			get
+			{
+				return this._StandartItem.Entity;
+			}
+			set
+			{
+				StandartItem previousValue = this._StandartItem.Entity;
+				if (((previousValue != value) 
+							|| (this._StandartItem.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StandartItem.Entity = null;
+						previousValue.SelectedStandartItems.Remove(this);
+					}
+					this._StandartItem.Entity = value;
+					if ((value != null))
+					{
+						value.SelectedStandartItems.Add(this);
+						this._ItemId = value.Id;
+					}
+					else
+					{
+						this._ItemId = default(int);
+					}
+					this.SendPropertyChanged("StandartItem");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

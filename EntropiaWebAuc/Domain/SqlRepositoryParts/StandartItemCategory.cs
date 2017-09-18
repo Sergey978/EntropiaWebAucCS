@@ -35,6 +35,8 @@ instance.Id).FirstOrDefault();
             if (cache != null)
             {
                 //TODO : Update fields for StandartItemCategory
+                cache.Name = instance.Name;
+                cache.ParentId = instance.ParentId;
                 Db.StandartItemCategories.Context.SubmitChanges();
                 return true;
             }

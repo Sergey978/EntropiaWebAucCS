@@ -59,8 +59,14 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (category.Id != 0)
+                {
+                    repo.UpdateStandartItemCategory(category);
+                }
+                else
+                    repo.CreateStandartItemCategory(category);
 
-                repo.UpdateStandartItemCategory(category);
+              
                 TempData["message"] = string.Format("{0} has been saved", category.Name);
                 return RedirectToAction("Index");
             }
