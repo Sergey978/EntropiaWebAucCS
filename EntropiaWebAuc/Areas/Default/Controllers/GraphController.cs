@@ -49,7 +49,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
              .Select(item => new SelectedCustomItem()
              {
-                 Id = item.Id,
+                 Id = "custom-" + item.Id.ToString() ,
                  Name = item.Name,
                  Price = item.Price,
                  BeginQuantity = item.BeginQuantity,
@@ -64,7 +64,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 a => a.Id, b => b.ItemId , 
                 (a, b) => new ComplexStandartItem()
                 {
-                    Id = a.Id,
+                    Id = "standart-" + a.Id.ToString(),
                     Name = a.Name,
                     Price = a.Price,
                     BeginQuantity = b.BeginQuantity,
@@ -78,14 +78,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
         [HttpPost]
-        public ActionResult _GetItemJSON(int? val)
+        public ActionResult _GetItemJSON(string val)
         {
 
             RefreshViewModel();
             IItem selectedItem = null;
             if (val != null)
             {
-                selectedItem = ViewModel.Items.FirstOrDefault<IItem>(i => i.Id == val);
+                selectedItem = ViewModel.Items.FirstOrDefault<IItem>(i => i.Id.Equals(val));
             }
             return Json(new { Succes = "true", Data = selectedItem });
         }

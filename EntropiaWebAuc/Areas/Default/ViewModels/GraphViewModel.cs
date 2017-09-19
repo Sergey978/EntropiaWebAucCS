@@ -16,7 +16,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
     public class ComplexStandartItem : IItem
     {
              
-        public int Id { get; set; }
+        public string Id { get; set; }
                
         public string Name { get; set; }
               
@@ -34,7 +34,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
 
     public class SelectedCustomItem : IItem
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 

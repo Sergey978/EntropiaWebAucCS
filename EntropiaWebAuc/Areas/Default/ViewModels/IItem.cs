@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
 {
    public interface IItem
     {
-        int Id { get; set; }
+        string Id { get; set; }
         string Name { get; set; }
         decimal Price { get; set; }
     }
