@@ -1,56 +1,64 @@
 ﻿@model EntropiaWebAuc.Areas.Default.ViewModels.GraphViewModel
-
-<div class="form-group">
-    <div class="col-sm-1">
-        <label for="Item" class="control-label">Item</label>
-    </div>
-    <div class="col-sm-3">
-        @Html.DropDownListFor(model => model.Items,
+          
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="Item" class="control-label col-md-2">Item</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Items,
                         new SelectList(Model.Items, "Id", "Name"),
                                           new
                                           {
-                                              @class = "form-control col-sm-2",
+                                              @class = "form-control",
                                               @id = "Item"
                                           })
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+
+            <label for="purchasePrice" class="control-label col-md-7">Purchase Price</label>
+            <div class="col-md-5">
+                <input class="form-control" placeholder="" type="text" id="purchasePrice">
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="markup" class="control-label col-md-7">Markup</label>
+            <div class="col-md-5">
+                <input class="form-control" id="markup" placeholder="" type="text">
+            </div>
+        </div>
 
     </div>
-    <div class="col-sm-2">
-        <label for="purchasePrice" class="control-label">Purchase Price</label>
-    </div>
-    <div class="col-sm-1">
-        <input class="form-control" placeholder="" type="text" id="purchasePrice">
-    </div>
 
-    <div class="col-sm-2">
-        <label for="pricePeritem" class="control-label">Price Per Item</label>
-    </div>
-    <div class="col-sm-1">
-        <input class="form-control" placeholder="" type="text" id="pricePerItem">
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-1">
-        <label for="markup" class="control-label">Markup</label>
-    </div>
-    <div class="col-sm-3">
-        <input class="form-control" id="markup" placeholder="" type="text">
-    </div>
-    <div class="col-sm-2">
-        <label for="quantity" class="control-label">Begin Quantity</label>
-    </div>
-    <div class="col-sm-1">
-        <input class="form-control" id="quantity" placeholder="" type="text">
-    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="pricePeritem" class="control-label col-md-7">Price Per Item</label>
+            <div class="col-md-5">
+                <input class="form-control" placeholder="" type="text" id="pricePerItem">
+            </div>
+        </div>
 
-    <div class="col-sm-2">
-        <label for="step" class="control-label">Step</label>
+        <div class="form-group col-md-3">
+            <label for="quantity" class="control-label col-md-7">Begin Quantity</label>
+            <div class="col-md-5">
+                <input class="form-control" id="quantity" placeholder="" type="text">
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="step" class="control-label col-md-7">Step</label>
+            <div class="col-md-5">
+                <input class="form-control" id="step" placeholder="" type="text">
+            </div>
+        </div>
+
+        <div class="form-group col-md-2">
+            <button type="button" class="btn btn-success">Calc!</button>
+        </div>
     </div>
-    <div class="col-sm-1">
-        <input class="form-control" id="step" placeholder="" type="text">
-    </div>
-</div>
+   
 
 
+   
 <script type="text/javascript">
     $(function () {
         $("#Item").change(function () {
@@ -63,10 +71,10 @@
                         $("#quantity").val(res.Data.BeginQuantity);
                     }
                     else {
-                            alert("Error getting data!");
-                            }
-
+                        alert("Error getting data!");
                     }
+
+                }
 
                 );
             }
@@ -74,7 +82,7 @@
         }
         );
 
-         }
+    }
         );
 
 
