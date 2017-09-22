@@ -90,6 +90,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return Json(new { Succes = "true", Data = selectedItem });
         }
 
+    [HttpPost]
+        public ActionResult Calc()
+        {
+            return Index();
+        }
+
+
 
     }
 }
