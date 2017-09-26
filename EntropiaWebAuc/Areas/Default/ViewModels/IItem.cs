@@ -21,5 +21,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
         decimal? Markup { get; set; }
 
         decimal? PurchasePrice { get; set; }
+
+        
     }
 }

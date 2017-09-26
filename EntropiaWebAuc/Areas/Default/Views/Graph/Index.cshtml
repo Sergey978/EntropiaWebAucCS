@@ -3,10 +3,11 @@
 }
 <hr />
 <div class="container well">
+   @using(Html.BeginForm("calc", "Graph",  FormMethod.Post))
+    {
+    @Html.Action("_GetItem")
+    }
     
-    <form class="form-horizontal" role="form">
-            @Html.Action("_GetItem")
-    </form>
 </div>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="container">

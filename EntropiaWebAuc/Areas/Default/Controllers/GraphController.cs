@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain;
+using System.Diagnostics;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -45,9 +46,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             CurrentUserId = User.Identity.GetUserId();
 
             // получаем список выбранных кастомных элементов
-            ViewModel.SelectedCustomItems = repo.CustomItems
+            IEnumerable<IItem> selectedCustom = repo.CustomItems
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-             .Select(item => new SelectedCustomItem()
+             .Select(item => new Item()
              {
                  Id = "custom-" + item.Id.ToString() ,
                  Name = item.Name,
@@ -58,11 +59,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                  PurchasePrice = item.PurchasePrice
              });
             // select standart items that user has choise
-            ViewModel.ComplexSelectedStandartItems =
+            IEnumerable<IItem> selectedStandart =
                 repo.StandartItems.Join(repo.SelectedStandartItems
                 .Where(u =>u.UserId == CurrentUserId),
                 a => a.Id, b => b.ItemId , 
-                (a, b) => new ComplexStandartItem()
+                (a, b) => new Item()
                 {
                     Id = "standart-" + a.Id.ToString(),
                     Name = a.Name,
@@ -73,7 +74,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     PurchasePrice = b.PurchasePrice
                 });
 
-              ViewModel.Items = ViewModel.ComplexSelectedStandartItems.Concat<IItem>(ViewModel.SelectedCustomItems);
+              ViewModel.Items = selectedCustom.Concat<IItem>(selectedStandart);
             
         }
 
@@ -91,9 +92,29 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
     [HttpPost]
-        public ActionResult Calc()
+        public ActionResult Calc(FormCollection form)
         {
-            return Index();
+                    
+            if (ModelState.IsValid)
+            {
+               
+                ViewModel.SelectedItem = new Item()
+                {
+                    Id = form["Items"].ToString(),
+                    Name = "",
+                    Price = 0,
+                    BeginQuantity = Int32.Parse(form["quantity"]),
+                    Step = Int32.Parse(form["step"]),
+                    Markup = Decimal.Parse(form["markup"]),
+                    PurchasePrice = Decimal.Parse(form["purchasePrice"])
+                };
+
+            }
+
+
+
+
+            return RedirectToAction("Index");
         }
 
 

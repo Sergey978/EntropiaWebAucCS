@@ -17,13 +17,13 @@
 
             <label for="purchasePrice" class="control-label col-md-7">Purchase Price</label>
             <div class="col-md-5">
-                <input class="form-control" value="@Model.Items.First().PurchasePrice" type="text" id="purchasePrice">
+                <input class="form-control" value="@Model.Items.First().PurchasePrice" type="text" name="purchasePrice" id="purchasePrice">
             </div>
         </div>
         <div class="form-group col-md-3">
             <label for="markup" class="control-label col-md-7">Markup</label>
             <div class="col-md-5">
-                <input class="form-control" id="markup" value="@Model.Items.First().Markup" type="text">
+                <input class="form-control" name="markup" id="markup" value="@Model.Items.First().Markup" type="text">
             </div>
         </div>
 
@@ -33,21 +33,21 @@
         <div class="form-group col-md-4">
             <label for="pricePeritem" class="control-label col-md-7">Price Per Item</label>
             <div class="col-md-5">
-                <input class="form-control" value="@Model.Items.First().Price" type="text" id="pricePerItem">
+                <input class="form-control" value="@Model.Items.First().Price" type="text" name="pricePerItem" id="pricePerItem">
             </div>
         </div>
 
         <div class="form-group col-md-3">
             <label for="quantity" class="control-label col-md-7">Begin Quantity</label>
             <div class="col-md-5">
-                <input class="form-control" id="quantity" value="@Model.Items.First().BeginQuantity" type="text">
+                <input class="form-control" name="quantity" id="quantity" value="@Model.Items.First().BeginQuantity" type="text">
             </div>
         </div>
 
         <div class="form-group col-md-3">
             <label for="step" class="control-label col-md-7">Step</label>
             <div class="col-md-5">
-                <input class="form-control" id="step" value="@Model.Items.First().Step" type="text">
+                <input class="form-control" name="step" id="step" value="@Model.Items.First().Step" type="text">
             </div>
         </div>
 
