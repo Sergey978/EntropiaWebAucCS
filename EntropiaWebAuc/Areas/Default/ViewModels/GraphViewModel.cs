@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace EntropiaWebAuc.Areas.Default.ViewModels
 {
     public class GraphViewModel
     {
         
-        public IEnumerable<IItem> Items { get; set; }
-        public IItem SelectedItem { get; set; }
-
+        public IEnumerable<Item> Items { get; set; }
+        public Item SelectedItem { get; set; }
         public static void SaveItem(IItem item )
         {
 
