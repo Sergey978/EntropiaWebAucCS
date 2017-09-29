@@ -54,7 +54,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             // получаем список выбранных кастомных элементов
             IEnumerable<Item> selectedCustom = repo.CustomItems
              .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
-             .Select(item => new SelectedCustomItem()
+             .Select(item => new Item()
              {
                  Id = "custom-" + item.Id.ToString(),
                  Name = item.Name,
@@ -81,6 +81,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 });
 
               ViewModel.Items = selectedCustom.Concat<Item>(selectedStandart);
+            // Если не выбраны елементы создадим пустой елемент для отображения в списке
+            if (ViewModel.Items.Count() == 0)
+            {
+                ViewModel.Items.Concat(new [] {new Item () {Id = "noelement", Name = "No Element", Price = 0 }});
+            }
             if(ViewModel.SelectedItem == null)
             {
                 ViewModel.SelectedItem = ViewModel.Items.FirstOrDefault<Item>();
