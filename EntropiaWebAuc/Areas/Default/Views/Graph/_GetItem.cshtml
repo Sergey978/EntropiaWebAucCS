@@ -18,14 +18,12 @@
             <label for="purchasePrice" class="control-label col-md-7">Purchase Price</label>
             <div class="col-md-5">
                 <input class="form-control" value="@Model.SelectedItem.PurchasePrice" type="text" name="purchasePrice" id="purchasePrice">
-                @Html.ValidationMessageFor(model => model.SelectedItem.PurchasePrice)
             </div>
         </div>
         <div class="form-group col-md-3">
             <label for="markup" class="control-label col-md-7">Markup</label>
             <div class="col-md-5">
                 <input class="form-control" name="markup" id="markup" value="@Model.SelectedItem.Markup" type="text">
-                @Html.ValidationMessageFor(model => model.SelectedItem.Markup)
             </div>
         </div>
 
@@ -35,7 +33,7 @@
         <div class="form-group col-md-4">
             <label for="pricePeritem" class="control-label col-md-7">Price Per Item</label>
             <div class="col-md-5">
-                <input class="form-control" value="@Model.SelectedItem.Price" type="text" name="pricePerItem" id="pricePerItem">               
+                <input class="form-control" value="@Model.SelectedItem.Price" type="text" name="pricePerItem" id="pricePerItem">
             </div>
         </div>
 
@@ -43,7 +41,6 @@
             <label for="quantity" class="control-label col-md-7">Begin Quantity</label>
             <div class="col-md-5">
                 <input class="form-control" name="quantity" id="quantity" value="@Model.SelectedItem.BeginQuantity" type="text">
-                @Html.ValidationMessageFor(model => model.SelectedItem.BeginQuantity)
             </div>
         </div>
 
@@ -51,7 +48,6 @@
             <label for="step" class="control-label col-md-7">Step</label>
             <div class="col-md-5">
                 <input class="form-control" name="step" id="step" value="@Model.SelectedItem.Step" type="text">
-                @Html.ValidationMessageFor(model => model.SelectedItem.Step)
             </div>
         </div>
 

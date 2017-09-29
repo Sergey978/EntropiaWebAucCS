@@ -1,9 +1,9 @@
 ﻿using EntropiaWebAuc.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace EntropiaWebAuc.Areas.Default.ViewModels
 {
@@ -12,7 +12,6 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
         
         public IEnumerable<Item> Items { get; set; }
         public Item SelectedItem { get; set; }
-
         public static void SaveItem(IItem item )
         {
 
@@ -27,20 +26,12 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
 
         public decimal Price { get; set; }
 
-       
-        [Display(Name = "Begin Quantity")]
         public int? BeginQuantity { get; set; }
 
-       
-        [Display(Name = "Step")]
         public int? Step { get; set; }
 
-       
-        [Display(Name = "Markup")]
         public decimal? Markup { get; set; }
 
-      
-        [Display(Name = "Purchase Price")]
         public decimal? PurchasePrice { get; set; }
 
        

@@ -10,6 +10,7 @@ using EntropiaWebAuc.Domain;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
+    [Authorize]
     public class GraphController : Controller
     {
         public GraphViewModel ViewModel;
@@ -27,10 +28,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
 
         // GET: Default/Draw
-        public ActionResult Index()
+        public ActionResult Index(GraphViewModel model)
         {
+           
+            if (model.SelectedItem == null)
+            {
+                RefreshViewModel();
+            }
+            
 
-            return View();
+            return View(model);
         }
 
         public PartialViewResult _GetItem()
@@ -58,7 +65,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                  PurchasePrice = item.PurchasePrice
              });
             // select standart items that user has choise
-            IEnumerable<IItem> selectedStandart =
+            IEnumerable<Item> selectedStandart =
                 repo.StandartItems.Join(repo.SelectedStandartItems
                 .Where(u =>u.UserId == CurrentUserId),
                 a => a.Id, b => b.ItemId , 
@@ -73,7 +80,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     PurchasePrice = b.PurchasePrice
                 });
 
-              ViewModel.Items = selectedCustom.Concat<IItem>(selectedStandart);
+              ViewModel.Items = selectedCustom.Concat<Item>(selectedStandart);
+            if(ViewModel.SelectedItem == null)
+            {
+                ViewModel.SelectedItem = ViewModel.Items.FirstOrDefault<Item>();
+            }
             
         }
 
