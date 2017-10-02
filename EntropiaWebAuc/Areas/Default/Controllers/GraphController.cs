@@ -82,9 +82,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
               ViewModel.Items = selectedCustom.Concat<Item>(selectedStandart);
             // Если не выбраны елементы создадим пустой елемент для отображения в списке
-            if (ViewModel.Items.Count() == 0)
+            if (!ViewModel.Items.Any<Item>())
             {
-                ViewModel.Items.Concat(new [] {new Item () {Id = "noelement", Name = "No Element", Price = 0 }});
+                ViewModel.Items = new Item [] {new Item (){Id = "noelement", Name = "No Element", Price = 0 }};
             }
             if(ViewModel.SelectedItem == null)
             {
