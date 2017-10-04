@@ -82,9 +82,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
               ViewModel.Items = selectedCustom.Concat<Item>(selectedStandart);
             // Если не выбраны елементы создадим пустой елемент для отображения в списке
-            if (!ViewModel.Items.Any<Item>())
+            if (ViewModel.Items.Count() == 0)
             {
-                ViewModel.Items = new Item [] {new Item (){Id = "noelement", Name = "No Element", Price = 0 }};
+                ViewModel.Items.Concat(new [] {new Item () {Id = "noelement", Name = "No Element", Price = 0 }});
             }
             if(ViewModel.SelectedItem == null)
             {
@@ -107,7 +107,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
     [HttpPost]
-        public ActionResult Calc(FormCollection form)
+        public ActionResult Calc([Bind(Exclude="Items")]GraphViewModel model)
         {
                     
             if (ModelState.IsValid)
@@ -115,6 +115,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                
                 ViewModel.SelectedItem = new Item()
                 {
+                    /*
                     Id = form["Items"].ToString(),
                     Name = "",
                     Price = 0,
@@ -122,14 +123,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     Step = Int32.Parse(form["step"]),
                     Markup = Decimal.Parse(form["markup"]),
                     PurchasePrice = Decimal.Parse(form["purchasePrice"])
+                     */
                 };
 
+                return RedirectToAction("Index");
             }
-
-
-
-
             return RedirectToAction("Index");
+
         }
 
 

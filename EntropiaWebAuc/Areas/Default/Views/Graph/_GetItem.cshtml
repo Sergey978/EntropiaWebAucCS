@@ -1,64 +1,66 @@
 ﻿@model EntropiaWebAuc.Areas.Default.ViewModels.GraphViewModel
-          
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label for="Item" class="control-label col-md-2">Item</label>
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Items,
+
+<div class="row">
+    <div class="form-group col-md-4">
+        <label for="Item" class="control-label col-md-2">Item</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Items,
                         new SelectList(Model.Items, "Id", "Name"),
                                           new
                                           {
                                               @class = "form-control",
                                               @id = "Item"
                                           })
-            </div>
-        </div>
-        <div class="form-group col-md-3">
-
-            <label for="purchasePrice" class="control-label col-md-7">Purchase Price</label>
-            <div class="col-md-5">
-                <input class="form-control" value="@Model.SelectedItem.PurchasePrice" type="text" name="purchasePrice" id="purchasePrice">
-            </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="markup" class="control-label col-md-7">Markup</label>
-            <div class="col-md-5">
-                <input class="form-control" name="markup" id="markup" value="@Model.SelectedItem.Markup" type="text">
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label for="pricePeritem" class="control-label col-md-7">Price Per Item</label>
-            <div class="col-md-5">
-                <input class="form-control" value="@Model.SelectedItem.Price" type="text" name="pricePerItem" id="pricePerItem">
-            </div>
-        </div>
-
-        <div class="form-group col-md-3">
-            <label for="quantity" class="control-label col-md-7">Begin Quantity</label>
-            <div class="col-md-5">
-                <input class="form-control" name="quantity" id="quantity" value="@Model.SelectedItem.BeginQuantity" type="text">
-            </div>
-        </div>
-
-        <div class="form-group col-md-3">
-            <label for="step" class="control-label col-md-7">Step</label>
-            <div class="col-md-5">
-                <input class="form-control" name="step" id="step" value="@Model.SelectedItem.Step" type="text">
-            </div>
-        </div>
-
-        <div class="form-group col-md-2">
-            <button type="submit" class="btn btn-success">Calc!</button>
         </div>
     </div>
-   
+    <div class="form-group col-md-3">
+
+        <label for="purchasePrice" class="control-label col-md-7">Purchase Price</label>
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.SelectedItem.PurchasePrice, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <label for="markup" class="control-label col-md-7">Markup</label>
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.SelectedItem.Markup, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SelectedItem.Markup)
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="form-group col-md-4">
+        <label for="pricePeritem" class="control-label col-md-7">Price Per Item</label>
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.SelectedItem.Price, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-3">
+        <label for="quantity" class="control-label col-md-7">Begin Quantity</label>
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.SelectedItem.BeginQuantity, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SelectedItem.BeginQuantity)
+        </div>
+    </div>
+
+    <div class="form-group col-md-3">
+        <label for="step" class="control-label col-md-7">Step</label>
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.SelectedItem.Step, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-2">
+        <button type="submit" class="btn btn-success">Calc!</button>
+    </div>
+</div>
 
 
-   
+
+
 <script type="text/javascript">
     $(function () {
         $("#Item").change(function () {
@@ -66,11 +68,11 @@
             if (t != "") {
                 $.post("@Url.Action("_GetItemJSON", "Graph")?val=" + t, function (res) {
                     if (res.Succes === "true") {
-                        $("#markup").val(res.Data.Markup);
-                        $("#quantity").val(res.Data.BeginQuantity);
-                        $("#pricePerItem").val(res.Data.Price);
-                        $("#purchasePrice").val(res.Data.PurchasePrice);
-                        $("#step").val(res.Data.Step)
+                        $("#SelectedItem_Markup").val(res.Data.Markup);
+                        $("#SelectedItem_BeginQuantity").val(res.Data.BeginQuantity);
+                        $("#SelectedItem_Price").val(res.Data.Price);
+                        $("#SelectedItem_PurchasePrice").val(res.Data.PurchasePrice);
+                        $("#SelectedItem_Step").val(res.Data.Step)
                     }
                     else {
                         alert("Error getting data!");
