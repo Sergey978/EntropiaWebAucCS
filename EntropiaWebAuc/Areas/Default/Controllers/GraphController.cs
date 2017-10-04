@@ -28,16 +28,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
 
         // GET: Default/Draw
-        public ActionResult Index(GraphViewModel model)
+        public ActionResult Index(Item selectedItem)
         {
-           
-            if (model.SelectedItem == null)
+            ViewModel.SelectedItem = selectedItem;
+            if (ViewModel.SelectedItem == null)
             {
                 RefreshViewModel();
             }
             
 
-            return View(model);
+            return View(ViewModel);
         }
 
         public PartialViewResult _GetItem()
@@ -82,9 +82,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
               ViewModel.Items = selectedCustom.Concat<Item>(selectedStandart);
             // Если не выбраны елементы создадим пустой елемент для отображения в списке
-            if (ViewModel.Items.Count() == 0)
+            if (!ViewModel.Items.Any<Item>())
             {
-                ViewModel.Items.Concat(new [] {new Item () {Id = "noelement", Name = "No Element", Price = 0 }});
+                ViewModel.Items = new Item[] { new Item() { Id = "noelement", Name = "No Element", Price = 0 } };
             }
             if(ViewModel.SelectedItem == null)
             {
@@ -107,7 +107,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
     [HttpPost]
-        public ActionResult Calc([Bind(Exclude="Items")]GraphViewModel model)
+        public ActionResult Calc(Item selectedItem)
         {
                     
             if (ModelState.IsValid)
@@ -128,7 +128,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View("Index", selectedItem);
 
         }
 
