@@ -2,12 +2,16 @@
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
 <hr />
+
 <div class="container well">
-   @using(Html.BeginForm("calc", "Graph",  FormMethod.Post))
+
+    @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem"}))
     {
-    @Html.Action("_GetItem")
+        <div id="getItem">
+            @Html.Action("_GetItem")
+        </div>
     }
-    
+
 </div>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="container">

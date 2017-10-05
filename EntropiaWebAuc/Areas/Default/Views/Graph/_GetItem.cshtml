@@ -24,7 +24,7 @@
         <label for="markup" class="control-label col-md-7">Markup</label>
         <div class="col-md-5">
             @Html.TextBoxFor(model => model.SelectedItem.Markup, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.SelectedItem.Markup)
+            @Html.ValidationMessageFor(model => model.SelectedItem.Markup,"", new { @class = "text-danger" })
         </div>
     </div>
 

@@ -28,9 +28,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
 
         // GET: Default/Draw
-        public ActionResult Index(Item selectedItem)
+        public ActionResult Index()
         {
-            ViewModel.SelectedItem = selectedItem;
+            
             if (ViewModel.SelectedItem == null)
             {
                 RefreshViewModel();
@@ -44,6 +44,31 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             RefreshViewModel();
             return PartialView("_GetItem", ViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult _GetItem([Bind(Exclude="Items")]GraphViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                ViewModel.SelectedItem = new Item()
+                {
+                    /*
+                    Id = form["Items"].ToString(),
+                    Name = "",
+                    Price = 0,
+                    BeginQuantity = Int32.Parse(form["quantity"]),
+                    Step = Int32.Parse(form["step"]),
+                    Markup = Decimal.Parse(form["markup"]),
+                    PurchasePrice = Decimal.Parse(form["purchasePrice"])
+                     */
+                };
+
+                return RedirectToAction("_GetItem");
+            }
+            model.Items = ViewModel.Items;
+            return PartialView(model);
         }
 
 
@@ -106,33 +131,6 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return Json(new { Succes = "true", Data = selectedItem });
         }
 
-    [HttpPost]
-        public ActionResult Calc(Item selectedItem)
-        {
-                    
-            if (ModelState.IsValid)
-            {
-               
-                ViewModel.SelectedItem = new Item()
-                {
-                    /*
-                    Id = form["Items"].ToString(),
-                    Name = "",
-                    Price = 0,
-                    BeginQuantity = Int32.Parse(form["quantity"]),
-                    Step = Int32.Parse(form["step"]),
-                    Markup = Decimal.Parse(form["markup"]),
-                    PurchasePrice = Decimal.Parse(form["purchasePrice"])
-                     */
-                };
-
-                return RedirectToAction("Index");
-            }
-            return View("Index", selectedItem);
-
-        }
-
-
-
+   
     }
 }
