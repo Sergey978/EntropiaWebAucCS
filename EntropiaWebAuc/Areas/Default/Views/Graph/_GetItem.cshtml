@@ -4,7 +4,7 @@
     <div class="form-group col-md-4">
         <label for="Item" class="control-label col-md-2">Item</label>
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Items,
+            @Html.DropDownListFor(model => model.SelectedItem.Id,
                         new SelectList(Model.Items, "Id", "Name"),
                                           new
                                           {
