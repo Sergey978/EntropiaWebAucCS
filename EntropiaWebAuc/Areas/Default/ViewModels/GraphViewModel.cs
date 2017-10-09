@@ -17,18 +17,27 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
 
     public class Item : IItem
     {
+        
         public string Id { get; set; }
 
+        
         public string Name { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
         public int? BeginQuantity { get; set; }
 
+        [Required]
         public int? Step { get; set; }
 
+        [Required]
+        [Range(typeof(decimal), "0.0", "10000")]
         public decimal? Markup { get; set; }
 
+        [Required]
+        [Range(typeof(decimal), "0.0", "10000")]
         public decimal? PurchasePrice { get; set; }
 
 
