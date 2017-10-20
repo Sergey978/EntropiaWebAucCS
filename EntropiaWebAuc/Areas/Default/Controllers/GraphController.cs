@@ -63,6 +63,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     PurchasePrice = Decimal.Parse(form["SelectedItem.PurchasePrice"])
                     
                 };
+                ViewModel.SaveItem(ViewModel.SelectedItem, User.Identity.GetUserId());
                 
                 return RedirectToAction("_GetItem", ViewModel.SelectedItem);
             }
