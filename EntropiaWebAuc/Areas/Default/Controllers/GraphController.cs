@@ -57,8 +57,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     
                     Id = form["SelectedItem.Id"].ToString(),
-                    Name = "",
-                    Price = 0,
+                    Name = model.SelectedItem.Name,
+                    Price = model.SelectedItem.Price,
                     BeginQuantity = Int32.Parse(form["SelectedItem.BeginQuantity"]),
                     Step = Int32.Parse(form["SelectedItem.Step"]),
                     Markup = Decimal.Parse(form["SelectedItem.Markup"]),
@@ -121,7 +121,6 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
 
-       
 
         [HttpPost]
         public ActionResult _GetItemJSON(string val)
@@ -137,8 +136,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
         public void SaveItem(IItem item, String userId)
         {
+
             String typeItem = item.Id.Split('-')[0];
             int id = Int32.Parse(item.Id.Split('-')[1]);
+
 
             if (typeItem.Equals("custom"))
             {
