@@ -38,6 +38,11 @@ namespace EntropiaWebAuc.Domain
             if (cache != null)
             {
                 //TODO : Update fields for SelectedStandartItem
+                cache.BeginQuantity = instance.BeginQuantity;
+                cache.Step = instance.Step;
+                cache.Markup = instance.Markup;
+                cache.PurchasePrice = instance.PurchasePrice;
+
                 Db.SelectedStandartItems.Context.SubmitChanges();
                 return true;
             }

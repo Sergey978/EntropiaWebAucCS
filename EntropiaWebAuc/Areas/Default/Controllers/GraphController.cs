@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain;
+using Ninject;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -15,11 +16,12 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     {
         public GraphViewModel ViewModel;
 
-        private IRepository repo;
+        [Inject]
+        public IRepository Repo {get; set;}
 
-        public GraphController(IRepository repo)
+        public GraphController()
         {
-            this.repo = repo;
+            
             this.ViewModel = new GraphViewModel();
 
         }
@@ -63,7 +65,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     PurchasePrice = Decimal.Parse(form["SelectedItem.PurchasePrice"])
                     
                 };
-                ViewModel.SaveItem(ViewModel.SelectedItem, User.Identity.GetUserId());
+               SaveItem(ViewModel.SelectedItem, User.Identity.GetUserId());
                 
                 return RedirectToAction("_GetItem", ViewModel.SelectedItem);
             }
@@ -79,7 +81,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             String userId = User.Identity.GetUserId();
             IEnumerable<Item> userItems;
             // получаем список выбранных кастомных элементов
-            IEnumerable<Item> selectedCustom = repo.CustomItems
+            IEnumerable<Item> selectedCustom = Repo.CustomItems
              .Where<CustomItem>(c => c.UserId == userId && (c.Chosed == true))
              .Select(item => new Item()
              {
@@ -94,7 +96,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             // select standart items that user has choise
             IEnumerable<Item> selectedStandart =
-                repo.StandartItems.Join(repo.SelectedStandartItems
+                Repo.StandartItems.Join(Repo.SelectedStandartItems
                 .Where(u => u.UserId == userId),
                 a => a.Id, b => b.ItemId,
                 (a, b) => new Item()
@@ -131,6 +133,42 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 selectedItem = ViewModel.Items.FirstOrDefault<IItem>(i => i.Id.Equals(val));
             }
             return Json(new { Succes = "true", Data = selectedItem });
+        }
+
+        public void SaveItem(IItem item, String userId)
+        {
+            String typeItem = item.Id.Split('-')[0];
+            int id = Int32.Parse(item.Id.Split('-')[1]);
+
+            if (typeItem.Equals("custom"))
+            {
+
+                CustomItem cache = Repo.CustomItems.FirstOrDefault<CustomItem>(c => c.Id == id);
+
+                cache.BeginQuantity = item.BeginQuantity;
+                cache.Step = item.Step;
+                cache.Markup = item.Markup;
+                cache.PurchasePrice = item.PurchasePrice;
+
+                Repo.UpdateCustomItem(cache);
+            }
+            else if (typeItem.Equals("standart"))
+            {
+                SelectedStandartItem cache = Repo.SelectedStandartItems
+                    .FirstOrDefault<SelectedStandartItem>
+                    (c => c.ItemId == id && c.UserId == userId);
+
+                cache.BeginQuantity = item.BeginQuantity;
+                cache.Step = item.Step;
+                cache.Markup = item.Markup;
+                cache.PurchasePrice = item.PurchasePrice;
+
+                Repo.UpdateSelectedStandartItem(cache);
+
+            }
+
+
+
         }
 
    
