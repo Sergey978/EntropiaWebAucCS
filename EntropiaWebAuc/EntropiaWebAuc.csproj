@@ -210,6 +210,7 @@
     <Content Include="DatabaseScript\ConnectionDBHome.txt" />
     <Content Include="DatabaseScript\ConnectionDBWork.txt" />
     <Content Include="DatabaseScript\entropia.sql" />
+    <Content Include="DatabaseScript\ToDoPlan.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
