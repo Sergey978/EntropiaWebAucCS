@@ -13,39 +13,8 @@ var params = {
     stepY: 0.1 //шаг сетки по y в ped
 };
 
-var userData = {
-    pointLimit: 100, //ограничение на количество точек
-    items:[{
-            name          : 'Animal Adrenal Oil',
-            pricePerItem  : 0.2,
-            purchasePrice : 102.5,
-            markup        : 2,
-            quantity      : 1800,
-            stepQuantity  : 1,
-            ky: 1000, // коэф Масштабирования шкалы по у
-            kx: 50, // коэф Масштабирования шкалы по x , количество пикселей на %
-            selectedPoint : null
-            } ,
-            {
-            name          : 'Animal Muscle Oil',
-            pricePerItem  : 0.03,
-            purchasePrice : 102.5,
-            markup        : 2,
-            quantity      : 1800,
-            stepQuantity  : 1,
-            ky: 1000, // коэф Масштабирования шкалы по у
-            kx: 50, // коэф Масштабирования шкалы по x , количество пикселей на %
-            selectedPoint : null
-            } 
-            
-        
-    ]
-    
-};
-
 // параметры объекта
 var item = {
-    name          : 'Muscle Oil',
     pricePerItem  : 0.03,
     purchasePrice : 102.5,
     markup        : 2,
@@ -63,8 +32,14 @@ var item = {
  */
    var table  = [];
 
-$(document).ready(function(){
-    
+function populateChartAndTable() {
+       item.purchasePrice = Number($("#SelectedItem_PurchasePrice").val());
+       item.pricePerItem = Number($("#SelectedItem_Price").val());
+       item.markup = Number($("#SelectedItem_Markup").val());
+       item.beginQuantity = Number($("#SelectedItem_BeginQuantity").val());
+       item.stepQuantity = Number($("#SelectedItem_Step").val());
+
+
     
     calcTable();
     printTable();
@@ -112,22 +87,8 @@ document.getElementById('tbody').addEventListener("click",function(event){
     e.preventDefault();
     });
 
-});
+};
 
-// заполнения списка item
-/*
-function fillItems(){
-    userData.items.forEach(function(item){
-        var itemOption = document.createElement('OPTION');
-        var textOption = document.createTextNode(item.name);
-        itemOption.appendChild(textOption);
-        document.getElementById("items").appendChild(itemOption);
-        
-    });
-   
-}
-
- */
 
 
 // отрисовка осей

@@ -5,7 +5,9 @@
 
 <div class="container well">
 
-    @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem"}))
+    @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem",
+                                                      OnSuccess = "populateChartAndTable"
+    }))
     {
         <div id="getItem">
             @Html.Action("_GetItem")
