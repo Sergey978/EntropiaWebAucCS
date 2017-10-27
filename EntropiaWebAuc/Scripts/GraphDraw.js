@@ -257,11 +257,9 @@ function clickRow(event){
             
              if (   table[item.selectedPoint][2] < 0){
                  selectedRow.className = "danger";
-                 console.log("danger");
              redrawChart();
          }
              else {
-                 console.log("succes");
                  selectedRow.className = "success";
 
                 redrawChart();
@@ -269,7 +267,6 @@ function clickRow(event){
             }
             
              if (oldRow !== null) {
-                 console.log("old row");
              oldRow.className = "";
          }
          
