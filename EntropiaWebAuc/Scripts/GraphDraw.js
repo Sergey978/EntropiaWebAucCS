@@ -30,64 +30,68 @@ var item = {
 /*
        quantity , sellingPrice ,profit,tax,markup
  */
-   var table  = [];
-
+   
+var table = [];
 function populateChartAndTable() {
        item.purchasePrice = Number($("#SelectedItem_PurchasePrice").val());
        item.pricePerItem = Number($("#SelectedItem_Price").val());
        item.markup = Number($("#SelectedItem_Markup").val());
        item.beginQuantity = Number($("#SelectedItem_BeginQuantity").val());
        item.stepQuantity = Number($("#SelectedItem_Step").val());
+       item.quantity = item.beginQuantity + 500;
 
 
-    
+    table  = [];
     calcTable();
     printTable();
     redrawChart();
     scrollToFirstPoint();
 
- //обработка клика по точке
+};
 
-document.getElementById('graph').addEventListener("click",function(event){
-    clickPoint(event);
-});
+$(document).ready(function () {
+    //обработка клика по точке
 
-
-        //обработка клика по таблице
-document.getElementById('tbody').addEventListener("click",function(event){
-    clickRow(event);
-    
-});
-
-//масштабирование колесиком мыши
-  addOnWheel(graph, function(e) {
-      var delta = e.deltaY || e.detail || e.wheelDelta;
-	  var graphContainer = $('.graph-container');
-	 var scrollX =  graphContainer.scrollLeft();
-         var scrollY =  graphContainer.scrollTop();
-	  
-      // отмасштабируем при помощи CSS
-      if (delta > 0){
-           item.kx += 5  ;
-           item.ky += 5  ;
-        $(graphContainer).scrollLeft(scrollX + 5 * params.stepX ); 
-        $(graphContainer).scrollTop(scrollY + 5 * params.stepY );
-      }
-      else
-         if (item.kx > 5 && item.ky > 5){
-             item.kx -= 5  ;
-             item.ky -= 5  ;
-             
-        $(graphContainer).scrollLeft(scrollX - 5 * params.stepX ); 
-        $(graphContainer).scrollTop(scrollY - 5 * params.stepY );
-			
-         };
-     redrawChart();
-    // отменим прокрутку 
-    e.preventDefault();
+    document.getElementById('graph').addEventListener("click", function (event) {
+        clickPoint(event);
     });
 
-};
+
+    //обработка клика по таблице
+    document.getElementById('tbody').addEventListener("click", function (event) {
+        clickRow(event);
+
+    });
+
+    //масштабирование колесиком мыши
+    addOnWheel(graph, function (e) {
+        var delta = e.deltaY || e.detail || e.wheelDelta;
+        var graphContainer = $('.graph-container');
+        var scrollX = graphContainer.scrollLeft();
+        var scrollY = graphContainer.scrollTop();
+
+        // отмасштабируем при помощи CSS
+        if (delta > 0) {
+            item.kx += 5;
+            item.ky += 5;
+            $(graphContainer).scrollLeft(scrollX + 5 * params.stepX);
+            $(graphContainer).scrollTop(scrollY + 5 * params.stepY);
+        }
+        else
+            if (item.kx > 5 && item.ky > 5) {
+                item.kx -= 5;
+                item.ky -= 5;
+
+                $(graphContainer).scrollLeft(scrollX - 5 * params.stepX);
+                $(graphContainer).scrollTop(scrollY - 5 * params.stepY);
+
+            };
+        redrawChart();
+        // отменим прокрутку 
+        e.preventDefault();
+    });
+
+});
 
 
 
@@ -167,7 +171,6 @@ function printTable(){
      $('#tbody').empty();
     for (var i = item.beginQuantity; i <= item.quantity; i +=item.stepQuantity){
 
-     
       rows += '<tr  id = "row-' + j +'">\n' +
                  '<td class="col-xs-2 text-center">' + table[j][0] + '</td>\n' +
                  '<td class="col-xs-3 text-center">' + table[j][1] + '</td>\n' +
@@ -253,16 +256,20 @@ function clickRow(event){
          selectedRow = document.getElementById('row-' + item.selectedPoint);
             
              if (   table[item.selectedPoint][2] < 0){
-             selectedRow.className = "danger";
+                 selectedRow.className = "danger";
+                 console.log("danger");
              redrawChart();
          }
-            else {
-                selectedRow.className = "success";
+             else {
+                 console.log("succes");
+                 selectedRow.className = "success";
+
                 redrawChart();
                 scrollToSelectedPoint();
             }
             
-         if (oldRow !== null ){
+             if (oldRow !== null) {
+                 console.log("old row");
              oldRow.className = "";
          }
          
