@@ -26,8 +26,8 @@ var item = {
     selectedPoint : null
 };
 
-// расчитанная таблица
 /*
+        таблица
        quantity , sellingPrice ,profit,tax,markup
  */
    
@@ -42,7 +42,12 @@ function populateChartAndTable() {
 
 
     table  = [];
-    calcTable();
+    var MaxXY = calcTable();
+
+    item.ky = (params.oyn + params.ly) / MaxXY.y;
+    item.kx = (   params.lx - 100 - params.oxn) / (MaxXY.x - 100 ) ;
+    console.log(item.kx);
+
     printTable();
     redrawChart();
     scrollToFirstPoint();
@@ -72,15 +77,15 @@ $(document).ready(function () {
 
         // отмасштабируем при помощи CSS
         if (delta > 0) {
-            item.kx += 5;
-            item.ky += 5;
+            item.kx = item.kx + (item.kx / 100) * 5;
+            item.ky = item.ky + (item.ky / 100) * 5;
             $(graphContainer).scrollLeft(scrollX + 5 * params.stepX);
             $(graphContainer).scrollTop(scrollY + 5 * params.stepY);
         }
         else
             if (item.kx > 5 && item.ky > 5) {
-                item.kx -= 5;
-                item.ky -= 5;
+                item.kx = item.kx - (item.kx / 100) * 5;
+                item.ky = item.ky - (item.ky / 100) * 5;
 
                 $(graphContainer).scrollLeft(scrollX - 5 * params.stepX);
                 $(graphContainer).scrollTop(scrollY - 5 * params.stepY);
@@ -151,17 +156,21 @@ function drawGrid(){
 
 
 function calcTable (){
+
+    var MaxParams = { y: 0, x: 0 };
     var j = 0;
     for (var i = item.beginQuantity; i <= item.quantity; i +=item.stepQuantity){
-
         sellingPrice = (i * item.pricePerItem + item.markup).toFixed(0);
         markup =   sellingPrice - (item.pricePerItem * i) ;
         tax = 0.5 + markup * 99.5/(1990 + markup);
         profit = sellingPrice - (item.pricePerItem * item.purchasePrice * i / 100) - tax;
         table[j] = [i, sellingPrice, profit.toFixed(2), tax.toFixed(2),
-            (sellingPrice /(i * item.pricePerItem ) * 100).toFixed(2)];
+            (sellingPrice / (i * item.pricePerItem) * 100).toFixed(2)];
+        if (MaxParams.x < table[j][4]) MaxParams.x = table[j][4];
+        if (MaxParams.y < profit) MaxParams.y = profit;
          j++;
     }
+    return MaxParams;
 }
 
 function printTable(){
@@ -303,7 +312,7 @@ function scrollToFirstPoint(){
             x = 100 + params.oxn +  (table[i][4] - 100)  * item.kx;
             if ( x > params.oxn + params.lx) continue;
             y = params.oyn + params.ly - table[i][2] * item.ky;
-            if ( y >params.oyn + params.ly) continue;
+            if ( y < 0) continue;
             pointFound = true;
             break;
         }
@@ -335,11 +344,10 @@ function scrollToSelectedPoint(){
      var x, y;
     graphContainer =  $('.graph-container');
     
-   
       x = 100 + params.oxn +  (table[item.selectedPoint][4] - 100)  * item.kx;
       y = params.oyn + params.ly - table[item.selectedPoint][2] * item.ky;
        // если точка в видимой области графика
-        if (x <= params.oxn + params.lx && y <= params.oyn + params.ly   ){
+        if (x <= params.oxn + params.lx && y >= 0   ){
            
             centerX = graphContainer.width();
             centerY = graphContainer.height();
@@ -349,6 +357,7 @@ function scrollToSelectedPoint(){
         
         }
         else {
+
             x =  graphContainer.scrollLeft() + 100;
             y =  graphContainer.scrollTop() + 100 ;
             
