@@ -32,7 +32,9 @@ var item = {
  */
    
 var table = [];
-function populateChartAndTable() {
+function populateChartAndTable(data) {
+    if (data.indexOf("field-validation-error") > -1) return;
+    
        item.purchasePrice = Number($("#SelectedItem_PurchasePrice").val());
        item.pricePerItem = Number($("#SelectedItem_Price").val());
        item.markup = Number($("#SelectedItem_Markup").val());
@@ -42,16 +44,16 @@ function populateChartAndTable() {
 
 
     table  = [];
+    console.log("succes2");
     var MaxXY = calcTable();
 
     item.ky = (params.oyn + params.ly) / MaxXY.y;
     item.kx = (   params.lx - 100 - params.oxn) / (MaxXY.x - 100 ) ;
-    console.log(item.kx);
-
+   
     printTable();
     redrawChart();
     scrollToFirstPoint();
-
+ 
 };
 
 $(document).ready(function () {
