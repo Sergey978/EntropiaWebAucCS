@@ -79,18 +79,28 @@ $(document).ready(function () {
 
         // отмасштабируем при помощи CSS
         if (delta > 0) {
+            kx0 = item.kx;
+            ky0 = item.ky;
             item.kx = item.kx + (item.kx / 100) * 5;
             item.ky = item.ky + (item.ky / 100) * 5;
-            $(graphContainer).scrollLeft(scrollX + 5 * params.stepX);
-            $(graphContainer).scrollTop(scrollY + 5 * params.stepY);
+            $(graphContainer)
+                .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
+
+            $(graphContainer)
+                .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0 );
         }
         else
             if (item.kx > 5 && item.ky > 5) {
+                kx0 = item.kx;
+                ky0 = item.ky;
                 item.kx = item.kx - (item.kx / 100) * 5;
                 item.ky = item.ky - (item.ky / 100) * 5;
 
-                $(graphContainer).scrollLeft(scrollX - 5 * params.stepX);
-                $(graphContainer).scrollTop(scrollY - 5 * params.stepY);
+                $(graphContainer)
+                 .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
+
+                $(graphContainer)
+                    .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0);
 
             };
         redrawChart();
