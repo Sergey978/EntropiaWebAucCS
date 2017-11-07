@@ -11,12 +11,29 @@ using Microsoft.Owin.Security;
 using EntropiaWebAuc.Areas.Default.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using EntropiaWebAuc.Domain;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
     public class RoleController : Controller
     {
+        private IRepository repo;
+
+
+        public ActionResult Index()
+        {
+            List<string> roles;
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                roles = (from r in roleManager.Roles select r.Name).ToList();
+            }
+
+            return View(roles.ToList());
+        }
 
         public ActionResult RoleCreate()
         {
@@ -43,19 +60,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         }
 
 
-        public ActionResult Index()
-        {
-            List<string> roles;
-            using (var context = new ApplicationDbContext())
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                roles = (from r in roleManager.Roles select r.Name).ToList();
-            }
-
-            return View(roles.ToList());
-        }
+       
 
 
         public ActionResult RoleDelete(string roleName)

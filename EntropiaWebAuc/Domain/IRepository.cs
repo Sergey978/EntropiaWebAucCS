@@ -41,6 +41,14 @@ namespace EntropiaWebAuc.Domain
         #endregion 
         
         
+        #region AspNetRole
+        IQueryable<AspNetRole> AspNetRoles { get; }
+        bool CreateAspNetRole(AspNetRole instance);
+        bool UpdateAspNetRole(AspNetRole instance);
+        bool RemoveAspNetRole(int idAspNetRole);
+        #endregion 
+        
+        
         
         
     }

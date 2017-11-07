@@ -1,13 +1,32 @@
 ﻿@{
     ViewBag.Title = "RoleIndex";
-    
+
 }
-<p>&nbsp;</p>
 <div class="spacerBody">
-   
-    <h2>Role index</h2>
+
+    <h2>Role List</h2>
+
+    <table class="table table-striped table-responsive ">
+        <tr>
+            <th>Role</th>
+            <th>Amount point</th>
+            <th>Amount standart items</th>
+            <th>Amount custom items</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => role.)</td>
+
+            </tr>
+        }
+
+    </table>
     @foreach (string s in Model)
     {
+
+
         <p>
             @s
             <span onclick=" return confirm('Are you sure to delete?') ">
