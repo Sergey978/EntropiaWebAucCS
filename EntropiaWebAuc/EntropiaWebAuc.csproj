@@ -189,7 +189,7 @@
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\SqlRepository.cs" />
     <Compile Include="Domain\SqlRepositoryParts\CustomItems.cs" />
-    <Compile Include="Domain\SqlRepositoryParts\Role.cs" />
+    <Compile Include="Domain\SqlRepositoryParts\RoleOption.cs" />
     <Compile Include="Domain\SqlRepositoryParts\SelectedStandartItem.cs" />
     <Compile Include="Domain\SqlRepositoryParts\StandartItem.cs" />
     <Compile Include="Domain\SqlRepositoryParts\StandartItemCategory.cs" />

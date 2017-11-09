@@ -48,15 +48,18 @@ namespace EntropiaWebAuc.Domain
     partial void InsertCustomItem(CustomItem instance);
     partial void UpdateCustomItem(CustomItem instance);
     partial void DeleteCustomItem(CustomItem instance);
+    partial void InsertRoleOption(RoleOption instance);
+    partial void UpdateRoleOption(RoleOption instance);
+    partial void DeleteRoleOption(RoleOption instance);
+    partial void InsertSelectedStandartItem(SelectedStandartItem instance);
+    partial void UpdateSelectedStandartItem(SelectedStandartItem instance);
+    partial void DeleteSelectedStandartItem(SelectedStandartItem instance);
     partial void InsertStandartItemCategory(StandartItemCategory instance);
     partial void UpdateStandartItemCategory(StandartItemCategory instance);
     partial void DeleteStandartItemCategory(StandartItemCategory instance);
     partial void InsertStandartItem(StandartItem instance);
     partial void UpdateStandartItem(StandartItem instance);
     partial void DeleteStandartItem(StandartItem instance);
-    partial void InsertSelectedStandartItem(SelectedStandartItem instance);
-    partial void UpdateSelectedStandartItem(SelectedStandartItem instance);
-    partial void DeleteSelectedStandartItem(SelectedStandartItem instance);
     #endregion
 		
 		public EntropiaDBDataContext() : 
@@ -137,6 +140,22 @@ namespace EntropiaWebAuc.Domain
 			}
 		}
 		
+		public System.Data.Linq.Table<RoleOption> RoleOptions
+		{
+			get
+			{
+				return this.GetTable<RoleOption>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SelectedStandartItem> SelectedStandartItems
+		{
+			get
+			{
+				return this.GetTable<SelectedStandartItem>();
+			}
+		}
+		
 		public System.Data.Linq.Table<StandartItemCategory> StandartItemCategories
 		{
 			get
@@ -152,14 +171,6 @@ namespace EntropiaWebAuc.Domain
 				return this.GetTable<StandartItem>();
 			}
 		}
-		
-		public System.Data.Linq.Table<SelectedStandartItem> SelectedStandartItems
-		{
-			get
-			{
-				return this.GetTable<SelectedStandartItem>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AspNetRoles")]
@@ -172,13 +183,9 @@ namespace EntropiaWebAuc.Domain
 		
 		private string _Name;
 		
-		private System.Nullable<int> _AmountPoints;
-		
-		private System.Nullable<int> _AmountStandartItems;
-		
-		private string _AmountCustomItems;
-		
 		private EntitySet<AspNetUserRole> _AspNetUserRoles;
+		
+		private EntityRef<RoleOption> _RoleOption;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -188,17 +195,12 @@ namespace EntropiaWebAuc.Domain
     partial void OnIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnAmountPointsChanging(System.Nullable<int> value);
-    partial void OnAmountPointsChanged();
-    partial void OnAmountStandartItemsChanging(System.Nullable<int> value);
-    partial void OnAmountStandartItemsChanged();
-    partial void OnAmountCustomItemsChanging(string value);
-    partial void OnAmountCustomItemsChanged();
     #endregion
 		
 		public AspNetRole()
 		{
 			this._AspNetUserRoles = new EntitySet<AspNetUserRole>(new Action<AspNetUserRole>(this.attach_AspNetUserRoles), new Action<AspNetUserRole>(this.detach_AspNetUserRoles));
+			this._RoleOption = default(EntityRef<RoleOption>);
 			OnCreated();
 		}
 		
@@ -242,66 +244,6 @@ namespace EntropiaWebAuc.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountPoints", DbType="Int")]
-		public System.Nullable<int> AmountPoints
-		{
-			get
-			{
-				return this._AmountPoints;
-			}
-			set
-			{
-				if ((this._AmountPoints != value))
-				{
-					this.OnAmountPointsChanging(value);
-					this.SendPropertyChanging();
-					this._AmountPoints = value;
-					this.SendPropertyChanged("AmountPoints");
-					this.OnAmountPointsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountStandartItems", DbType="Int")]
-		public System.Nullable<int> AmountStandartItems
-		{
-			get
-			{
-				return this._AmountStandartItems;
-			}
-			set
-			{
-				if ((this._AmountStandartItems != value))
-				{
-					this.OnAmountStandartItemsChanging(value);
-					this.SendPropertyChanging();
-					this._AmountStandartItems = value;
-					this.SendPropertyChanged("AmountStandartItems");
-					this.OnAmountStandartItemsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountCustomItems", DbType="NChar(10)")]
-		public string AmountCustomItems
-		{
-			get
-			{
-				return this._AmountCustomItems;
-			}
-			set
-			{
-				if ((this._AmountCustomItems != value))
-				{
-					this.OnAmountCustomItemsChanging(value);
-					this.SendPropertyChanging();
-					this._AmountCustomItems = value;
-					this.SendPropertyChanged("AmountCustomItems");
-					this.OnAmountCustomItemsChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetRole_AspNetUserRole", Storage="_AspNetUserRoles", ThisKey="Id", OtherKey="RoleId")]
 		public EntitySet<AspNetUserRole> AspNetUserRoles
 		{
@@ -312,6 +254,35 @@ namespace EntropiaWebAuc.Domain
 			set
 			{
 				this._AspNetUserRoles.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetRole_RoleOption", Storage="_RoleOption", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
+		public RoleOption RoleOption
+		{
+			get
+			{
+				return this._RoleOption.Entity;
+			}
+			set
+			{
+				RoleOption previousValue = this._RoleOption.Entity;
+				if (((previousValue != value) 
+							|| (this._RoleOption.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RoleOption.Entity = null;
+						previousValue.AspNetRole = null;
+					}
+					this._RoleOption.Entity = value;
+					if ((value != null))
+					{
+						value.AspNetRole = this;
+					}
+					this.SendPropertyChanged("RoleOption");
+				}
 			}
 		}
 		
@@ -1603,6 +1574,445 @@ namespace EntropiaWebAuc.Domain
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoleOptions")]
+	public partial class RoleOption : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Id;
+		
+		private System.Nullable<int> _AmountPoints;
+		
+		private System.Nullable<int> _AmountStandartItems;
+		
+		private System.Nullable<int> _AmountCustomItems;
+		
+		private EntityRef<AspNetRole> _AspNetRole;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(string value);
+    partial void OnIdChanged();
+    partial void OnAmountPointsChanging(System.Nullable<int> value);
+    partial void OnAmountPointsChanged();
+    partial void OnAmountStandartItemsChanging(System.Nullable<int> value);
+    partial void OnAmountStandartItemsChanged();
+    partial void OnAmountCustomItemsChanging(System.Nullable<int> value);
+    partial void OnAmountCustomItemsChanged();
+    #endregion
+		
+		public RoleOption()
+		{
+			this._AspNetRole = default(EntityRef<AspNetRole>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="NVarChar(128) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					if (this._AspNetRole.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountPoints", DbType="Int")]
+		public System.Nullable<int> AmountPoints
+		{
+			get
+			{
+				return this._AmountPoints;
+			}
+			set
+			{
+				if ((this._AmountPoints != value))
+				{
+					this.OnAmountPointsChanging(value);
+					this.SendPropertyChanging();
+					this._AmountPoints = value;
+					this.SendPropertyChanged("AmountPoints");
+					this.OnAmountPointsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountStandartItems", DbType="Int")]
+		public System.Nullable<int> AmountStandartItems
+		{
+			get
+			{
+				return this._AmountStandartItems;
+			}
+			set
+			{
+				if ((this._AmountStandartItems != value))
+				{
+					this.OnAmountStandartItemsChanging(value);
+					this.SendPropertyChanging();
+					this._AmountStandartItems = value;
+					this.SendPropertyChanged("AmountStandartItems");
+					this.OnAmountStandartItemsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountCustomItems", DbType="Int")]
+		public System.Nullable<int> AmountCustomItems
+		{
+			get
+			{
+				return this._AmountCustomItems;
+			}
+			set
+			{
+				if ((this._AmountCustomItems != value))
+				{
+					this.OnAmountCustomItemsChanging(value);
+					this.SendPropertyChanging();
+					this._AmountCustomItems = value;
+					this.SendPropertyChanged("AmountCustomItems");
+					this.OnAmountCustomItemsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetRole_RoleOption", Storage="_AspNetRole", ThisKey="Id", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public AspNetRole AspNetRole
+		{
+			get
+			{
+				return this._AspNetRole.Entity;
+			}
+			set
+			{
+				AspNetRole previousValue = this._AspNetRole.Entity;
+				if (((previousValue != value) 
+							|| (this._AspNetRole.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AspNetRole.Entity = null;
+						previousValue.RoleOption = null;
+					}
+					this._AspNetRole.Entity = value;
+					if ((value != null))
+					{
+						value.RoleOption = this;
+						this._Id = value.Id;
+					}
+					else
+					{
+						this._Id = default(string);
+					}
+					this.SendPropertyChanged("AspNetRole");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SelectedStandartItems")]
+	public partial class SelectedStandartItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _UserId;
+		
+		private int _ItemId;
+		
+		private System.Nullable<int> _BeginQuantity;
+		
+		private System.Nullable<int> _Step;
+		
+		private System.Nullable<decimal> _Markup;
+		
+		private System.Nullable<decimal> _PurchasePrice;
+		
+		private EntityRef<AspNetUser> _AspNetUser;
+		
+		private EntityRef<StandartItem> _StandartItem;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(string value);
+    partial void OnUserIdChanged();
+    partial void OnItemIdChanging(int value);
+    partial void OnItemIdChanged();
+    partial void OnBeginQuantityChanging(System.Nullable<int> value);
+    partial void OnBeginQuantityChanged();
+    partial void OnStepChanging(System.Nullable<int> value);
+    partial void OnStepChanged();
+    partial void OnMarkupChanging(System.Nullable<decimal> value);
+    partial void OnMarkupChanged();
+    partial void OnPurchasePriceChanging(System.Nullable<decimal> value);
+    partial void OnPurchasePriceChanged();
+    #endregion
+		
+		public SelectedStandartItem()
+		{
+			this._AspNetUser = default(EntityRef<AspNetUser>);
+			this._StandartItem = default(EntityRef<StandartItem>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(128) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._AspNetUser.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ItemId
+		{
+			get
+			{
+				return this._ItemId;
+			}
+			set
+			{
+				if ((this._ItemId != value))
+				{
+					if (this._StandartItem.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnItemIdChanging(value);
+					this.SendPropertyChanging();
+					this._ItemId = value;
+					this.SendPropertyChanged("ItemId");
+					this.OnItemIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BeginQuantity", DbType="Int")]
+		public System.Nullable<int> BeginQuantity
+		{
+			get
+			{
+				return this._BeginQuantity;
+			}
+			set
+			{
+				if ((this._BeginQuantity != value))
+				{
+					this.OnBeginQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._BeginQuantity = value;
+					this.SendPropertyChanged("BeginQuantity");
+					this.OnBeginQuantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Step", DbType="Int")]
+		public System.Nullable<int> Step
+		{
+			get
+			{
+				return this._Step;
+			}
+			set
+			{
+				if ((this._Step != value))
+				{
+					this.OnStepChanging(value);
+					this.SendPropertyChanging();
+					this._Step = value;
+					this.SendPropertyChanged("Step");
+					this.OnStepChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markup", DbType="Decimal(5,2)")]
+		public System.Nullable<decimal> Markup
+		{
+			get
+			{
+				return this._Markup;
+			}
+			set
+			{
+				if ((this._Markup != value))
+				{
+					this.OnMarkupChanging(value);
+					this.SendPropertyChanging();
+					this._Markup = value;
+					this.SendPropertyChanged("Markup");
+					this.OnMarkupChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PurchasePrice", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PurchasePrice
+		{
+			get
+			{
+				return this._PurchasePrice;
+			}
+			set
+			{
+				if ((this._PurchasePrice != value))
+				{
+					this.OnPurchasePriceChanging(value);
+					this.SendPropertyChanging();
+					this._PurchasePrice = value;
+					this.SendPropertyChanged("PurchasePrice");
+					this.OnPurchasePriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetUser_SelectedStandartItem", Storage="_AspNetUser", ThisKey="UserId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public AspNetUser AspNetUser
+		{
+			get
+			{
+				return this._AspNetUser.Entity;
+			}
+			set
+			{
+				AspNetUser previousValue = this._AspNetUser.Entity;
+				if (((previousValue != value) 
+							|| (this._AspNetUser.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AspNetUser.Entity = null;
+						previousValue.SelectedStandartItems.Remove(this);
+					}
+					this._AspNetUser.Entity = value;
+					if ((value != null))
+					{
+						value.SelectedStandartItems.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(string);
+					}
+					this.SendPropertyChanged("AspNetUser");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StandartItem_SelectedStandartItem", Storage="_StandartItem", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+		public StandartItem StandartItem
+		{
+			get
+			{
+				return this._StandartItem.Entity;
+			}
+			set
+			{
+				StandartItem previousValue = this._StandartItem.Entity;
+				if (((previousValue != value) 
+							|| (this._StandartItem.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StandartItem.Entity = null;
+						previousValue.SelectedStandartItems.Remove(this);
+					}
+					this._StandartItem.Entity = value;
+					if ((value != null))
+					{
+						value.SelectedStandartItems.Add(this);
+						this._ItemId = value.Id;
+					}
+					else
+					{
+						this._ItemId = default(int);
+					}
+					this.SendPropertyChanged("StandartItem");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StandartItemCategories")]
 	public partial class StandartItemCategory : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1941,270 +2351,6 @@ namespace EntropiaWebAuc.Domain
 		{
 			this.SendPropertyChanging();
 			entity.StandartItem = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SelectedStandartItems")]
-	public partial class SelectedStandartItem : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _UserId;
-		
-		private int _ItemId;
-		
-		private System.Nullable<int> _BeginQuantity;
-		
-		private System.Nullable<int> _Step;
-		
-		private System.Nullable<decimal> _Markup;
-		
-		private System.Nullable<decimal> _PurchasePrice;
-		
-		private EntityRef<AspNetUser> _AspNetUser;
-		
-		private EntityRef<StandartItem> _StandartItem;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(string value);
-    partial void OnUserIdChanged();
-    partial void OnItemIdChanging(int value);
-    partial void OnItemIdChanged();
-    partial void OnBeginQuantityChanging(System.Nullable<int> value);
-    partial void OnBeginQuantityChanged();
-    partial void OnStepChanging(System.Nullable<int> value);
-    partial void OnStepChanged();
-    partial void OnMarkupChanging(System.Nullable<decimal> value);
-    partial void OnMarkupChanged();
-    partial void OnPurchasePriceChanging(System.Nullable<decimal> value);
-    partial void OnPurchasePriceChanged();
-    #endregion
-		
-		public SelectedStandartItem()
-		{
-			this._AspNetUser = default(EntityRef<AspNetUser>);
-			this._StandartItem = default(EntityRef<StandartItem>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(128) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._AspNetUser.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ItemId
-		{
-			get
-			{
-				return this._ItemId;
-			}
-			set
-			{
-				if ((this._ItemId != value))
-				{
-					if (this._StandartItem.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnItemIdChanging(value);
-					this.SendPropertyChanging();
-					this._ItemId = value;
-					this.SendPropertyChanged("ItemId");
-					this.OnItemIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BeginQuantity", DbType="Int")]
-		public System.Nullable<int> BeginQuantity
-		{
-			get
-			{
-				return this._BeginQuantity;
-			}
-			set
-			{
-				if ((this._BeginQuantity != value))
-				{
-					this.OnBeginQuantityChanging(value);
-					this.SendPropertyChanging();
-					this._BeginQuantity = value;
-					this.SendPropertyChanged("BeginQuantity");
-					this.OnBeginQuantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Step", DbType="Int")]
-		public System.Nullable<int> Step
-		{
-			get
-			{
-				return this._Step;
-			}
-			set
-			{
-				if ((this._Step != value))
-				{
-					this.OnStepChanging(value);
-					this.SendPropertyChanging();
-					this._Step = value;
-					this.SendPropertyChanged("Step");
-					this.OnStepChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markup", DbType="Decimal(5,2)")]
-		public System.Nullable<decimal> Markup
-		{
-			get
-			{
-				return this._Markup;
-			}
-			set
-			{
-				if ((this._Markup != value))
-				{
-					this.OnMarkupChanging(value);
-					this.SendPropertyChanging();
-					this._Markup = value;
-					this.SendPropertyChanged("Markup");
-					this.OnMarkupChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PurchasePrice", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PurchasePrice
-		{
-			get
-			{
-				return this._PurchasePrice;
-			}
-			set
-			{
-				if ((this._PurchasePrice != value))
-				{
-					this.OnPurchasePriceChanging(value);
-					this.SendPropertyChanging();
-					this._PurchasePrice = value;
-					this.SendPropertyChanged("PurchasePrice");
-					this.OnPurchasePriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetUser_SelectedStandartItem", Storage="_AspNetUser", ThisKey="UserId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public AspNetUser AspNetUser
-		{
-			get
-			{
-				return this._AspNetUser.Entity;
-			}
-			set
-			{
-				AspNetUser previousValue = this._AspNetUser.Entity;
-				if (((previousValue != value) 
-							|| (this._AspNetUser.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._AspNetUser.Entity = null;
-						previousValue.SelectedStandartItems.Remove(this);
-					}
-					this._AspNetUser.Entity = value;
-					if ((value != null))
-					{
-						value.SelectedStandartItems.Add(this);
-						this._UserId = value.Id;
-					}
-					else
-					{
-						this._UserId = default(string);
-					}
-					this.SendPropertyChanged("AspNetUser");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StandartItem_SelectedStandartItem", Storage="_StandartItem", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
-		public StandartItem StandartItem
-		{
-			get
-			{
-				return this._StandartItem.Entity;
-			}
-			set
-			{
-				StandartItem previousValue = this._StandartItem.Entity;
-				if (((previousValue != value) 
-							|| (this._StandartItem.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StandartItem.Entity = null;
-						previousValue.SelectedStandartItems.Remove(this);
-					}
-					this._StandartItem.Entity = value;
-					if ((value != null))
-					{
-						value.SelectedStandartItems.Add(this);
-						this._ItemId = value.Id;
-					}
-					else
-					{
-						this._ItemId = default(int);
-					}
-					this.SendPropertyChanged("StandartItem");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

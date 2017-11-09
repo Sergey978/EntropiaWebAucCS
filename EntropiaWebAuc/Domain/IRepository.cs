@@ -41,11 +41,11 @@ namespace EntropiaWebAuc.Domain
         #endregion 
         
         
-        #region AspNetRole
-        IQueryable<AspNetRole> AspNetRoles { get; }
-        bool CreateAspNetRole(AspNetRole instance);
-        bool UpdateAspNetRole(AspNetRole instance);
-        bool RemoveAspNetRole(int idAspNetRole);
+        #region RoleOptions
+        IQueryable<RoleOption> RoleOptions { get; }
+        bool CreateRoleOption(RoleOption instance);
+        bool UpdateRoleOption(RoleOption instance);
+        bool RemoveRoleOption(String Id);
         #endregion 
         
         
