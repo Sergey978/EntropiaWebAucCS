@@ -12,6 +12,7 @@ using EntropiaWebAuc.Areas.Default.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using EntropiaWebAuc.Domain;
+using EntropiaWebAuc.Areas.Admin.ViewModel;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -20,24 +21,45 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
     {
         private IRepository repo;
 
+        public List<RoleViewModel> roleVM;
+
+         public RoleController(IRepository repo)
+        {
+            this.repo = repo;
+           
+        }
 
         public ActionResult Index()
         {
-            List<string> roles;
+
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                roles = (from r in roleManager.Roles select r.Name).ToList();
+                
+                roleVM = (from roles in roleManager.Roles
+                          join ro in repo.RoleOptions on roles.Id equals ro.Id
+                          select new RoleViewModel
+                          {
+                              Id = roles.Id,
+                              Name = roles.Name,
+                              NumberPoint = ro.AmountPoints,
+                              NumberStandartItems = ro.AmountStandartItems,
+                              NumberCustomItems = ro.AmountCustomItems
+                          }).ToList();
             }
 
-            return View(roles.ToList());
+
+
+
+
+            return View(roleVM);
         }
 
         public ActionResult RoleCreate()
         {
-           
+
             return View();
         }
 
@@ -60,7 +82,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         }
 
 
-       
+
 
 
         public ActionResult RoleDelete(string roleName)

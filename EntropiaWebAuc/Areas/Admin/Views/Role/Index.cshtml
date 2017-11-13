@@ -1,4 +1,5 @@
-﻿@{
+﻿@using EntropiaWebAuc.Areas.Admin.ViewModel
+@{
     ViewBag.Title = "RoleIndex";
 
 }
@@ -14,24 +15,21 @@
             <th>Amount custom items</th>
             <th>Action</th>
         </tr>
-        @foreach (var role in Model)
+        @foreach (RoleViewModel role in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => role.)</td>
-
+                <td>@Html.DisplayFor(modelItem => role.Name)</td>
+                <td>@Html.DisplayFor(modelItem => role.NumberPoint)</td>
+                <td>@Html.DisplayFor(modelItem => role.NumberStandartItems)</td>
+                <td>@Html.DisplayFor(modelItem => role.NumberCustomItems)</td>
+                <td>
+                    <span onclick=" return confirm('Are you sure to delete?') ">
+                        <a href="/Admin/Role/RoleDelete?RoleName=@role.Name" class="delLink">Delete</a>
+                    </span>
+                </td>
             </tr>
         }
 
     </table>
-    @foreach (string s in Model)
-    {
-
-
-        <p>
-            @s
-            <span onclick=" return confirm('Are you sure to delete?') ">
-                <a href="/Admin/Role/RoleDelete?RoleName=@s" class="delLink">Delete</a>
-            </span>
-        </p>
-    }
+    
 </div>
