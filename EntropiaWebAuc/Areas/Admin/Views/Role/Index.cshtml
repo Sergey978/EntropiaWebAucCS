@@ -23,9 +23,13 @@
                 <td>@Html.DisplayFor(modelItem => role.NumberStandartItems)</td>
                 <td>@Html.DisplayFor(modelItem => role.NumberCustomItems)</td>
                 <td>
-                    <span onclick=" return confirm('Are you sure to delete?') ">
-                        <a href="/Admin/Role/RoleDelete?RoleName=@role.Name" class="delLink">Delete</a>
-                    </span>
+                    @using (Html.BeginForm("Delete", "Role"))
+                    {
+                        @Html.Hidden("id", role.Id)
+                        <input type="button" value="Edit" class="btn btn-info"
+                               onclick="location.href='@Url.Action("Edit", "Role", new { id = role.Id })'" />
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger" />
+                    }
                 </td>
             </tr>
         }

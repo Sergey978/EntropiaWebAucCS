@@ -8,7 +8,6 @@ namespace EntropiaWebAuc.Domain
     public partial class SqlRepository
     {
         
-
         public IQueryable<CustomItem> CustomItems
         {
             get

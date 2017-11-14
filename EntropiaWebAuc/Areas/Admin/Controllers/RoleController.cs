@@ -23,10 +23,10 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public List<RoleViewModel> roleVM;
 
-         public RoleController(IRepository repo)
+        public RoleController(IRepository repo)
         {
             this.repo = repo;
-           
+
         }
 
         public ActionResult Index()
@@ -37,16 +37,19 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                
-                roleVM = (from roles in roleManager.Roles
-                          join ro in repo.RoleOptions on roles.Id equals ro.Id
+                List<RoleOption> roleOptions = repo.RoleOptions.ToList<RoleOption>();
+                List<IdentityRole> roles = roleManager.Roles.ToList();
+
+                roleVM = (from r in roles
+                          join ro in roleOptions on r.Id equals ro.Id into rvm
+                          from ro in rvm.DefaultIfEmpty()
                           select new RoleViewModel
                           {
-                              Id = roles.Id,
-                              Name = roles.Name,
-                              NumberPoint = ro.AmountPoints,
-                              NumberStandartItems = ro.AmountStandartItems,
-                              NumberCustomItems = ro.AmountCustomItems
+                              Id = r.Id,
+                              Name = r.Name,
+                              NumberPoint = ro == null ? 0 : ro.AmountPoints,
+                              NumberStandartItems = ro == null ? 0 : ro.AmountStandartItems,
+                              NumberCustomItems = ro == null ? 0 : ro.AmountCustomItems
                           }).ToList();
             }
 
@@ -56,6 +59,33 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             return View(roleVM);
         }
+
+
+        public ViewResult Edit(string id)
+        {
+            RoleViewModel editRoleVM ;
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                IdentityRole role = roleManager.Roles.FirstOrDefault<IdentityRole>(r => r.Id == id);
+                RoleOption roleOptions = repo.RoleOptions.FirstOrDefault<RoleOption>(ro => ro.Id == id);
+
+               editRoleVM = new RoleViewModel
+                {
+                    Id = role.Id,
+                    Name = role.Name,
+                    NumberPoint = roleOptions == null ? 0 : roleOptions.AmountPoints,
+                    NumberStandartItems = roleOptions == null ? 0 : roleOptions.AmountStandartItems,
+                    NumberCustomItems = roleOptions == null ? 0 : roleOptions.AmountCustomItems
+                };
+               
+            }
+
+            return View(editRoleVM);
+        }
+
 
         public ActionResult RoleCreate()
         {

@@ -270,6 +270,7 @@
       <LastGenOutput>EntropiaDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
