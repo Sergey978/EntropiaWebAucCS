@@ -15,16 +15,18 @@ namespace EntropiaWebAuc.Domain
                 return Db.RoleOptions;
             }
         }
+
+
         public bool CreateRoleOption(RoleOption instance)
         {
-            if (instance.Id.Equals(""))
-            {
+          
                 Db.RoleOptions.InsertOnSubmit(instance);
                 Db.RoleOptions.Context.SubmitChanges();
                 return true;
-            }
-            return false;
+           
         }
+
+
         public bool UpdateRoleOption(RoleOption instance)
         {
             RoleOption cache = Db.RoleOptions.Where(p => p.Id ==
@@ -32,11 +34,17 @@ instance.Id).FirstOrDefault();
             if (cache != null)
             {
                 //TODO : Update fields for RoleOption
+                cache.AmountPoints = instance.AmountPoints;
+                cache.AmountCustomItems = instance.AmountCustomItems;
+                cache.AmountStandartItems = instance.AmountStandartItems;
                 Db.RoleOptions.Context.SubmitChanges();
                 return true;
             }
+
+            else CreateRoleOption(instance);
             return false;
         }
+
         public bool RemoveRoleOption(string idRoleOption)
         {
             RoleOption instance = Db.RoleOptions.Where(p => p.Id ==

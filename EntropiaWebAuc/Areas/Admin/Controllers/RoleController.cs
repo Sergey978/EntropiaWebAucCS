@@ -86,6 +86,52 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(editRoleVM);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(RoleViewModel role)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (role.Id == "")
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var roleStore = new RoleStore<IdentityRole>(context);
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+                        IdentityRole newRole = new IdentityRole(role.Name);
+                        roleManager.Create(newRole);
+                        context.SaveChanges();
+
+                        repo.CreateRoleOption(new RoleOption { Id = newRole.Id,
+                        AmountPoints = role.NumberPoint,
+                        AmountStandartItems = role.NumberStandartItems,
+                        AmountCustomItems = role.NumberCustomItems});
+                    }
+
+
+                }
+                else
+                {
+                    repo.UpdateRoleOption(new RoleOption
+                    {
+                        Id = role.Id,
+                        AmountPoints = role.NumberPoint,
+                        AmountStandartItems = role.NumberStandartItems,
+                        AmountCustomItems = role.NumberCustomItems
+                    });
+                }
+
+                TempData["message"] = string.Format("{0} has been saved", role.Name);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(role);
+            }
+        }
+
 
         public ActionResult RoleCreate()
         {
