@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EntropiaWebAuc.Areas.Default.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -15,12 +16,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -70,7 +72,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                UserRoles =  UserManager.GetRoles(userId)
             };
             return View(model);
         }
@@ -380,6 +383,21 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             Error
+        }
+
+        public IdentityRole GetUserRole ()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            IdentityRole userRole;
+            user.
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            }
+
+            return userRole;
         }
 
 #endregion

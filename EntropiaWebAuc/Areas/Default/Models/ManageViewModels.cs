@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EntropiaWebAuc.Areas.Default.Models
 {
@@ -12,6 +13,7 @@ namespace EntropiaWebAuc.Areas.Default.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public IList<string> UserRoles { get; set; }
     }
 
     public class ManageLoginsViewModel

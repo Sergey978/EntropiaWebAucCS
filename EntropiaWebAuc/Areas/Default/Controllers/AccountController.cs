@@ -165,6 +165,23 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+
+                    // set new User default role
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var roleStore = new RoleStore<IdentityRole>(context);
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                        var role = roleManager.FindByName("Default");
+                        if (role == null)
+                            throw new Exception("Role not found!");
+
+                        UserManager.AddToRole(user.Id, role.Name);
+                        context.SaveChanges();
+
+                    }
+                    
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -425,37 +442,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             base.Dispose(disposing);
         }
 
-        [Authorize(Roles = "SuperAdmin")]
-        public ActionResult RoleCreate()
-        {
-            return View();
-        }
+        
 
-        [Authorize(Roles = "SuperSuperAdmin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RoleCreate(string roleName)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                roleManager.Create(new IdentityRole(roleName));
-                context.SaveChanges();
-            }
-
-            ViewBag.ResultMessage = "Role created successfully !";
-            return RedirectToAction("RoleIndex", "Account");
-        }
-
-       
-
-       
-      
-
-
-       
 
         #region Helpers
         // Used for XSRF protection when adding external logins

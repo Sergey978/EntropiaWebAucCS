@@ -84,10 +84,10 @@ $(document).ready(function () {
             item.kx = item.kx + (item.kx / 100) * 5;
             item.ky = item.ky + (item.ky / 100) * 5;
             $(graphContainer)
-                .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
+                .scrollLeft(100 + params.oxn + (scrollX - 100  - params.oxn) * item.kx / kx0);
 
             $(graphContainer)
-                .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0 );
+                .scrollTop(params.oyn + params.ly + (scrollY  - params.oyn - params.ly) * item.ky / ky0 );
         }
         else
             if (item.kx > 5 && item.ky > 5) {
