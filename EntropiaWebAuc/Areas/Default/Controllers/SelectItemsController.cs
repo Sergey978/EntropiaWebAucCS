@@ -19,7 +19,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public SelectItemsViewModel ViewModel;
 
         private IRepository repo;
-        
+
         private string CurrentUserId;
         // GET: Default/SelectItems
 
@@ -38,7 +38,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
-            RoleOption role = GetUserRoleOption();
+            RoleOption roleOption = GetUserRoleOption();
             string[] selectedItems = new string[] { };
             if (Command == " ==> ")
             {
@@ -47,9 +47,31 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     selectedItems = formCollection["CustomItems"].Split(',');
                 }
 
-                // проверка сколько кастом итемов у пользователя 
-                int countItems = (from custom in repo.CustomItems
-                                      where custom.AspNetUser.Id == )
+                // проверка сколько количества кастом итемов у пользователя 
+                int currentCountItems = (from custom in repo.CustomItems
+                                         where custom.AspNetUser.Id == CurrentUserId
+                                         select custom).Count();
+
+                if ((currentCountItems + selectedItems.Count()) < roleOption.AmountCustomItems)
+                {
+                    foreach (string itemId in selectedItems)
+                    {
+                        int id = Int32.Parse(itemId);
+
+                        CustomItem selectedCustomItem =
+                            repo.CustomItems
+                            .FirstOrDefault<CustomItem>(c => c.Id == id);
+                        selectedCustomItem.Chosed = true;
+
+                        repo.UpdateCustomItem(selectedCustomItem);
+                    }
+
+                }
+                else
+                {
+                    // to do 
+                    // сообщение , что превышен лимит для роли 
+                }
 
                 foreach (string itemId in selectedItems)
                 {
@@ -97,7 +119,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             CurrentUserId = User.Identity.GetUserId();
             string[] selectedItems = new string[] { };
-           
+
 
             if (Command == " ==> ")
             {
@@ -140,7 +162,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return PartialView("_GetStandartItems", ViewModel);
         }
 
-      
+
 
         public PartialViewResult _GetCustomItems()
         {
@@ -191,26 +213,29 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                .ToList();
         }
 
-        private RoleOption GetUserRoleOption ()
+        private RoleOption GetUserRoleOption()
         {
             CurrentUserId = User.Identity.GetUserId();
-            RoleOption roleOption ;
+            RoleOption roleOption;
 
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                var userRole = (from roles in roleManager.Roles
-                             where roles.Users.Equals(CurrentUserId)
-                             select roles).First();
+                 var userStore = new UserStore<ApplicationUser>(context);
+                 var userManager = new UserManager<ApplicationUser>(userStore);
+
+                 var user = userManager.FindById(CurrentUserId);
+                 var userRoleId = (from r in user.Roles select r.RoleId).First();
+                              
                  roleOption = (from ro in repo.RoleOptions
-                              where ro.AspNetRole.Equals(userRole)
+                              where ro.Id == userRoleId
                               select ro).First();
 
-                 return roleOption;
-            }
 
+            }
+                return roleOption;
         }
     }
 }
