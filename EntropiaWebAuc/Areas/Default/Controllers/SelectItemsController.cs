@@ -50,9 +50,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 // проверка сколько количества кастом итемов у пользователя 
                 int currentCountItems = (from custom in repo.CustomItems
                                          where custom.AspNetUser.Id == CurrentUserId
+                                         && custom.Chosed == true
                                          select custom).Count();
 
-                if ((currentCountItems + selectedItems.Count()) < roleOption.AmountCustomItems)
+                if ((currentCountItems + selectedItems.Count()) <= roleOption.AmountCustomItems)
                 {
                     foreach (string itemId in selectedItems)
                     {
@@ -73,17 +74,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     // сообщение , что превышен лимит для роли 
                 }
 
-                foreach (string itemId in selectedItems)
-                {
-                    int id = Int32.Parse(itemId);
-
-                    CustomItem selectedCustomItem =
-                        repo.CustomItems
-                        .FirstOrDefault<CustomItem>(c => c.Id == id);
-                    selectedCustomItem.Chosed = true;
-
-                    repo.UpdateCustomItem(selectedCustomItem);
-                }
+               
             }
 
             if (Command == " <== ")
