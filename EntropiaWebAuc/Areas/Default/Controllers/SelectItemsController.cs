@@ -7,6 +7,8 @@ using EntropiaWebAuc.Areas.Default.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain;
+using EntropiaWebAuc.Areas.Default.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
@@ -36,6 +38,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
+            RoleOption role = GetUserRoleOption();
             string[] selectedItems = new string[] { };
             if (Command == " ==> ")
             {
@@ -43,6 +46,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     selectedItems = formCollection["CustomItems"].Split(',');
                 }
+
+                // проверка сколько кастом итемов у пользователя 
+                int countItems = (from custom in repo.CustomItems
+                                      where custom.AspNetUser.Id == )
 
                 foreach (string itemId in selectedItems)
                 {
@@ -79,6 +86,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             }
 
             RefreshViewModelCustomItems();
+
             return PartialView("_GetCustomItems", ViewModel);
         }
 
@@ -181,6 +189,28 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             ViewModel.SelectedCustomItems = repo.CustomItems
                .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
                .ToList();
+        }
+
+        private RoleOption GetUserRoleOption ()
+        {
+            CurrentUserId = User.Identity.GetUserId();
+            RoleOption roleOption ;
+
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                var userRole = (from roles in roleManager.Roles
+                             where roles.Users.Equals(CurrentUserId)
+                             select roles).First();
+                 roleOption = (from ro in repo.RoleOptions
+                              where ro.AspNetRole.Equals(userRole)
+                              select ro).First();
+
+                 return roleOption;
+            }
+
         }
     }
 }

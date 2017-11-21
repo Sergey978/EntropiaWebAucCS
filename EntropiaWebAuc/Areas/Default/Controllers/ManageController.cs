@@ -384,12 +384,12 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             RemovePhoneSuccess,
             Error
         }
-
+        /*
         public IdentityRole GetUserRole ()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            IdentityRole userRole;
-            user.
+            IdentityRole userRole = null;
+           
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
@@ -399,7 +399,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             return userRole;
         }
-
+        */
 #endregion
     }
 }
