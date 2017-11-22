@@ -71,10 +71,12 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 else
                 {
                     // to do 
-                    // сообщение , что превышен лимит для роли 
+                    // message exceeding the limit for custom items
+                   
+                    ViewBag.message = "Exceeded the limit of custom items for your status";
                 }
 
-               
+
             }
 
             if (Command == " <== ")
@@ -109,6 +111,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public PartialViewResult StandartItemSelect(FormCollection formCollection, String Command)
         {
             CurrentUserId = User.Identity.GetUserId();
+            RoleOption roleOption = GetUserRoleOption();
             string[] selectedItems = new string[] { };
 
 
@@ -118,15 +121,31 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     selectedItems = formCollection["StandartItems"].Split(',');
                 }
-                foreach (string itemId in selectedItems)
+
+                // check how many items user can hold
+                int currentCountStandart = (from st in repo.SelectedStandartItems
+                                            where st.UserId == CurrentUserId
+                                            select st).Count();
+                if ((currentCountStandart + selectedItems.Count()) <= roleOption.AmountStandartItems)
                 {
-                    int id = Int32.Parse(itemId);
+                    foreach (string itemId in selectedItems)
+                    {
+                        int id = Int32.Parse(itemId);
 
-                    SelectedStandartItem selectedStandartItem =
-                        new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+                        SelectedStandartItem selectedStandartItem =
+                            new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
 
-                    repo.CreateSelectedStandartItem(selectedStandartItem);
+                        repo.CreateSelectedStandartItem(selectedStandartItem);
+                    }
                 }
+                else
+                {
+                   
+                    // message exceeding the limit for custom items
+
+                    ViewBag.message = "Exceeded the limit of standart items for your status";
+                }
+                
 
             }
 
@@ -214,19 +233,19 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                 var userStore = new UserStore<ApplicationUser>(context);
-                 var userManager = new UserManager<ApplicationUser>(userStore);
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
 
-                 var user = userManager.FindById(CurrentUserId);
-                 var userRoleId = (from r in user.Roles select r.RoleId).First();
-                              
-                 roleOption = (from ro in repo.RoleOptions
+                var user = userManager.FindById(CurrentUserId);
+                var userRoleId = (from r in user.Roles select r.RoleId).First();
+
+                roleOption = (from ro in repo.RoleOptions
                               where ro.Id == userRoleId
                               select ro).First();
 
 
             }
-                return roleOption;
+            return roleOption;
         }
     }
 }
