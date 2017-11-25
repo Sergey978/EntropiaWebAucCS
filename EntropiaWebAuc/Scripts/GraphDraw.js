@@ -44,7 +44,7 @@ function populateChartAndTable(data) {
 
 
     table  = [];
-    console.log("succes2");
+   
     var MaxXY = calcTable();
 
     item.ky = (params.oyn + params.ly) / MaxXY.y;
@@ -56,7 +56,10 @@ function populateChartAndTable(data) {
  
 };
 
-$(document).ready(function () {
+function init() {
+    // отправка запроса при изменении item
+    document.getElementById('Item').addEventListener("change", function (event) { changeItem(event) });
+
     //обработка клика по точке
 
     document.getElementById('graph').addEventListener("click", function (event) {
@@ -84,10 +87,10 @@ $(document).ready(function () {
             item.kx = item.kx + (item.kx / 100) * 5;
             item.ky = item.ky + (item.ky / 100) * 5;
             $(graphContainer)
-                .scrollLeft(100 + params.oxn + (scrollX - 100  - params.oxn) * item.kx / kx0);
+                .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
 
             $(graphContainer)
-                .scrollTop(params.oyn + params.ly + (scrollY  - params.oyn - params.ly) * item.ky / ky0 );
+                .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0);
         }
         else
             if (item.kx > 5 && item.ky > 5) {
@@ -108,7 +111,10 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-});
+
+}
+
+$(document).ready( init());
 
 
 
@@ -381,3 +387,31 @@ function scrollToSelectedPoint(){
     
 }
 
+function changeItem(ev) {
+   
+    var t =  ev.target.value;
+    if (t != "") {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '/Graph/_GetItemJSON',
+            data: JSON.stringify({val:t}),
+        dataType: "json",
+        success: function (res) {
+            $('#SelectedItem_Markup').val(res.Data.Markup);
+            $("#SelectedItem_BeginQuantity").val(res.Data.BeginQuantity);
+            $("#SelectedItem_Price").val(res.Data.Price);
+            $("#SelectedItem_PurchasePrice").val(res.Data.PurchasePrice);
+            $("#SelectedItem_Step").val(res.Data.Step)
+        }, 
+        error: function (xhr, err) {
+            console.log(err);
+        } 
+    })
+
+        }
+
+    }
+  
+     

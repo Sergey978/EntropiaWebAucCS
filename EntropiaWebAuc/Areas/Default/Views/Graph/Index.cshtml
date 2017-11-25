@@ -1,12 +1,14 @@
 ﻿@{
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
+
+
 <hr />
 
 <div class="container well">
 
     @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem",
-                                                      OnSuccess = "populateChartAndTable(data)"
+                                                      OnSuccess = "{populateChartAndTable(data); init()}"
     }))
     {
         <div id="getItem">
@@ -43,3 +45,4 @@
     <hr>
 
 </div>
+

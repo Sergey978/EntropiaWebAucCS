@@ -9,10 +9,7 @@ namespace EntropiaWebAuc
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.10.2.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery-{version}.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -27,6 +24,9 @@ namespace EntropiaWebAuc
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/style").Include(
+                     "~/Content/style.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
              "~/Scripts/jquery.unobtrusive*",
              "~/Scripts/jquery.validate*"));
@@ -34,8 +34,6 @@ namespace EntropiaWebAuc
             bundles.Add(new ScriptBundle("~/bundles/graphDraw").Include(
              "~/Scripts/GraphDraw.js"));
             
-
-           
            
         }
     }
