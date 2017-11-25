@@ -8,7 +8,7 @@
 <div class="container well">
 
     @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem",
-                                                      OnSuccess = "{populateChartAndTable(data); init()}"
+                                                      OnSuccess = "{populateChartAndTable(data); init();removeSomeeAd()}"
     }))
     {
         <div id="getItem">

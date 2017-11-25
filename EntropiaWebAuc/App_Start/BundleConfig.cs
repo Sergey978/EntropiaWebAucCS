@@ -33,6 +33,9 @@ namespace EntropiaWebAuc
 
             bundles.Add(new ScriptBundle("~/bundles/graphDraw").Include(
              "~/Scripts/GraphDraw.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/someeAdRemove").Include(
+             "~/Scripts/someeAdRemove.js"));
             
            
         }
