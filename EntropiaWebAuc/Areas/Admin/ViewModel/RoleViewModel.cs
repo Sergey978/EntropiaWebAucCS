@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EntropiaWebAuc.Areas.Default.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,4 +20,12 @@ namespace EntropiaWebAuc.Areas.Admin.ViewModel
         [DisplayName("Number Custom Items")]
         public int? NumberCustomItems { get; set; }
     }
+
+    public class UsersRoles
+    {
+        public ApplicationUser User { get; set; }
+        public IdentityUserRole Role { get; set; }
+        public Boolean selected { get; set; }
+    }
+
 }

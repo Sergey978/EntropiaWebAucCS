@@ -14,7 +14,7 @@
     <RootNamespace>EntropiaWebAuc</RootNamespace>
     <AssemblyName>EntropiaWebAuc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -171,6 +171,7 @@
     <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Default\Models\RoleModels.cs" />
     <Compile Include="Areas\Default\ViewModels\GraphViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\IItem.cs" />
     <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
@@ -271,6 +272,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
+    <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

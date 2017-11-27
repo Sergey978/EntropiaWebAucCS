@@ -38,7 +38,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
-            RoleOption roleOption = GetUserRoleOption();
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
             if (Command == " ==> ")
             {
@@ -72,7 +72,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     // to do 
                     // message exceeding the limit for custom items
-                   
+
                     ViewBag.message = "Exceeded the limit of custom items for your status";
                 }
 
@@ -111,7 +111,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public PartialViewResult StandartItemSelect(FormCollection formCollection, String Command)
         {
             CurrentUserId = User.Identity.GetUserId();
-            RoleOption roleOption = GetUserRoleOption();
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
 
 
@@ -140,12 +140,12 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 }
                 else
                 {
-                   
+
                     // message exceeding the limit for custom items
 
                     ViewBag.message = "Exceeded the limit of standart items for your status";
                 }
-                
+
 
             }
 
@@ -223,29 +223,6 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                .ToList();
         }
 
-        private RoleOption GetUserRoleOption()
-        {
-            CurrentUserId = User.Identity.GetUserId();
-            RoleOption roleOption;
-
-            using (var context = new ApplicationDbContext())
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-
-                var user = userManager.FindById(CurrentUserId);
-                var userRoleId = (from r in user.Roles select r.RoleId).First();
-
-                roleOption = (from ro in repo.RoleOptions
-                              where ro.Id == userRoleId
-                              select ro).First();
-
-
-            }
-            return roleOption;
-        }
+        
     }
 }
