@@ -1,16 +1,16 @@
-﻿@using EntropiaWebAuc.Areas.Admin.ViewModel
+﻿@using EntropiaWebAuc.Areas.Default.Models
 @{
     ViewBag.Title = "RoleAddToUser";
     
 }
 <div class="spacerBody">
     <p>&nbsp;</p>
-   @foreach (UsersRoles user in Model)
+   @foreach (ApplicationUser user in ViewBag.users)
    {
        <table>
            <tr>
-               <td>@user.User.UserName</td>
-               <td>@user.Role.RoleId</td>
+               <td>@user.UserName</td><td>@user.Roles</td>
+          
            </tr>
        </table>
        <p></p>
