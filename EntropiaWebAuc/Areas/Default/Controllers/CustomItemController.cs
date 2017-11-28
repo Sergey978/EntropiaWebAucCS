@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
 using Microsoft.AspNet.Identity;
+using EntropiaWebAuc.Areas.Default.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 
@@ -40,6 +42,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             CurrentUserId = User.Identity.GetUserId();
             newItem.UserId = CurrentUserId;
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo); 
+
+            int currentCountItems = (from custom in repo.CustomItems
+                                     where custom.AspNetUser.Id == CurrentUserId                                    
+                                     select custom).Count();
+            // check how many custom items the user has
+           if (currentCountItems >= roleOption.AmountCustomItems  )
+           {
+               ViewBag.errorMessage = "reached a limit of custom items";
+           }
 
             return View("Edit", newItem);
         }
@@ -90,5 +102,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             }
             return RedirectToAction("Index");
         }
+
+      
     }
 }

@@ -7,6 +7,8 @@ using EntropiaWebAuc.Areas.Default.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain;
+using EntropiaWebAuc.Areas.Default.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
@@ -17,7 +19,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public SelectItemsViewModel ViewModel;
 
         private IRepository repo;
-        
+
         private string CurrentUserId;
         // GET: Default/SelectItems
 
@@ -36,6 +38,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
             if (Command == " ==> ")
             {
@@ -44,17 +47,36 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     selectedItems = formCollection["CustomItems"].Split(',');
                 }
 
-                foreach (string itemId in selectedItems)
+                // проверка сколько количества кастом итемов у пользователя 
+                int currentCountItems = (from custom in repo.CustomItems
+                                         where custom.AspNetUser.Id == CurrentUserId
+                                         && custom.Chosed == true
+                                         select custom).Count();
+
+                if ((currentCountItems + selectedItems.Count()) <= roleOption.AmountCustomItems)
                 {
-                    int id = Int32.Parse(itemId);
+                    foreach (string itemId in selectedItems)
+                    {
+                        int id = Int32.Parse(itemId);
 
-                    CustomItem selectedCustomItem =
-                        repo.CustomItems
-                        .FirstOrDefault<CustomItem>(c => c.Id == id);
-                    selectedCustomItem.Chosed = true;
+                        CustomItem selectedCustomItem =
+                            repo.CustomItems
+                            .FirstOrDefault<CustomItem>(c => c.Id == id);
+                        selectedCustomItem.Chosed = true;
 
-                    repo.UpdateCustomItem(selectedCustomItem);
+                        repo.UpdateCustomItem(selectedCustomItem);
+                    }
+
                 }
+                else
+                {
+                    // to do 
+                    // message exceeding the limit for custom items
+
+                    ViewBag.message = "Exceeded the limit of custom items for your status";
+                }
+
+
             }
 
             if (Command == " <== ")
@@ -79,6 +101,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             }
 
             RefreshViewModelCustomItems();
+
             return PartialView("_GetCustomItems", ViewModel);
         }
 
@@ -88,8 +111,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public PartialViewResult StandartItemSelect(FormCollection formCollection, String Command)
         {
             CurrentUserId = User.Identity.GetUserId();
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
-           
+
 
             if (Command == " ==> ")
             {
@@ -97,15 +121,31 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     selectedItems = formCollection["StandartItems"].Split(',');
                 }
-                foreach (string itemId in selectedItems)
+
+                // check how many items user can hold
+                int currentCountStandart = (from st in repo.SelectedStandartItems
+                                            where st.UserId == CurrentUserId
+                                            select st).Count();
+                if ((currentCountStandart + selectedItems.Count()) <= roleOption.AmountStandartItems)
                 {
-                    int id = Int32.Parse(itemId);
+                    foreach (string itemId in selectedItems)
+                    {
+                        int id = Int32.Parse(itemId);
 
-                    SelectedStandartItem selectedStandartItem =
-                        new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+                        SelectedStandartItem selectedStandartItem =
+                            new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
 
-                    repo.CreateSelectedStandartItem(selectedStandartItem);
+                        repo.CreateSelectedStandartItem(selectedStandartItem);
+                    }
                 }
+                else
+                {
+
+                    // message exceeding the limit for custom items
+
+                    ViewBag.message = "Exceeded the limit of standart items for your status";
+                }
+
 
             }
 
@@ -132,7 +172,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return PartialView("_GetStandartItems", ViewModel);
         }
 
-      
+
 
         public PartialViewResult _GetCustomItems()
         {
@@ -182,5 +222,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
                .ToList();
         }
+
+        
     }
 }

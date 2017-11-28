@@ -23,6 +23,23 @@
             }
             ]
         </dd>
+        <dt>Role:</dt>
+        <dd>
+            @{string lastRole = Model.UserRoles.Last();
+                foreach (string role in Model.UserRoles)
+                {
+                    if (role.Equals(lastRole))
+                    {
+                        @Html.ActionLink(role, "Index", "RoleOption", new { role = @role }, null)
+                    }
+                    else
+                    {
+                        @Html.ActionLink(role + ", ", "Index", "RoleOption", new { role = @role }, null)
+                    }
+                    
+                }
+            }
+        </dd>
         <dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
