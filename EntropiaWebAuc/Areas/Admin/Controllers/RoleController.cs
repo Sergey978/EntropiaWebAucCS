@@ -63,7 +63,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Edit(string id)
         {
-            RoleViewModel editRoleVM ;
+            RoleViewModel editRoleVM;
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
@@ -72,15 +72,15 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 IdentityRole role = roleManager.Roles.FirstOrDefault<IdentityRole>(r => r.Id == id);
                 RoleOption roleOptions = repo.RoleOptions.FirstOrDefault<RoleOption>(ro => ro.Id == id);
 
-               editRoleVM = new RoleViewModel
-                {
-                    Id = role.Id,
-                    Name = role.Name,
-                    NumberPoint = roleOptions == null ? 0 : roleOptions.AmountPoints,
-                    NumberStandartItems = roleOptions == null ? 0 : roleOptions.AmountStandartItems,
-                    NumberCustomItems = roleOptions == null ? 0 : roleOptions.AmountCustomItems
-                };
-               
+                editRoleVM = new RoleViewModel
+                 {
+                     Id = role.Id,
+                     Name = role.Name,
+                     NumberPoint = roleOptions == null ? 0 : roleOptions.AmountPoints,
+                     NumberStandartItems = roleOptions == null ? 0 : roleOptions.AmountStandartItems,
+                     NumberCustomItems = roleOptions == null ? 0 : roleOptions.AmountCustomItems
+                 };
+
             }
 
             return View(editRoleVM);
@@ -103,10 +103,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                         roleManager.Create(newRole);
                         context.SaveChanges();
 
-                        repo.CreateRoleOption(new RoleOption { Id = newRole.Id,
-                        AmountPoints = role.NumberPoint,
-                        AmountStandartItems = role.NumberStandartItems,
-                        AmountCustomItems = role.NumberCustomItems});
+                        repo.CreateRoleOption(new RoleOption
+                        {
+                            Id = newRole.Id,
+                            AmountPoints = role.NumberPoint,
+                            AmountStandartItems = role.NumberStandartItems,
+                            AmountCustomItems = role.NumberCustomItems
+                        });
                     }
 
 
@@ -180,27 +183,40 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ActionResult RoleAddToUser()
         {
-           
+
             List<IdentityRole> roles;
             List<ApplicationUser> users;
+
+            List<UsersRoles> usersAndRoles = new List<UsersRoles>();
 
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-               
+
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                 roles = roleStore.Roles.ToList();
-                 users = userStore.Users.ToList();
+                roles = roleStore.Roles.ToList();
+                users = userStore.Users.ToList();
 
-               
+                foreach (ApplicationUser user in users)
+                {
+                    usersAndRoles.Add(new UsersRoles
+                    {
+                        User = user.UserName,
+                        UserRoles = user.Roles.ToList(),
+                        selected = false
+                    });
+
+                }
+
+
             }
             ViewBag.Roles = roles;
             ViewBag.Users = users;
-           
-            return View();
+
+            return View(usersAndRoles);
         }
 
 
