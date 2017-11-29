@@ -180,22 +180,26 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ActionResult RoleAddToUser()
         {
-            List<string> roles;
-            List<string> users;
+           
+            List<IdentityRole> roles;
+            List<ApplicationUser> users;
+
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-
+               
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                users = (from u in userManager.Users select u.UserName).ToList();
-                roles = (from r in roleManager.Roles select r.Name).ToList();
-            }
+                 roles = roleStore.Roles.ToList();
+                 users = userStore.Users.ToList();
 
-            ViewBag.Roles = new SelectList(roles);
-            ViewBag.Users = new SelectList(users);
+               
+            }
+            ViewBag.Roles = roles;
+            ViewBag.Users = users;
+           
             return View();
         }
 

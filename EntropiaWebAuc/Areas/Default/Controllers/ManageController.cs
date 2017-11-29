@@ -384,22 +384,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             RemovePhoneSuccess,
             Error
         }
-        /*
-        public IdentityRole GetUserRole ()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            IdentityRole userRole = null;
-           
-            using (var context = new ApplicationDbContext())
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            }
-
-            return userRole;
-        }
-        */
 #endregion
     }
 }
