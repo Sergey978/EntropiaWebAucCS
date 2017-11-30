@@ -1,20 +1,27 @@
 ﻿@using EntropiaWebAuc.Areas.Admin.ViewModel
 @{
     ViewBag.Title = "RoleAddToUser";
-    
+
 }
 <div class="spacerBody">
     <p>&nbsp;</p>
-   @foreach (UsersRoles user in ViewBag.users)
-   {
-       <table>
-           <tr>
-               <td>@user.User</td><td>@user.UserRoles</td>
-          
-           </tr>
-       </table>
-       <p></p>
-   }
+    @foreach (UsersRoles user in Model)
+    {
+        <table>
+            <tr>
+                <td>@user.User.ToString()</td>
+
+                <td>
+                    @if (@user.UserRoles.Count() >= 1)
+                    {
+                        @user.UserRoles.First()
+                    }
+                </td>
+
+            </tr>
+        </table>
+        <p></p>
+    }
 
     <h2>Add role to user</h2>
- </div> 
+</div> 

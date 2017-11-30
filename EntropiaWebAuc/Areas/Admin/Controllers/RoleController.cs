@@ -199,13 +199,15 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
                 roles = roleStore.Roles.ToList();
                 users = userStore.Users.ToList();
+                
+
 
                 foreach (ApplicationUser user in users)
                 {
                     usersAndRoles.Add(new UsersRoles
                     {
                         User = user.UserName,
-                        UserRoles = user.Roles.ToList(),
+                        UserRoles = userManager.GetRoles(user.Id).ToList(),
                         selected = false
                     });
 
