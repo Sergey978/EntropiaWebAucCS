@@ -3,25 +3,42 @@
     ViewBag.Title = "RoleAddToUser";
 
 }
+
 <div class="spacerBody">
-    <p>&nbsp;</p>
-    @foreach (UsersRoles user in Model)
-    {
-        <table>
-            <tr>
-                <td>@user.User.ToString()</td>
-
-                <td>
-                    @if (@user.UserRoles.Count() >= 1)
-                    {
-                        @user.UserRoles.First()
-                    }
-                </td>
-
-            </tr>
-        </table>
-        <p></p>
-    }
-
     <h2>Add role to user</h2>
-</div> 
+
+    <p>&nbsp;</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" value=""></label></th>
+                <th>User</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (UsersRoles user in Model)
+            {
+
+                <tr>
+                    <td><label><input type="checkbox" value=""></label></td>
+                    <td>@user.User.ToString()</td>
+
+                    <td>
+                        @if (@user.UserRoles.Count() >= 1)
+                        {
+                            @user.UserRoles.First()
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+
+
+
+</div>
