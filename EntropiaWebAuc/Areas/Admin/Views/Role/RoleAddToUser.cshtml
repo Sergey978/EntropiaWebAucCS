@@ -1,4 +1,6 @@
 ﻿@using EntropiaWebAuc.Areas.Admin.ViewModel
+@model IEnumerable<UsersRoles>
+
 @{
     ViewBag.Title = "RoleAddToUser";
 
@@ -22,8 +24,8 @@
             {
 
                 <tr>
-                    <td><label><input type="checkbox" value=""></label></td>
-                    <td>@user.User.ToString()</td>
+                    <td><label>@Html.CheckBoxFor(m => user.selected, new { id = user.User.Id })</label></td>
+                    <td>@user.User.UserName</td>
 
                     <td>
                         @if (@user.UserRoles.Count() >= 1)
@@ -39,6 +41,22 @@
     </table>
 
 
+    <label for="sel1">With selectes users:</label>
+    <div class=" form-group row">
+        <div class="col-xs-6">
+            @Html.DropDownList("roleId", new SelectList(ViewBag.Roles, "Id", "Name"), new { @class = "form-control" })
+        </div>
+        <div class="col-xs-2">
+            @Html.DropDownList("actionId", new SelectList(
+        new List<SelectListItem>
+            {
+            new SelectListItem { Selected = true, Text = "remove", Value = "-1"},
+            new SelectListItem { Selected = false, Text = "add", Value = "1"},
 
-
+            }, "Value", "Text", 1), new { @class = "form-control " })
+        </div>
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
 </div>

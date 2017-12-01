@@ -23,7 +23,7 @@ namespace EntropiaWebAuc.Areas.Admin.ViewModel
 
     public class UsersRoles
     {
-        public String User { get; set; }
+        public ApplicationUser User { get; set; }
         public IList<String> UserRoles { get; set; }
         public Boolean selected { get; set; }
     }
