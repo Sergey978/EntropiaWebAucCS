@@ -224,7 +224,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RoleAddToUser(string roleName, string userName)
+        public ActionResult RoleAddToUser(IList<UsersRoles> usersRoles, FormCollection form )
         {
             List<string> roles;
             List<string> users;
@@ -236,6 +236,11 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
+                foreach (UsersRoles ur in usersRoles)
+                {
+                  
+                }
+                /*
                 users = (from u in userManager.Users select u.UserName).ToList();
 
                 var user = userManager.FindByName(userName);
@@ -263,6 +268,8 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             ViewBag.Roles = new SelectList(roles);
             ViewBag.Users = new SelectList(users);
+                 */
+            }
             return View();
         }
 

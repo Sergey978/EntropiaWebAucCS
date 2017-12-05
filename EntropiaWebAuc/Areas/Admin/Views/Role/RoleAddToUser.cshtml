@@ -1,5 +1,5 @@
 ﻿@using EntropiaWebAuc.Areas.Admin.ViewModel
-@model IEnumerable<UsersRoles>
+@model IList<UsersRoles>
 
 @{
     ViewBag.Title = "RoleAddToUser";
@@ -9,7 +9,12 @@
 <div class="spacerBody">
     <h2>Add role to user</h2>
 
+
     <p>&nbsp;</p>
+
+@using (Html.BeginForm("RoleAddToUser", "Role"))
+{
+    @Html.AntiForgeryToken()
     <table class="table">
         <thead>
             <tr>
@@ -20,18 +25,18 @@
         </thead>
 
         <tbody>
-            @foreach (UsersRoles user in Model)
+            @for (var i = 0; i < Model.Count; i++)
             {
 
                 <tr>
-                    <td><label>@Html.CheckBoxFor(m => user.selected, new { id = user.User.Id })</label></td>
-                    <td>@user.User.UserName</td>
+                    <td>@Html.CheckBoxFor(x => x[i].selected)</td>
+                    <td>@Html.DisplayFor(x => x[i].User.UserName)</td>
 
                     <td>
-                        @if (@user.UserRoles.Count() >= 1)
-                        {
-                            @user.UserRoles.First()
-                        }
+                   @if (Model[i].UserRoles.Count >= 1)
+                   {
+                       @Html.DisplayFor(x => x[i].UserRoles)
+                   }
                     </td>
                 </tr>
             }
@@ -59,4 +64,5 @@
             <button type="submit" class="btn btn-default">Submit</button>
         </div>
     </div>
+}   
 </div>
