@@ -229,6 +229,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
            
             using (var context = new ApplicationDbContext())
             {
+                List<String> resultMessages = new List<String>();
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
@@ -245,22 +246,25 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 {
                     case "add":
                         {
+                           
                             for (int i = 0; i < usersRoles.Count(); i++)
                             {
-                                var user = userManager.FindById(usersRoles[i].User.Id);
+
+                                var user = userManager.FindByName(usersRoles[i].User.UserName);
+                                
+
                                 if (user == null)
                                     throw new Exception("User not found!");
 
-                                if (userManager.IsInRole(user.Id, role.Name))
+                                if (userManager.IsInRole(user.Id, role.Name.ToString()))
                                 {
-                                    ViewBag.ResultMessage[user.Id] = user.UserName + " already has the role specified !";
+                                    resultMessages.Add(user.UserName + " already has the role specified !") ;
                                 }
                                 else
                                 {
                                     userManager.AddToRole(user.Id, role.Name);
                                     context.SaveChanges();
-
-                                    ViewBag.ResultMessage[user.Id] = user.UserName + " added to the role succesfully !";
+                                    resultMessages.Add(user.UserName + " added to the role succesfully !");
                                 }
 
 
@@ -283,11 +287,12 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                                     userManager.RemoveFromRole(user.Id, role.Name);
                                     context.SaveChanges();
 
-                                    ViewBag.ResultMessage = "Role removed from this user successfully !";
+                                    resultMessages.Add("Role removed from this user successfully !");
                                 }
                                 else
                                 {
-                                    ViewBag.ResultMessage[user.Id] = user.UserName + " doesn't belong to selected role.";
+                                    resultMessages.Add(" doesn't belong to selected role.!");
+                                    // ViewBag.ResultMessage[user.Id] = user.UserName + " doesn't belong to selected role.";
                                 }
 
                             }
