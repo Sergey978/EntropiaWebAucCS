@@ -7,6 +7,8 @@
 }
 
 <div class="spacerBody">
+
+   
     <h2>Add role to user</h2>
 
 
@@ -30,7 +32,9 @@
 
                 <tr>
                     <td>@Html.CheckBoxFor(x => x[i].selected)</td>
+                    @Html.HiddenFor(x => x[i].User.UserName)
                     <td>@Html.DisplayFor(x => x[i].User.UserName)</td>
+                   
 
                     <td>
                    @if (Model[i].UserRoles.Count >= 1)
@@ -55,8 +59,8 @@
             @Html.DropDownList("actionId", new SelectList(
         new List<SelectListItem>
             {
-            new SelectListItem { Selected = true, Text = "remove", Value = "-1"},
-            new SelectListItem { Selected = false, Text = "add", Value = "1"},
+            new SelectListItem { Selected = true, Text = "add", Value = "add"},
+            new SelectListItem { Selected = false, Text = "remove", Value = "remove"},
 
             }, "Value", "Text", 1), new { @class = "form-control " })
         </div>

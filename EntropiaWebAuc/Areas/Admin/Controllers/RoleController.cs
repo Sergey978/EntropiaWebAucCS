@@ -199,12 +199,12 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
                 roles = roleStore.Roles.ToList();
                 users = userStore.Users.ToList();
-                
+
 
 
                 foreach (ApplicationUser user in users)
                 {
-                    usersAndRoles.Add( new UsersRoles
+                    usersAndRoles.Add(new UsersRoles
                     {
                         User = user,
                         UserRoles = userManager.GetRoles(user.Id).ToList(),
@@ -216,7 +216,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             }
             ViewBag.Roles = roles;
-            ViewBag.Users = users;
+           
 
             return View(usersAndRoles);
         }
@@ -224,10 +224,9 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RoleAddToUser(IList<UsersRoles> usersRoles, FormCollection form )
+        public ActionResult RoleAddToUser(IList<UsersRoles> usersRoles, FormCollection form)
         {
-            List<string> roles;
-            List<string> users;
+           
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
@@ -236,82 +235,71 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                foreach (UsersRoles ur in usersRoles)
-                {
-                  
-                }
-                /*
-                users = (from u in userManager.Users select u.UserName).ToList();
-
-                var user = userManager.FindByName(userName);
-                if (user == null)
-                    throw new Exception("User not found!");
-
-                var role = roleManager.FindByName(roleName);
+                var role = roleManager.FindById(Convert.ToString(form["roleId"]));
                 if (role == null)
                     throw new Exception("Role not found!");
 
-                if (userManager.IsInRole(user.Id, role.Name))
+                String action = Convert.ToString(form["actionId"]);
+                
+                switch (action)
                 {
-                    ViewBag.ResultMessage = "This user already has the role specified !";
+                    case "add":
+                        {
+                            for (int i = 0; i < usersRoles.Count(); i++)
+                            {
+                                var user = userManager.FindById(usersRoles[i].User.Id);
+                                if (user == null)
+                                    throw new Exception("User not found!");
+
+                                if (userManager.IsInRole(user.Id, role.Name))
+                                {
+                                    ViewBag.ResultMessage[user.Id] = user.UserName + " already has the role specified !";
+                                }
+                                else
+                                {
+                                    userManager.AddToRole(user.Id, role.Name);
+                                    context.SaveChanges();
+
+                                    ViewBag.ResultMessage[user.Id] = user.UserName + " added to the role succesfully !";
+                                }
+
+
+                            }
+
+
+                        }
+                        break;
+                    case "remove":
+                        {
+                            for (int i = 0 ; i < usersRoles.Count() ; i++)
+                            {
+
+                                var user = userManager.FindById(usersRoles[i].User.Id);
+                                if (user == null)
+                                    throw new Exception("User not found!");
+
+                                if (userManager.IsInRole(user.Id, role.Name))
+                                {
+                                    userManager.RemoveFromRole(user.Id, role.Name);
+                                    context.SaveChanges();
+
+                                    ViewBag.ResultMessage = "Role removed from this user successfully !";
+                                }
+                                else
+                                {
+                                    ViewBag.ResultMessage[user.Id] = user.UserName + " doesn't belong to selected role.";
+                                }
+
+                            }
+
+                        }
+                        break;
                 }
-                else
-                {
-                    userManager.AddToRole(user.Id, role.Name);
-                    context.SaveChanges();
 
-                    ViewBag.ResultMessage = "Username added to the role succesfully !";
-                }
-
-                roles = (from r in roleManager.Roles select r.Name).ToList();
             }
-
-            ViewBag.Roles = new SelectList(roles);
-            ViewBag.Users = new SelectList(users);
-                 */
-            }
-            return View();
+            return RedirectToAction("RoleAddToUser");
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult GetRoles(string userName)
-        {
-            if (!string.IsNullOrWhiteSpace(userName))
-            {
-                List<string> userRoles;
-                List<string> roles;
-                List<string> users;
-                using (var context = new ApplicationDbContext())
-                {
-                    var roleStore = new RoleStore<IdentityRole>(context);
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                    roles = (from r in roleManager.Roles select r.Name).ToList();
-
-                    var userStore = new UserStore<ApplicationUser>(context);
-                    var userManager = new UserManager<ApplicationUser>(userStore);
-
-                    users = (from u in userManager.Users select u.UserName).ToList();
-
-                    var user = userManager.FindByName(userName);
-                    if (user == null)
-                        throw new Exception("User not found!");
-
-                    var userRoleIds = (from r in user.Roles select r.RoleId);
-                    userRoles = (from id in userRoleIds
-                                 let r = roleManager.FindById(id)
-                                 select r.Name).ToList();
-                }
-
-                ViewBag.Roles = new SelectList(roles);
-                ViewBag.Users = new SelectList(users);
-                ViewBag.RolesForThisUser = userRoles;
-            }
-
-            return View("RoleAddToUser");
-        }
 
         [HttpPost]
         [Authorize(Roles = "SuperAdmin")]
