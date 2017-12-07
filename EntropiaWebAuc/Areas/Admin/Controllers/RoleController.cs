@@ -216,7 +216,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             }
             ViewBag.Roles = roles;
-           
+
 
             return View(usersAndRoles);
         }
@@ -226,10 +226,10 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RoleAddToUser(IList<UsersRoles> usersRoles, FormCollection form)
         {
-           
+            List<String> resultMessages = new List<String>();
             using (var context = new ApplicationDbContext())
             {
-                List<String> resultMessages = new List<String>();
+
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
@@ -241,58 +241,65 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                     throw new Exception("Role not found!");
 
                 String action = Convert.ToString(form["actionId"]);
-                
+
                 switch (action)
                 {
                     case "add":
                         {
-                           
+
                             for (int i = 0; i < usersRoles.Count(); i++)
                             {
-
-                                var user = userManager.FindByName(usersRoles[i].User.UserName);
-                                
-
-                                if (user == null)
-                                    throw new Exception("User not found!");
-
-                                if (userManager.IsInRole(user.Id, role.Name.ToString()))
+                                if (usersRoles[i].selected == true)
                                 {
-                                    resultMessages.Add(user.UserName + " already has the role specified !") ;
-                                }
-                                else
-                                {
-                                    userManager.AddToRole(user.Id, role.Name);
-                                    context.SaveChanges();
-                                    resultMessages.Add(user.UserName + " added to the role succesfully !");
-                                }
+                                    var user = userManager.FindByName(usersRoles[i].User.UserName);
+                                    if (user == null)
+                                        throw new Exception("User not found!");
 
+                                    if (userManager.IsInRole(user.Id, role.Name.ToString()))
+                                    {
+                                        resultMessages.Add(user.UserName + " already has the role specified !");
+                                    }
+                                    else
+                                    {
+                                        if (user.Roles.Count() >= 1)
+                                        {
+                                            var userRoles = user.Roles;
+                                            
+                                        }
+                                           
+                                    //    userManager.RemoveFromRoles(user.Id, usersRoles[i].UserRoles.ToArray());
+                                        userManager.AddToRole(user.Id, role.Name);
+                                        context.SaveChanges();
+                                        resultMessages.Add(user.UserName + " added to the role succesfully !");
+                                    }
+                                }
 
                             }
-
 
                         }
                         break;
                     case "remove":
                         {
-                            for (int i = 0 ; i < usersRoles.Count() ; i++)
+                            for (int i = 0; i < usersRoles.Count(); i++)
                             {
-
-                                var user = userManager.FindById(usersRoles[i].User.Id);
-                                if (user == null)
-                                    throw new Exception("User not found!");
-
-                                if (userManager.IsInRole(user.Id, role.Name))
+                                if (usersRoles[i].selected == true)
                                 {
-                                    userManager.RemoveFromRole(user.Id, role.Name);
-                                    context.SaveChanges();
+                                    var user = userManager.FindByName(usersRoles[i].User.UserName);
+                                    if (user == null)
+                                        throw new Exception("User not found!");
 
-                                    resultMessages.Add("Role removed from this user successfully !");
-                                }
-                                else
-                                {
-                                    resultMessages.Add(" doesn't belong to selected role.!");
-                                    // ViewBag.ResultMessage[user.Id] = user.UserName + " doesn't belong to selected role.";
+                                    if (userManager.IsInRole(user.Id, role.Name))
+                                    {
+                                        userManager.RemoveFromRole(user.Id, role.Name);
+                                        context.SaveChanges();
+
+                                        resultMessages.Add(user.UserName + "Role removed from this user successfully !");
+                                    }
+                                    else
+                                    {
+                                        resultMessages.Add(user.UserName + " doesn't belong to selected role.!");
+
+                                    }
                                 }
 
                             }
@@ -302,6 +309,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 }
 
             }
+            ViewBag.ResultMessages = resultMessages;
             return RedirectToAction("RoleAddToUser");
         }
 

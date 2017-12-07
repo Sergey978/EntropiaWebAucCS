@@ -14,6 +14,16 @@
 
     <p>&nbsp;</p>
 
+    @if (ViewBag.ResultMessages != null)
+    {
+        foreach (String msg in ViewBag.ResultMessages)
+        {
+            @msg
+        }
+    }
+     
+  
+
 @using (Html.BeginForm("RoleAddToUser", "Role"))
 {
     @Html.AntiForgeryToken()
@@ -31,7 +41,15 @@
             {
 
                 <tr>
-                    <td>@Html.CheckBoxFor(x => x[i].selected)</td>
+                    @if (Model[i].UserRoles.Count >= 1 && Model[i].UserRoles.FirstOrDefault().Equals("SuperAdmin"))
+                    {
+                        <td>@Html.CheckBoxFor(x => x[i].selected, new { @disabled = "disabled" })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.CheckBoxFor(x => x[i].selected)</td>
+                    }
+                    
                     @Html.HiddenFor(x => x[i].User.UserName)
                     <td>@Html.DisplayFor(x => x[i].User.UserName)</td>
                    
@@ -39,7 +57,8 @@
                     <td>
                    @if (Model[i].UserRoles.Count >= 1)
                    {
-                       @Html.DisplayFor(x => x[i].UserRoles)
+                       @Html.DisplayFor(x => x[i].UserRoles) 
+                       
                    }
                     </td>
                 </tr>
