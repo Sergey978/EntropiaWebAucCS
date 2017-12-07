@@ -183,7 +183,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ActionResult RoleAddToUser()
         {
-
+            ViewBag.ResultMessages = TempData["resultMessages"];
             List<IdentityRole> roles;
             List<ApplicationUser> users;
 
@@ -309,7 +309,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 }
 
             }
-            ViewBag.ResultMessages = resultMessages;
+            TempData["ResultMessages"] = resultMessages;
             return RedirectToAction("RoleAddToUser");
         }
 

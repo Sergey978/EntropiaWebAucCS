@@ -8,7 +8,7 @@
 
 <div class="spacerBody">
 
-   
+
     <h2>Add role to user</h2>
 
 
@@ -18,74 +18,74 @@
     {
         foreach (String msg in ViewBag.ResultMessages)
         {
-            @msg
+            @msg <br>
         }
     }
-     
-  
 
-@using (Html.BeginForm("RoleAddToUser", "Role"))
-{
-    @Html.AntiForgeryToken()
-    <table class="table">
-        <thead>
-            <tr>
-                <th><label><input type="checkbox" value=""></label></th>
-                <th>User</th>
-                <th>Role</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @for (var i = 0; i < Model.Count; i++)
-            {
 
+    @using (Html.BeginForm("RoleAddToUser", "Role"))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table">
+            <thead>
                 <tr>
-                    @if (Model[i].UserRoles.Count >= 1 && Model[i].UserRoles.FirstOrDefault().Equals("SuperAdmin"))
-                    {
-                        <td>@Html.CheckBoxFor(x => x[i].selected, new { @disabled = "disabled" })</td>
-                    }
-                    else
-                    {
-                        <td>@Html.CheckBoxFor(x => x[i].selected)</td>
-                    }
-                    
-                    @Html.HiddenFor(x => x[i].User.UserName)
-                    <td>@Html.DisplayFor(x => x[i].User.UserName)</td>
-                   
-
-                    <td>
-                   @if (Model[i].UserRoles.Count >= 1)
-                   {
-                       @Html.DisplayFor(x => x[i].UserRoles) 
-                       
-                   }
-                    </td>
+                    <th><label><input type="checkbox" value=""></label></th>
+                    <th>User</th>
+                    <th>Role</th>
                 </tr>
-            }
+            </thead>
 
-        </tbody>
+            <tbody>
+                @for (var i = 0; i < Model.Count; i++)
+                {
 
-    </table>
+                    <tr>
+                        @if (Model[i].UserRoles.Count >= 1 && Model[i].UserRoles.FirstOrDefault().Equals("SuperAdmin"))
+                        {
+                            <td>@Html.CheckBoxFor(x => x[i].selected, new { @disabled = "disabled" })</td>
+                        }
+                        else
+                        {
+                            <td>@Html.CheckBoxFor(x => x[i].selected)</td>
+                        }
+
+                        @Html.HiddenFor(x => x[i].User.UserName)
+                        <td>@Html.DisplayFor(x => x[i].User.UserName)</td>
 
 
-    <label for="sel1">With selectes users:</label>
-    <div class=" form-group row">
-        <div class="col-xs-6">
-            @Html.DropDownList("roleId", new SelectList(ViewBag.Roles, "Id", "Name"), new { @class = "form-control" })
-        </div>
-        <div class="col-xs-2">
-            @Html.DropDownList("actionId", new SelectList(
+                        <td>
+                            @if (Model[i].UserRoles.Count >= 1)
+                            {
+                                @Html.DisplayFor(x => x[i].UserRoles)
+
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+
+        <label for="sel1">With selectes users:</label>
+        <div class=" form-group row">
+            <div class="col-xs-6">
+                @Html.DropDownList("roleId", new SelectList(ViewBag.Roles, "Id", "Name"), new { @class = "form-control" })
+            </div>
+            <div class="col-xs-2">
+                @Html.DropDownList("actionId", new SelectList(
         new List<SelectListItem>
             {
             new SelectListItem { Selected = true, Text = "add", Value = "add"},
             new SelectListItem { Selected = false, Text = "remove", Value = "remove"},
 
             }, "Value", "Text", 1), new { @class = "form-control " })
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
-        <div class="col-xs-4">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    </div>
-}   
+    }
 </div>
