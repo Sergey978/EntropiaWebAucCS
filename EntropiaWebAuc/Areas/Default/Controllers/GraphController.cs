@@ -75,7 +75,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         }
 
 
-        // Get list uiser items
+        // Get list user items
         public IEnumerable<Item> GetListUserItems()
         {
             String userId = User.Identity.GetUserId();

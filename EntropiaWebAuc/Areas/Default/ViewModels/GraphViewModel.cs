@@ -47,6 +47,8 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
         [Range(typeof(decimal), "50.0", "10000")]
         public decimal? PurchasePrice { get; set; }
 
+        public int? Quiantity { get; set; }
+
 
     }
 

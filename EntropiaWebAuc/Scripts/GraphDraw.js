@@ -288,7 +288,7 @@ function clickRow(event){
          }
              else {
                  selectedRow.className = "success";
-
+                 console.log("succes");
                 redrawChart();
                 scrollToSelectedPoint();
             }
