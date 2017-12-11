@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using EntropiaWebAuc.Domain;
 using Ninject;
+using EntropiaWebAuc.Areas.Default.Models;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -43,7 +44,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 ViewModel.SelectedItem = ViewModel.Items.FirstOrDefault<Item>();
             }
             else ViewModel.SelectedItem = selectedItem;
-            
+            ViewModel.PointLimitation = GetUserPointsLimit();
+
             return PartialView("_GetItem", ViewModel);
         }
 
@@ -126,6 +128,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public ActionResult _GetItemJSON(string val)
         {
             ViewModel.Items = GetListUserItems();
+           
             IItem selectedItem = null;
             if (val != null)
             {
@@ -169,6 +172,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             }
 
 
+
+        }
+
+        private int GetUserPointsLimit()
+        {
+            int pointsLimit = 0;
+           
+            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), Repo);
+            pointsLimit = roleOption.AmountPoints == null ? 0: (int)roleOption.AmountPoints ;
+            return  pointsLimit;
 
         }
 

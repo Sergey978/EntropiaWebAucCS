@@ -15,53 +15,61 @@ var params = {
 
 // параметры объекта
 var item = {
-    pricePerItem  : 0.03,
-    purchasePrice : 102.5,
-    markup        : 2,
-    beginQuantity : 500,
-    quantity      : 1000,
-    stepQuantity  : 1,
+    pricePerItem: 0.03,
+    purchasePrice: 102.5,
+    markup: 2,
+    beginQuantity: 500,
+    quantity: 1000,
+    stepQuantity: 1,
     ky: 1000, // коэф Масштабирования шкалы по у
     kx: 50, // коэф Масштабирования шкалы по x , количество пикселей на %
-    selectedPoint : null
+    selectedPoint: null
 };
+
+
+
+$(document).ready(init());
 
 /*
         таблица
        quantity , sellingPrice ,profit,tax,markup
  */
-   
+
+
 var table = [];
 function populateChartAndTable(data) {
     if (data.indexOf("field-validation-error") > -1) return;
-    
-       item.purchasePrice = Number($("#SelectedItem_PurchasePrice").val());
-       item.pricePerItem = Number($("#SelectedItem_Price").val());
-       item.markup = Number($("#SelectedItem_Markup").val());
-       item.beginQuantity = Number($("#SelectedItem_BeginQuantity").val());
-       item.stepQuantity = Number($("#SelectedItem_Step").val());
-       item.quantity = item.beginQuantity + 500;
+
+    table = [];
+    item.purchasePrice = Number($("#SelectedItem_PurchasePrice").val());
+    item.pricePerItem = Number($("#SelectedItem_Price").val());
+    item.markup = Number($("#SelectedItem_Markup").val());
+    item.beginQuantity = Number($("#SelectedItem_BeginQuantity").val());
+    item.stepQuantity = Number($("#SelectedItem_Step").val());
+    item.quantity = item.beginQuantity + Number($("#PointLimitation").val()) * item.stepQuantity;
 
 
-    table  = [];
-   
     var MaxXY = calcTable();
-
     item.ky = (params.oyn + params.ly) / MaxXY.y;
-    item.kx = (   params.lx - 100 - params.oxn) / (MaxXY.x - 100 ) ;
-   
+    item.kx = (params.lx - 100 - params.oxn) / (MaxXY.x - 100);
+
     printTable();
     redrawChart();
     scrollToFirstPoint();
- 
+
 };
 
-function init() {
+function reinitItem() {
     // отправка запроса при изменении item
     document.getElementById('Item').addEventListener("change", function (event) { changeItem(event) });
+}
+
+function init() {
+
+    // отправка запроса при изменении item
+    reinitItem();
 
     //обработка клика по точке
-
     document.getElementById('graph').addEventListener("click", function (event) {
         clickPoint(event);
     });
@@ -72,6 +80,7 @@ function init() {
         clickRow(event);
 
     });
+
 
     //масштабирование колесиком мыши
     addOnWheel(graph, function (e) {
@@ -114,121 +123,121 @@ function init() {
 
 }
 
-$(document).ready( init());
+
 
 
 
 // отрисовка осей
-function drawAxis(){
+function drawAxis() {
 
-    var xAxis  = $(document.createElement('div')).addClass('horizontal-axis') ;
-    var yAxis = $(document.createElement('div')).addClass('vertical-axis') ;
-    $(xAxis).css({"width":params.lx, "left": params.oxn, "top": params.oyn + params.ly });
-    $(yAxis).css({"height":params.ly, "left": params.oxn , "top": params.oyn});
+    var xAxis = $(document.createElement('div')).addClass('horizontal-axis');
+    var yAxis = $(document.createElement('div')).addClass('vertical-axis');
+    $(xAxis).css({ "width": params.lx, "left": params.oxn, "top": params.oyn + params.ly });
+    $(yAxis).css({ "height": params.ly, "left": params.oxn, "top": params.oyn });
     $('#graph').append(xAxis, yAxis);
 
 }
 
 
 // отрисовка сетки
-function drawGrid(){
-  lineStepX = params.stepX * item.kx;
-  lineStepY = params.stepY * item.ky;
+function drawGrid() {
+    lineStepX = params.stepX * item.kx;
+    lineStepY = params.stepY * item.ky;
 
     // vertical lines
     xSlug = 0;
-  for (var vLine = 100 ; vLine < params.lx ; vLine += lineStepX){
-      var x = params.oxn + vLine ;
+    for (var vLine = 100 ; vLine < params.lx ; vLine += lineStepX) {
+        var x = params.oxn + vLine;
 
-      //x lines
-      var lineV  = $(document.createElement('div')).addClass('vertical-line') ;
-      $(lineV).css({"height":params.ly, "left":  x, "top": params.oyn });
-      $('#graph').append(lineV);
+        //x lines
+        var lineV = $(document.createElement('div')).addClass('vertical-line');
+        $(lineV).css({ "height": params.ly, "left": x, "top": params.oyn });
+        $('#graph').append(lineV);
 
-      // slug on x axis
-      var divX  = $(document.createElement('div')).text(100 + xSlug).addClass('slug-x') ;
-      $(divX).css({"left":  x - 10, "top": params.oyn + params.ly });
-      $('#graph').append(divX);
-      xSlug += params.stepX;
+        // slug on x axis
+        var divX = $(document.createElement('div')).text(100 + xSlug).addClass('slug-x');
+        $(divX).css({ "left": x - 10, "top": params.oyn + params.ly });
+        $('#graph').append(divX);
+        xSlug += params.stepX;
 
-  }
-  // horizontal lines
-  var beginY = params.oyn + params.ly;
-  ySlug = 0;
-  for (var hLine = 1 ; (beginY - hLine * lineStepY )> params.oyn ; hLine++){
-      var y = beginY - hLine * lineStepY ;
-      ySlug += params.stepY;
+    }
+    // horizontal lines
+    var beginY = params.oyn + params.ly;
+    ySlug = 0;
+    for (var hLine = 1 ; (beginY - hLine * lineStepY) > params.oyn ; hLine++) {
+        var y = beginY - hLine * lineStepY;
+        ySlug += params.stepY;
 
-      var lineH  = $(document.createElement('div')).addClass('horizontal-line') ;
-      $(lineH).css({"width":params.lx, "top":  y, "left": params.oxn });
-      $('#graph').append(lineH);
+        var lineH = $(document.createElement('div')).addClass('horizontal-line');
+        $(lineH).css({ "width": params.lx, "top": y, "left": params.oxn });
+        $('#graph').append(lineH);
 
-      // slug on y axis
-      var divY  = $(document.createElement('div')).text(ySlug.toFixed(2)).addClass('slug-y') ;
-      $(divY).css({ "top":  y - 10, "left": params.oxn - 30  });
-      $('#graph').append(divY);
+        // slug on y axis
+        var divY = $(document.createElement('div')).text(ySlug.toFixed(2)).addClass('slug-y');
+        $(divY).css({ "top": y - 10, "left": params.oxn - 30 });
+        $('#graph').append(divY);
 
-  }
+    }
 
 }
 
 
-function calcTable (){
+function calcTable() {
 
     var MaxParams = { y: 0, x: 0 };
     var j = 0;
-    for (var i = item.beginQuantity; i <= item.quantity; i +=item.stepQuantity){
+    for (var i = item.beginQuantity; i <= item.quantity; i += item.stepQuantity) {
         sellingPrice = (i * item.pricePerItem + item.markup).toFixed(0);
-        markup =   sellingPrice - (item.pricePerItem * i) ;
-        tax = 0.5 + markup * 99.5/(1990 + markup);
+        markup = sellingPrice - (item.pricePerItem * i);
+        tax = 0.5 + markup * 99.5 / (1990 + markup);
         profit = sellingPrice - (item.pricePerItem * item.purchasePrice * i / 100) - tax;
         table[j] = [i, sellingPrice, profit.toFixed(2), tax.toFixed(2),
             (sellingPrice / (i * item.pricePerItem) * 100).toFixed(2)];
         if (MaxParams.x < table[j][4]) MaxParams.x = table[j][4];
         if (MaxParams.y < profit) MaxParams.y = profit;
-         j++;
+        j++;
     }
     return MaxParams;
 }
 
-function printTable(){
+function printTable() {
     var j = 0;
     var rows = '';
-    var classRow ='';
-     $('#tbody').empty();
-    for (var i = item.beginQuantity; i <= item.quantity; i +=item.stepQuantity){
+    var classRow = '';
+    $('#tbody').empty();
+    for (var i = item.beginQuantity; i <= item.quantity; i += item.stepQuantity) {
 
-      rows += '<tr  id = "row-' + j +'">\n' +
-                 '<td class="col-xs-2 text-center">' + table[j][0] + '</td>\n' +
-                 '<td class="col-xs-3 text-center">' + table[j][1] + '</td>\n' +
-                 '<td class="col-xs-3 text-center">' + table[j][2] + '</td>\n' +
-                 '<td class="col-xs-2 text-center">' + table[j][3] + '</td>\n' +
-                 '<td class="col-xs-2 text-center">' + table[j][4] + '</td>\n' +
+        rows += '<tr  id = "row-' + j + '">\n' +
+                   '<td class="col-xs-2 text-center">' + table[j][0] + '</td>\n' +
+                   '<td class="col-xs-3 text-center">' + table[j][1] + '</td>\n' +
+                   '<td class="col-xs-3 text-center">' + table[j][2] + '</td>\n' +
+                   '<td class="col-xs-2 text-center">' + table[j][3] + '</td>\n' +
+                   '<td class="col-xs-2 text-center">' + table[j][4] + '</td>\n' +
 
-               '</tr>\n';
-         j++;
+                 '</tr>\n';
+        j++;
     }
     $('#tbody').append(rows);
 }
 
 
-function drawChart(){
+function drawChart() {
     lengthTable = table.length;
 
     var point = '';
 
-    for (i = 0; i < lengthTable; i++){
+    for (i = 0; i < lengthTable; i++) {
 
-        x = 100 + params.oxn +  (table[i][4] - 100)  * item.kx;
-        if ( x > params.oxn + params.lx) continue;
+        x = 100 + params.oxn + (table[i][4] - 100) * item.kx;
+        if (x > params.oxn + params.lx) continue;
         y = params.oyn + params.ly - table[i][2] * item.ky;
-        if ( y >params.oyn + params.ly) continue;
-         (i == item.selectedPoint)? classPoint = 'point-selected': classPoint = 'point';
+        if (y > params.oyn + params.ly) continue;
+        (i == item.selectedPoint) ? classPoint = 'point-selected' : classPoint = 'point';
         point += '<div class="' + classPoint + '"' +
-                'id = "point-' + i + '"'+
-                'title = "profit ' + table[i][2]+ ', markup ' + table[i][4] + ', '+
-                'quatity '  + table[i][0]+'" '+
-                'style="left:' + x + 'px; top:'+ y +'px;"></div>'+
+                'id = "point-' + i + '"' +
+                'title = "profit ' + table[i][2] + ', markup ' + table[i][4] + ', ' +
+                'quatity ' + table[i][0] + '" ' +
+                'style="left:' + x + 'px; top:' + y + 'px;"></div>' +
                 '\n';
 
     }
@@ -236,7 +245,7 @@ function drawChart(){
 
 }
 
-function redrawChart(){
+function redrawChart() {
     $('#graph').empty();
     drawAxis();
     drawGrid();
@@ -246,172 +255,170 @@ function redrawChart(){
 
 
 // обработка клика на точке
-function clickPoint(event){
-    if (event.target.className === 'point'){
-      var oldPoint =  item.selectedPoint;
-      item.selectedPoint = event.target.id.substr(6);
-	  
-	  if (oldPoint !==null){
-		var oldSelectedPoint = document.getElementById('point-' + oldPoint);
-		if (oldSelectedPoint !== null){
-				oldSelectedPoint.className = "point" ;
-				}
-		
-		 document.getElementById('row-' + oldPoint).className = ""; 
-	   }
-      document.getElementById('point-' + item.selectedPoint).className = "point-selected";
-      
-      var selectedRow = document.getElementById('row-' + item.selectedPoint); 
-      if (selectedRow !== null){
-        selectedRow.className = "success";
-        //scroll to selected row
-       $('#tbody').animate({scrollTop: item.selectedPoint * 37},600);
-    }
-    
-      
+function clickPoint(event) {
+    if (event.target.className === 'point') {
+        var oldPoint = item.selectedPoint;
+        item.selectedPoint = event.target.id.substr(6);
+
+        if (oldPoint !== null) {
+            var oldSelectedPoint = document.getElementById('point-' + oldPoint);
+            if (oldSelectedPoint !== null) {
+                oldSelectedPoint.className = "point";
+            }
+
+            document.getElementById('row-' + oldPoint).className = "";
+        }
+        document.getElementById('point-' + item.selectedPoint).className = "point-selected";
+
+        var selectedRow = document.getElementById('row-' + item.selectedPoint);
+        if (selectedRow !== null) {
+            selectedRow.className = "success";
+            //scroll to selected row
+            $('#tbody').animate({ scrollTop: item.selectedPoint * 37 }, 600);
+        }
+
+
     }
 
 }
 // обработка клика по таблице
-function clickRow(event){
-    
-     if (event.target.parentNode.tagName === 'TR'){
-         var oldPoint =  item.selectedPoint;
-         
-         oldRow = document.getElementById('row-' + oldPoint);
-         item.selectedPoint = event.target.parentNode.id.substr(4);
-         selectedRow = document.getElementById('row-' + item.selectedPoint);
-            
-             if (   table[item.selectedPoint][2] < 0){
-                 selectedRow.className = "danger";
-             redrawChart();
-         }
-             else {
-                 selectedRow.className = "success";
-                 console.log("succes");
-                redrawChart();
-                scrollToSelectedPoint();
-            }
-            
-             if (oldRow !== null) {
-             oldRow.className = "";
-         }
-         
-         
+function clickRow(event) {
+
+    if (event.target.parentNode.tagName === 'TR') {
+        var oldPoint = item.selectedPoint;
+
+        oldRow = document.getElementById('row-' + oldPoint);
+        item.selectedPoint = event.target.parentNode.id.substr(4);
+        selectedRow = document.getElementById('row-' + item.selectedPoint);
+
+        if (table[item.selectedPoint][2] < 0) {
+            selectedRow.className = "danger";
+            redrawChart();
+        }
+        else {
+            selectedRow.className = "success";
+            redrawChart();
+            scrollToSelectedPoint();
+        }
+
+        if (oldRow !== null) {
+            oldRow.className = "";
+        }
+
+
     }
 }
 
 //добавление слушателя к колесу мыши
 function addOnWheel(elem, handler) {
-      if (elem.addEventListener) {
+    if (elem.addEventListener) {
         if ('onwheel' in document) {
-          // IE9+, FF17+
-          elem.addEventListener("wheel", handler);
+            // IE9+, FF17+
+            elem.addEventListener("wheel", handler);
         } else if ('onmousewheel' in document) {
-          // устаревший вариант события
-          elem.addEventListener("mousewheel", handler);
+            // устаревший вариант события
+            elem.addEventListener("mousewheel", handler);
         } else {
-          // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
-          elem.addEventListener("MozMousePixelScroll", handler);
+            // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+            elem.addEventListener("MozMousePixelScroll", handler);
         }
-      } else { // IE8-
+    } else { // IE8-
         text.attachEvent("onmousewheel", handler);
-      }
     }
+}
 
 // скролл к точке или вывод сообщения "out of range "
-function scrollToFirstPoint(){
+function scrollToFirstPoint() {
     lengthTable = table.length;
-    graphContainer =  $('.graph-container');
+    graphContainer = $('.graph-container');
     pointFound = false;
     var x, y;
-    for ( i = 0; i < lengthTable; i++){
-        if (table[i][2] >= 0 ){
-            x = 100 + params.oxn +  (table[i][4] - 100)  * item.kx;
-            if ( x > params.oxn + params.lx) continue;
+    for (i = 0; i < lengthTable; i++) {
+        if (table[i][2] >= 0) {
+            x = 100 + params.oxn + (table[i][4] - 100) * item.kx;
+            if (x > params.oxn + params.lx) continue;
             y = params.oyn + params.ly - table[i][2] * item.ky;
-            if ( y < 0) continue;
+            if (y < 0) continue;
             pointFound = true;
             break;
         }
-       
+
     }
-    
-        if (pointFound === true){
-           
-            centerX = graphContainer.width();
-            centerY = graphContainer.height();
-            
-            
-        graphContainer.scrollLeft(x - centerX/2 ); 
-        graphContainer.scrollTop(y - centerY/2 );
-        }
-        else {
-            x =  graphContainer.scrollLeft() + 100;
-            y =  graphContainer.scrollTop() + 100 ;
-            
-            $('#graph').append('<div class = "out-of-range"' +
-                'style="left:' + x + 'px; top:'+ y  +'px;">'+
-                'Out of range </div>');
-        }
-    
-    
+
+    if (pointFound === true) {
+
+        centerX = graphContainer.width();
+        centerY = graphContainer.height();
+
+
+        graphContainer.scrollLeft(x - centerX / 2);
+        graphContainer.scrollTop(y - centerY / 2);
+    }
+    else {
+        x = graphContainer.scrollLeft() + 100;
+        y = graphContainer.scrollTop() + 100;
+
+        $('#graph').append('<div class = "out-of-range"' +
+            'style="left:' + x + 'px; top:' + y + 'px;">' +
+            'Out of range </div>');
+    }
+
+
 }
 // scroll to selected point by row
-function scrollToSelectedPoint(){
-     var x, y;
-    graphContainer =  $('.graph-container');
-    
-      x = 100 + params.oxn +  (table[item.selectedPoint][4] - 100)  * item.kx;
-      y = params.oyn + params.ly - table[item.selectedPoint][2] * item.ky;
-       // если точка в видимой области графика
-        if (x <= params.oxn + params.lx && y >= 0   ){
-           
-            centerX = graphContainer.width();
-            centerY = graphContainer.height();
-            
-        graphContainer.animate({scrollTop: y - centerY/2},800);
-        graphContainer.scrollLeft(x - centerX/2 ); 
-        
-        }
-        else {
+function scrollToSelectedPoint() {
+    var x, y;
+    graphContainer = $('.graph-container');
 
-            x =  graphContainer.scrollLeft() + 100;
-            y =  graphContainer.scrollTop() + 100 ;
-            
-            $('#graph').append('<div class = "out-of-range"' +
-                'style="left:' + x + 'px; top:'+ y  +'px;">'+
-                'Out of range </div>');
-        }
-    
-    
+    x = 100 + params.oxn + (table[item.selectedPoint][4] - 100) * item.kx;
+    y = params.oyn + params.ly - table[item.selectedPoint][2] * item.ky;
+    // если точка в видимой области графика
+    if (x <= params.oxn + params.lx && y >= 0) {
+
+        centerX = graphContainer.width();
+        centerY = graphContainer.height();
+
+        graphContainer.animate({ scrollTop: y - centerY / 2 }, 800);
+        graphContainer.scrollLeft(x - centerX / 2);
+
+    }
+    else {
+
+        x = graphContainer.scrollLeft() + 100;
+        y = graphContainer.scrollTop() + 100;
+
+        $('#graph').append('<div class = "out-of-range"' +
+            'style="left:' + x + 'px; top:' + y + 'px;">' +
+            'Out of range </div>');
+    }
+
+
 }
 
 function changeItem(ev) {
-   
-    var t =  ev.target.value;
+
+    var t = ev.target.value;
     if (t != "") {
 
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             url: '/Graph/_GetItemJSON',
-            data: JSON.stringify({val:t}),
-        dataType: "json",
-        success: function (res) {
-            $('#SelectedItem_Markup').val(res.Data.Markup);
-            $("#SelectedItem_BeginQuantity").val(res.Data.BeginQuantity);
-            $("#SelectedItem_Price").val(res.Data.Price);
-            $("#SelectedItem_PurchasePrice").val(res.Data.PurchasePrice);
-            $("#SelectedItem_Step").val(res.Data.Step)
-        }, 
-        error: function (xhr, err) {
-            console.log(err);
-        } 
-    })
-
-        }
+            data: JSON.stringify({ val: t }),
+            dataType: "json",
+            success: function (res) {
+                $('#SelectedItem_Markup').val(res.Data.Markup);
+                $("#SelectedItem_BeginQuantity").val(res.Data.BeginQuantity);
+                $("#SelectedItem_Price").val(res.Data.Price);
+                $("#SelectedItem_PurchasePrice").val(res.Data.PurchasePrice);
+                $("#SelectedItem_Step").val(res.Data.Step)
+            },
+            error: function (xhr, err) {
+                console.log(err);
+            }
+        })
 
     }
-  
-     
+
+}
+

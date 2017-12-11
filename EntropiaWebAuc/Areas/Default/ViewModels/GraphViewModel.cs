@@ -16,6 +16,7 @@ namespace EntropiaWebAuc.Areas.Default.ViewModels
 
         public IEnumerable<Item> Items { get; set; }
         public Item SelectedItem { get; set; }
+        public int PointLimitation { get; set; }
 
       
     }
