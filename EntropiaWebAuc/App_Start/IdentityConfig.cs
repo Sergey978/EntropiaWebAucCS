@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using EntropiaWebAuc.Areas.Default.Models;
+using EntropiaWebAuc.Services;
 
 namespace EntropiaWebAuc
 {
@@ -19,6 +20,11 @@ namespace EntropiaWebAuc
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            var sender = new MailSender();
+            sender.SendMail(message.Destination,
+                            message.Subject,
+                            message.Body);
+
             return Task.FromResult(0);
         }
     }
@@ -40,7 +46,7 @@ namespace EntropiaWebAuc
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -81,7 +87,7 @@ namespace EntropiaWebAuc
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
