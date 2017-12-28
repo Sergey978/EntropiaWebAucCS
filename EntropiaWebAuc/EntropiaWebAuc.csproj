@@ -276,6 +276,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
+    <Content Include="Areas\Default\Views\Account\DisplayEmail.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

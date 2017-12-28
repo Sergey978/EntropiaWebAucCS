@@ -19,6 +19,7 @@ namespace EntropiaWebAuc.Services
                 mail.To.Add(new MailAddress(recipient));
                 mail.Subject = subject;
                 mail.Body = message;
+                mail.IsBodyHtml = true;
                 client.SendMailAsync(mail);
             }
             catch (Exception ex)
