@@ -36,8 +36,26 @@ namespace EntropiaWebAuc
 
             bundles.Add(new ScriptBundle("~/bundles/someeAdRemove").Include(
              "~/Scripts/someeAdRemove.js"));
-            
-           
+
+            // new template budles
+
+            bundles.Add(new StyleBundle("~/Content/style2").Include(
+                     "~/Content/css/bootstrap-theme.css",
+                     "~/Content/css/bootstrap.min.css",
+                     "~/Content/css/font-awesome.min.css",
+                     "~/Content/css/layout.css",
+                     "~/Content/css/main.css",
+                      "~/Content/plugins/slider.revolution.v4/css/settings.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/js").Include(
+             "~/Content/js/headroom.min.js",
+             "~/Content/js/jQuery.headroom.min.js",
+             "~/Content/js/template.js"));
+//revolution slider
+            bundles.Add(new ScriptBundle("~/Content/revolution").Include(
+             "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.tools.min.js",
+             "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.revolution.min.js",
+             "~/Content/js/slider_revolution.js"));
         }
     }
 }

@@ -277,6 +277,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
     <Content Include="Areas\Default\Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_LayoutIndex.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
@@ -302,7 +303,6 @@
     <Content Include="Areas\Default\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Default\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Default\Views\Shared\Lockout.cshtml" />
-    <Content Include="Temp\EntropiaProgressus.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
