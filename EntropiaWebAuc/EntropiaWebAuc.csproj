@@ -317,7 +317,6 @@
     <Content Include="Areas\Default\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Default\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Areas\Default\Views\Web.config" />
-    <Content Include="Areas\Default\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
@@ -355,6 +354,7 @@
     <Content Include="Content\plugins\slider.revolution.v4\font\revicons.ttf%405510888" />
     <Content Include="Content\plugins\slider.revolution.v4\font\revicons.woff" />
     <Content Include="Areas\Default\Views\Shared\_LoginPartial2.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_NavBar.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

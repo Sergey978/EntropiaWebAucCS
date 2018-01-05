@@ -42,10 +42,12 @@ namespace EntropiaWebAuc
             bundles.Add(new StyleBundle("~/Content/style2").Include(
                      "~/Content/css/bootstrap.min.css",
                      "~/Content/css/font-awesome.min.css",
-                     "~/Content/css/layout.css",
-                     "~/Content/plugins/slider.revolution.v4/css/settings.css",
                      "~/Content/css/bootstrap-theme.css",
                      "~/Content/css/main.css"));
+
+            bundles.Add(new StyleBundle("~/Content/slider").Include(
+                    "~/Content/css/layout.css",
+                    "~/Content/plugins/slider.revolution.v4/css/settings.css"));
 
 
             bundles.Add(new ScriptBundle("~/Content/js").Include(
