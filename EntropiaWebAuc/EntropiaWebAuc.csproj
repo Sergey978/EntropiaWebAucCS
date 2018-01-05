@@ -353,7 +353,8 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Content\plugins\slider.revolution.v4\font\revicons.eot%405510888" />
     <Content Include="Content\plugins\slider.revolution.v4\font\revicons.ttf%405510888" />
-    <Content Include="Content\plugins\slider.revolution.v4\font\revicons.woff%405510888" />
+    <Content Include="Content\plugins\slider.revolution.v4\font\revicons.woff" />
+    <Content Include="Areas\Default\Views\Shared\_LoginPartial2.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

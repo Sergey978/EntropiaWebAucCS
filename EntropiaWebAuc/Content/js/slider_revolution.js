@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 		});
 
 		// Used by styleswitcher onle - delete this on production!
-		jQuery("#is_wide, #is_boxed").bind("click", function() { revapi.revredraw(); });
+		
 	}
 
 
@@ -141,8 +141,7 @@ jQuery(document).ready(function() {
 					fullScreenOffsetContainer: "header, .pagetitlewrap"	
 				});
 
-			// Used by styleswitcher onle - delete this on production!
-			jQuery("#is_wide, #is_boxed").bind("click", function() { revapi25.revredraw(); });
+			
 
 			}
 		});	//ready
@@ -215,8 +214,7 @@ jQuery(document).ready(function() {
 			fullScreenOffsetContainer: ""
 		});
 
-		// Used by styleswitcher onle - delete this on production!
-		jQuery("#is_wide, #is_boxed").bind("click", function() { revapi.revredraw(); });
+		
 
 	}
 
