@@ -301,8 +301,8 @@
     <Content Include="Areas\Default\Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Areas\Default\Views\Account\ForgotPassword.cshtml" />
     <Content Include="Areas\Default\Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Login.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Login_old.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Register_old.cshtml" />
     <Content Include="Areas\Default\Views\Account\ResetPassword.cshtml" />
     <Content Include="Areas\Default\Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Areas\Default\Views\Account\SendCode.cshtml" />
@@ -356,6 +356,9 @@
     <Content Include="Content\plugins\slider.revolution.v4\font\revicons.woff" />
     <Content Include="Areas\Default\Views\Shared\_LoginPartial2.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_NavBar.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Default\Views\Account\Register.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
