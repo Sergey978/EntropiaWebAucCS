@@ -1,33 +1,32 @@
-﻿    <!-- Fixed navbar -->
-<!-- TODO: http://chadhaney.me/blog/bootstrap-active-menu-->
-    <div class="navbar navbar-inverse navbar-fixed-top headroom">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Button for smallest screens -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <a class="navbar-brand" href="index.html"><img src="@Url.Content("~/Content/images/logo.png")" alt="Progressus HTML5 template"></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav pull-right">
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">@Html.ActionLink("About", "About", "Home")</li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li >@Html.ActionLink("Account", "Index", "CustomItem") </li>
-                        <li>@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
-                        <li>@Html.ActionLink("Graph", "Index", "Graph")</li>
-                    }
+﻿@using EntropiaWebAuc.Helpers
+<!-- Fixed navbar -->
 
-                    @Html.Partial("_LoginPartial2")
-                </ul>
-
-
-
-
-            </div><!--/.nav-collapse -->
+<div class="navbar navbar-inverse navbar-fixed-top headroom">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Button for smallest screens -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="index.html"><img src="@Url.Content("~/Content/images/logo.png")" alt="Progressus HTML5 template"></a>
         </div>
-    </div>
-    <!-- /.navbar -->
-   
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li class="@Html.IsActive("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
+                <li class="@Html.IsActive("Home", "About")">@Html.ActionLink("About", "About", "Home")</li>
+                <li class="@Html.IsActive("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="@Html.IsActive("Account", "Index")">@Html.ActionLink("Account", "Index", "CustomItem") </li>
+                    <li class="@Html.IsActive("SelectItems", "Index")">@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
+                    <li class="@Html.IsActive("Graph", "Index")">@Html.ActionLink("Graph", "Index", "Graph")</li>
+                }
 
+                @Html.Partial("_LoginPartial2")
+            </ul>
+
+
+
+
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+<!-- /.navbar -->
