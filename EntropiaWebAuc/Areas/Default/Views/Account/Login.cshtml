@@ -3,7 +3,7 @@
 @{
     Page.Title = "Log in";
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
-    
+
 }
 
 <header id="head" class="secondary"></header>
@@ -28,37 +28,53 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 class="thin text-center">Sign in to your account</h3>
-                        <p class="text-center text-muted">Lorem ipsum dolor sit amet, <a href="signup.html">Register</a> adipisicing elit. Quo nulla quibusdam cum doloremque incidunt nemo sunt a tenetur omnis odio. </p>
+                        <p class="text-center text-muted">Don't have account ? <b>@Html.ActionLink("Sign up here.", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) </b></p>
                         <hr>
 
-                        <form>
-                            <div class="top-margin">
-                                <label>Username/Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="top-margin">
-                                <label>Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="top-margin">
+                            @Html.LabelFor(m => m.Email)<span class="text-danger"> *</span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="top-margin">
+                            @Html.LabelFor(m => m.Password)<span class="text-danger"> *</span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="top-margin">
+
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
                             </div>
 
-                            <hr>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <b><a href="">Forgot password?</a></b>
-                                </div>
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Sign in</button>
-                                </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <b>@Html.ActionLink("Forgot your password?", "ForgotPassword")</b>
                             </div>
-                        </form>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-success" type="submit">Log in</button>
+                            </div>
+                        </div>
+
+                        }
                     </div>
                 </div>
-
             </div>
-
         </article>
         <!-- /Article -->
 
     </div>
-</div>	<!-- /container -->
+</div>	
+<!-- /container -->
+@Scripts.Render("~/bundles/jqueryval")

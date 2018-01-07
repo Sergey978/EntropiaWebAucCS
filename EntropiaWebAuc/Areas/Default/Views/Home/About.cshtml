@@ -1,5 +1,5 @@
 ﻿@{
-    Page.Title = "Contact";
+    Page.Title = "About";
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
 <header id="head" class="secondary"></header>
@@ -51,10 +51,12 @@
 
     </div>
 </div>	<!-- /container -->
-
-
-    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+@section Scripts{
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/someeAdRemove")
     @Scripts.Render("~/Content/js")
+
+
+}
