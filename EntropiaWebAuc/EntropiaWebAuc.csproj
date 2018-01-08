@@ -301,8 +301,6 @@
     <Content Include="Areas\Default\Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Areas\Default\Views\Account\ForgotPassword.cshtml" />
     <Content Include="Areas\Default\Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Login_old.cshtml" />
-    <Content Include="Areas\Default\Views\Account\Register_old.cshtml" />
     <Content Include="Areas\Default\Views\Account\ResetPassword.cshtml" />
     <Content Include="Areas\Default\Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Areas\Default\Views\Account\SendCode.cshtml" />
