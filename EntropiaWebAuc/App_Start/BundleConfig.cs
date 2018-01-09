@@ -54,11 +54,17 @@ namespace EntropiaWebAuc
              "~/Content/js/headroom.min.js",
              "~/Content/js/jQuery.headroom.min.js",
              "~/Content/js/template.js"));
+
             //revolution slider
             bundles.Add(new ScriptBundle("~/Content/revolution").Include(
              "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.tools.min.js",
              "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.revolution.min.js",
              "~/Content/js/slider_revolution.js"));
+            
+            //checkBox required validator extend jquery
+            bundles.Add(new ScriptBundle("~/bundles/chekBoxRequire").Include(
+            "~/Scripts/chekBoxRequire.js"));
+
         }
     }
 }

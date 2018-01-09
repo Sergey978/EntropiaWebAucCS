@@ -292,6 +292,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\chekBoxRequire.js" />
     <Content Include="Scripts\someeAdRemove.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Areas\Admin\Views\web.config" />

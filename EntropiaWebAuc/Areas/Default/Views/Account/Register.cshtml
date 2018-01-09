@@ -52,9 +52,10 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <label class="checkbox">
-                                        <input type="checkbox">
+                                        @Html.CheckBoxFor(m => m.TermsAndConditions)
                                         I've read the <a href="page_terms.html">Terms and Conditions</a>
                                     </label>
+
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <button class="btn btn-success" type="submit">Register</button>
@@ -81,6 +82,7 @@
     @Scripts.Render("~/bundles/someeAdRemove")
     @Scripts.Render("~/Content/js")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/chekBoxRequire")
 
 
 }
