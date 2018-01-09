@@ -9,8 +9,6 @@
 <!-- container -->
 <div class="container">
 
-    
-
     <h2>@Page.Title.</h2>
     <div>
         <p>
@@ -18,5 +16,11 @@
         </p>
     </div>
 </div>
-<div style="min-height : 320px">
-</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/Content/js")
+    @Scripts.Render("~/bundles/jqueryval")
+}

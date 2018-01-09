@@ -9,5 +9,8 @@ jQuery(document).ready(function($) {
 			"unpinned": "slideUp"
 		}
 	});
+    // footer stick to bottom
+	if ($(document).height() <= $(window).height())
+	    $("#footer").addClass("navbar-fixed-bottom");
 
 });

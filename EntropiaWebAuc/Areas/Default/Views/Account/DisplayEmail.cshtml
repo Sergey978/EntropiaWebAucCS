@@ -6,5 +6,11 @@
 
 <h2>@Page.Title</h2>
 <p>The following instructions were sent to the e-mail address to complete the registration</p>
-<div style="min-height : 320px">
-    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/Content/js")
+    @Scripts.Render("~/bundles/jqueryval")
+}
