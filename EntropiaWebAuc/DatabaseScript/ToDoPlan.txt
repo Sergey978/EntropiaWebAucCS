@@ -1,2 +1,2 @@
-﻿добавить таблицу role option
-перенести туда свойства для ролей
+﻿1 breadcums resolve
+2 in managment add description of role

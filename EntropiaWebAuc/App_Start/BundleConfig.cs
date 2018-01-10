@@ -61,7 +61,7 @@ namespace EntropiaWebAuc
              "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.revolution.min.js",
              "~/Content/js/slider_revolution.js"));
             
-            //checkBox required validator extend jquery
+            //checkBox required for validator extend jquery
             bundles.Add(new ScriptBundle("~/bundles/chekBoxRequire").Include(
             "~/Scripts/chekBoxRequire.js"));
 
