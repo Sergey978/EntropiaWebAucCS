@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Page.Title</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/style2")
+
+
+</head>
+
+<body>
+    <!--header-->
+    @Html.Partial("_NavBar")
+    <!--/header-->
+    <header id="head" class="secondary"></header>
+
+    <!--main-->
+
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Left Sidebar</li>
+        </ol>
+
+        <div class="row">
+
+            <!-- Sidebar -->
+            <div class="col-md-4 sidebar sidebar-left">
+                @Html.Partial("_LeftColumn")
+            </div>
+            <!-- /Sidebar-->
+            <!--Main content-->
+            <div class="col-md-8 maincontent">
+                @RenderBody()
+                <hr />
+            </div>
+            <!--/Main content-->
+        </div>
+    </div>
+    <hr />
+    @Html.Partial("_Footer")
+
+    <!--/main-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/Content/js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

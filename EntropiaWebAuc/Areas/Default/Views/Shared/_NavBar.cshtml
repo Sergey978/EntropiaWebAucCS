@@ -15,7 +15,7 @@
                 <li class="@Html.IsActive("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="@Html.IsActive("Account", "Index")">@Html.ActionLink("Account", "Index", "CustomItem") </li>
+                    <li class="@Html.IsActive("Account", "Index")">@Html.ActionLink("Custom Items", "Index", "CustomItem") </li>
                     <li class="@Html.IsActive("SelectItems", "Index")">@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
                     <li class="@Html.IsActive("Graph", "Index")">@Html.ActionLink("Graph", "Index", "Graph")</li>
                 }
