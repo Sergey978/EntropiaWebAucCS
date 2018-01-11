@@ -1,48 +1,68 @@
 ﻿@{
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
-
-
-<hr />
-
-<div class="container well">
-
-    @using (Ajax.BeginForm("_GetItem", new AjaxOptions{UpdateTargetId = "getItem",
-                                                      OnSuccess = "{populateChartAndTable(data); reinitItem();removeSomeeAd()}"
-    }))
-    {
-        <div id="getItem">
-            @Html.Action("_GetItem")
-        </div>
-    }
-
-</div>
-<!-- Main jumbotron for a primary marketing message or call to action -->
+<header id="head" class="secondary"></header>
+<!-- container -->
 <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-7">
-            <div class="graph-container">
-                <div class="graph" id="graph">
+
+    <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">About</li>
+    </ol>
+
+    <h2>@Page.Title</h2>
+
+    <hr />
+
+    <div class="container well">
+
+        @using (Ajax.BeginForm("_GetItem", new AjaxOptions
+    {
+        UpdateTargetId = "getItem",
+        OnSuccess = "{populateChartAndTable(data); reinitItem();removeSomeeAd()}"
+    }))
+        {
+            <div id="getItem">
+                @Html.Action("_GetItem")
+            </div>
+        }
+
+    </div>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-7">
+                <div class="graph-container">
+                    <div class="graph" id="graph">
+                    </div>
                 </div>
             </div>
+            <div class="col-md-5">
+                <table class="table table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-2 text-center">Quantity</th>
+                            <th class="col-xs-3 text-center">Selling Price</th>
+                            <th class="col-xs-3 text-center">Profit</th>
+                            <th class="col-xs-2 text-center">Tax</th>
+                            <th class="col-xs-2 text-center">Markup</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md-5">
-            <table class="table table-fixed">
-                <thead>
-                    <tr>
-                        <th class="col-xs-2 text-center">Quantity</th>
-                        <th class="col-xs-3 text-center">Selling Price</th>
-                        <th class="col-xs-3 text-center">Profit</th>
-                        <th class="col-xs-2 text-center">Tax</th>
-                        <th class="col-xs-2 text-center">Markup</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-            </table>
-        </div>
+        <hr>
+
     </div>
-    <hr>
-
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/bundles/graphDraw")
+    @Scripts.Render("~/Content/js")
 
+}

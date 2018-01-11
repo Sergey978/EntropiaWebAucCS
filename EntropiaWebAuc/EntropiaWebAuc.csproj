@@ -283,7 +283,7 @@
     <Content Include="Content\plugins\slider.revolution.v4\images\gradient\g40.png" />
     <Content Include="Content\plugins\slider.revolution.v4\js\jquery.themepunch.revolution.min.js" />
     <Content Include="Content\plugins\slider.revolution.v4\js\jquery.themepunch.tools.min.js" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\Graph.css" />
     <Content Include="DatabaseScript\ConnectionDBHome.txt" />
     <Content Include="DatabaseScript\ConnectionDBWork.txt" />
     <Content Include="DatabaseScript\entropia.sql" />

@@ -124,9 +124,6 @@ function init() {
 }
 
 
-
-
-
 // отрисовка осей
 function drawAxis() {
 

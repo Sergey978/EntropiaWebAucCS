@@ -24,8 +24,8 @@ namespace EntropiaWebAuc
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/style").Include(
-                     "~/Content/style.css"));
+            bundles.Add(new StyleBundle("~/Content/Graph").Include(
+                     "~/Content/Graph.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
              "~/Scripts/jquery.unobtrusive*",

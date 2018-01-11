@@ -1,27 +1,48 @@
 ﻿@{
+    Page.Title = "Select Items";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+
     AjaxOptions customRow = new AjaxOptions { UpdateTargetId = "customItemsRow" };
-
     AjaxOptions standartRow = new AjaxOptions { UpdateTargetId = "standartItemRow" };
+
 }
+<header id="head" class="secondary"></header>
+<!-- container -->
+<div class="container">
 
+    <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">About</li>
+    </ol>
 
-<hr>
+    <h2>@Page.Title</h2>
 
+    <hr>
 
+    @using (Ajax.BeginForm("CustomItemSelect", "SelectItems", customRow))
+    {
+        <div class="row" id="customItemsRow">
+            @Html.Action("_GetCustomItems")
 
-@using (Ajax.BeginForm("CustomItemSelect", "SelectItems", customRow))
-{
-    <div class="row" id="customItemsRow">
-        @Html.Action("_GetCustomItems")
+        </div>
+    }
+    <hr>
 
-    </div>
-}
-<hr>
+    @using (Ajax.BeginForm("StandartItemSelect", "SelectItems", standartRow))
+    {
+        <div class="row" id="standartItemRow">
+            @Html.Action("_GetStandartItems")
 
-@using (Ajax.BeginForm("StandartItemSelect", "SelectItems", standartRow))
-{
-    <div class="row" id="standartItemRow">
-        @Html.Action("_GetStandartItems")
+        </div>
+    }
+</div>
 
-    </div>
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/Content/js")
+
 }
