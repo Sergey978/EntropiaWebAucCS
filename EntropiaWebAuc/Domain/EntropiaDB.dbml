@@ -52,6 +52,7 @@
       <Association Name="AspNetUser_AspNetUserRole" Member="AspNetUserRoles" ThisKey="Id" OtherKey="UserId" Type="AspNetUserRole" />
       <Association Name="AspNetUser_CustomItem" Member="CustomItems" ThisKey="Id" OtherKey="UserId" Type="CustomItem" />
       <Association Name="AspNetUser_SelectedStandartItem" Member="SelectedStandartItems" ThisKey="Id" OtherKey="UserId" Type="SelectedStandartItem" />
+      <Association Name="AspNetUser_Message" Member="Messages" ThisKey="Id" OtherKey="RecId" Type="Message" />
     </Type>
   </Table>
   <Table Name="dbo.CustomItems" Member="CustomItems">
@@ -105,6 +106,21 @@
       <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="StandartItem_SelectedStandartItem" Member="SelectedStandartItems" ThisKey="Id" OtherKey="ItemId" Type="SelectedStandartItem" />
       <Association Name="StandartItemCategory_StandartItem" Member="StandartItemCategory" ThisKey="CategoryId" OtherKey="Id" Type="StandartItemCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Messages" Member="Messages">
+    <Type Name="Message">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SenderId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SenderEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SenderName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="RecId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="AspNetUser_Message" Member="AspNetUser" ThisKey="RecId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

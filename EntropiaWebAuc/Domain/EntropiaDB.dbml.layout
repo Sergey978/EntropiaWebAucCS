@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="EntropiaDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.125" name="EntropiaDB">
   <DataContextMoniker Name="/EntropiaDBDataContext" />
   <nestedChildShapes>
     <classShape Id="218644b4-eccd-4b87-9ca2-13cf60aaea76" absoluteBounds="0.75, 3.875, 2, 1.0961531575520831">
@@ -8,16 +8,16 @@
         <elementListCompartment Id="ab5d97cf-0ac2-42b3-adb7-b3be1e01e657" absoluteBounds="0.765, 4.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="80270ab5-26e7-4e0a-aeb3-07d1c3bf25f1" absoluteBounds="3.5, 4.5, 2, 1.4248478190104166">
+    <classShape Id="80270ab5-26e7-4e0a-aeb3-07d1c3bf25f1" absoluteBounds="3.5, 4.25, 2, 1.4248478190104166">
       <DataClassMoniker Name="/EntropiaDBDataContext/AspNetUserClaim" />
       <nestedChildShapes>
-        <elementListCompartment Id="ef488f1c-9003-47e8-86cf-d6ad77725cca" absoluteBounds="3.515, 4.9600000000000009, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ef488f1c-9003-47e8-86cf-d6ad77725cca" absoluteBounds="3.515, 4.7100000000000009, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="585dd5c8-b99f-4df3-a210-2d87c60a5966" absoluteBounds="3.5, 6.25, 2, 1.2605004882812505">
+    <classShape Id="585dd5c8-b99f-4df3-a210-2d87c60a5966" absoluteBounds="3, 7.125, 2, 1.2605004882812505">
       <DataClassMoniker Name="/EntropiaDBDataContext/AspNetUserLogin" />
       <nestedChildShapes>
-        <elementListCompartment Id="f913be5e-1cdf-4079-b1e0-4d125719083e" absoluteBounds="3.515, 6.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f913be5e-1cdf-4079-b1e0-4d125719083e" absoluteBounds="3.015, 7.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="f4c27904-b828-4b5d-acba-dd2b6f22d776" absoluteBounds="3.5, 3, 2, 1.0961531575520831">
@@ -69,14 +69,14 @@
         <classShapeMoniker Id="f4c27904-b828-4b5d-acba-dd2b6f22d776" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6 : 5.21242390950521); (5.5 : 5.21242390950521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6 : 4.96242390950521); (5.5 : 4.96242390950521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/EntropiaDBDataContext/AspNetUser/AspNetUser_AspNetUserClaim" />
       <nodes>
         <classShapeMoniker Id="02047c60-72b0-4ae0-b837-9acfbd7f2b90" />
         <classShapeMoniker Id="80270ab5-26e7-4e0a-aeb3-07d1c3bf25f1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6 : 6.11462646484375); (5.5 : 6.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6 : 5.92598714192708); (3.21875 : 5.92598714192708); (3.21875 : 7.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/EntropiaDBDataContext/AspNetUser/AspNetUser_AspNetUserLogin" />
       <nodes>
         <classShapeMoniker Id="02047c60-72b0-4ae0-b837-9acfbd7f2b90" />
@@ -90,28 +90,28 @@
         <classShapeMoniker Id="f4c27904-b828-4b5d-acba-dd2b6f22d776" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8 : 4.87329223632812); (8.5 : 4.87329223632812)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8 : 4.87329223632812); (8.5 : 4.87329223632812)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EntropiaDBDataContext/AspNetUser/AspNetUser_CustomItem" />
       <nodes>
         <classShapeMoniker Id="02047c60-72b0-4ae0-b837-9acfbd7f2b90" />
         <classShapeMoniker Id="4f7c9d94-d0f4-4591-a713-e34496b91baa" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.625 : 4.97115315755208); (1.625 : 5.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.625 : 4.97115315755208); (1.625 : 5.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EntropiaDBDataContext/AspNetRole/AspNetRole_RoleOption" />
       <nodes>
         <classShapeMoniker Id="218644b4-eccd-4b87-9ca2-13cf60aaea76" />
         <classShapeMoniker Id="7ef3d4eb-65ac-4648-9352-17b37268e0a0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.1875 : 3.375); (7.1875 : 2.87854248046875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.1875 : 3.375); (7.1875 : 2.87854248046875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EntropiaDBDataContext/AspNetUser/AspNetUser_SelectedStandartItem" />
       <nodes>
         <classShapeMoniker Id="02047c60-72b0-4ae0-b837-9acfbd7f2b90" />
         <classShapeMoniker Id="740f11d0-4fde-4fe1-9760-807cf521c5a1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 1.64992390950521); (6.375 : 1.64992390950521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 1.64992390950521); (6.375 : 1.64992390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EntropiaDBDataContext/StandartItem/StandartItem_SelectedStandartItem" />
       <nodes>
         <classShapeMoniker Id="7dba13ab-cd46-493c-bcc2-8f1593a22881" />
@@ -123,6 +123,19 @@
       <nodes>
         <classShapeMoniker Id="6135227b-01a7-4d33-bc56-08fbb570ba03" />
         <classShapeMoniker Id="7dba13ab-cd46-493c-bcc2-8f1593a22881" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="df4fc6ce-2337-4130-ad60-a9a43dc70b99" absoluteBounds="6.25, 6.5, 2, 2.4109318033854166">
+      <DataClassMoniker Name="/EntropiaDBDataContext/Message" />
+      <nestedChildShapes>
+        <elementListCompartment Id="08602070-cbae-4331-9b1c-b8490a41dab5" absoluteBounds="6.2650000000000006, 6.9600000000000009, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 6.11462646484375); (7.125 : 6.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EntropiaDBDataContext/AspNetUser/AspNetUser_Message" />
+      <nodes>
+        <classShapeMoniker Id="02047c60-72b0-4ae0-b837-9acfbd7f2b90" />
+        <classShapeMoniker Id="df4fc6ce-2337-4130-ad60-a9a43dc70b99" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

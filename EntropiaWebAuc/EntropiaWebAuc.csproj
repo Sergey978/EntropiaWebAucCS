@@ -360,6 +360,7 @@
     <Content Include="Areas\Default\Views\Account\Register.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_LayoutLeftSideBar.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_LeftColumn.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MessageMenu.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
