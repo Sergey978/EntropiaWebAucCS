@@ -29,23 +29,24 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            List<StandartItemCategory> categories =
-                repo.StandartItemCategories.ToList<StandartItemCategory>();
+            List<StandartItemCategories> categories =
+                repo.StandartItemCategories.ToList<StandartItemCategories>();
 
             categories.Insert(0, null);
 
             ViewBag.Categories = categories;
 
-            return View("Edit", new StandartItemCategory());
+            return View("Edit", new StandartItemCategories());
         }
 
         public ViewResult Edit(int id)
         {
-            StandartItemCategory item = repo.StandartItemCategories
-                .FirstOrDefault(p => p.Id == id);
+            StandartItemCategories item = repo.StandartItemCategories.
+                FirstOrDefault<StandartItemCategories>(p => p.Id == id);
+             
 
-            List<StandartItemCategory> categories =
-                 repo.StandartItemCategories.ToList<StandartItemCategory>();
+            List<StandartItemCategories> categories =
+                 repo.StandartItemCategories.ToList<StandartItemCategories>();
 
             categories.Remove(item);
             categories.Insert(0,null);
@@ -55,13 +56,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StandartItemCategory category)
+        public ActionResult Edit(StandartItemCategories category)
         {
             if (ModelState.IsValid)
             {
                 if (category.Id != 0)
                 {
-                    repo.UpdateStandartItemCategory(category);
+                    repo.UpdateStandartItemCategories(category);
                 }
                 else
                     repo.CreateStandartItemCategory(category);
@@ -82,7 +83,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            StandartItemCategory deleteCategory = repo.RemoveStandartItemCategory(id);
+            StandartItemCategories deleteCategory = repo.RemoveStandartItemCategory(id);
             if (deleteCategory != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",

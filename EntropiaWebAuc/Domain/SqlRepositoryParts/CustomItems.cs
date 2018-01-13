@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Domain
     public partial class SqlRepository
     {
         
-        public IQueryable<CustomItem> CustomItems
+        public IQueryable<CustomItems> CustomItems
         {
             get
             {
@@ -16,20 +16,21 @@ namespace EntropiaWebAuc.Domain
             }
         }
 
-        public bool CreateCustomItem(CustomItem instance)
+        public bool CreateCustomItem(CustomItems instance)
         {
             if (instance.Id == 0)
             {
-                Db.CustomItems.InsertOnSubmit(instance);
-                Db.CustomItems.Context.SubmitChanges();
+            
+                Db.CustomItems.Add(instance);
+                Db.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public bool UpdateCustomItem(CustomItem instance)
+        public bool UpdateCustomItem(CustomItems instance)
         {
-            CustomItem cache = Db.CustomItems.Where(p => p.Id ==
+            CustomItems cache = Db.CustomItems.Where(p => p.Id ==
 instance.Id).FirstOrDefault();
             if (cache != null)
             {
@@ -41,21 +42,21 @@ instance.Id).FirstOrDefault();
                 cache.Price = instance.Price;
                 cache.PurchasePrice = instance.PurchasePrice;
                 cache.Step = instance.Step;
+                Db.SaveChanges();
                 
-                Db.CustomItems.Context.SubmitChanges();
                 return true;
             }
             return false;
         }
 
-        public CustomItem RemoveCustomItem(int idCustomItem)
+        public CustomItems RemoveCustomItem(int idCustomItem)
         {
-            CustomItem instance = Db.CustomItems.Where(p => p.Id ==
+            CustomItems instance = Db.CustomItems.Where(p => p.Id ==
 idCustomItem).FirstOrDefault();
             if (instance != null)
             {
-                Db.CustomItems.DeleteOnSubmit(instance);
-                Db.CustomItems.Context.SubmitChanges();
+                Db.CustomItems.Remove(instance);
+                Db.SaveChanges();
                
             }
             return instance;

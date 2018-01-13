@@ -8,27 +8,27 @@ namespace EntropiaWebAuc.Domain
     public partial class SqlRepository
     {
        
-        public IQueryable<StandartItem> StandartItems
+        public IQueryable<StandartItems> StandartItems
         {
             get
             {
                 return Db.StandartItems;
             }
         }
-        public bool CreateStandartItem(StandartItem instance)
+        public bool CreateStandartItem(StandartItems instance)
         {
             if (instance.Id == 0)
             {
-                Db.StandartItems.InsertOnSubmit(instance);
-                Db.StandartItems.Context.SubmitChanges();
+                Db.StandartItems.Add(instance);
+                Db.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public bool UpdateStandartItem(StandartItem instance)
+        public bool UpdateStandartItem(StandartItems instance)
         {
-            StandartItem cache = Db.StandartItems.Where(p => p.Id ==
+            StandartItems cache = Db.StandartItems.Where(p => p.Id ==
 instance.Id).FirstOrDefault();
             if (cache != null)
             {
@@ -36,21 +36,21 @@ instance.Id).FirstOrDefault();
                 cache.CategoryId = instance.CategoryId;
                 cache.Name = instance.Name;
                 cache.Price = instance.Price;                 
-                Db.StandartItems.Context.SubmitChanges();
+                Db.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public StandartItem RemoveStandartItem(int idStandartItem)
+        public StandartItems RemoveStandartItem(int idStandartItem)
         {
-            StandartItem instance = Db.StandartItems.Where(p => p.Id ==
+            StandartItems instance = Db.StandartItems.Where(p => p.Id ==
 idStandartItem).FirstOrDefault();
 
             if (instance != null)
             {
-                Db.StandartItems.DeleteOnSubmit(instance);
-                Db.StandartItems.Context.SubmitChanges();
+                Db.StandartItems.Remove(instance);
+                Db.SaveChanges();
                 
             }
             return instance;

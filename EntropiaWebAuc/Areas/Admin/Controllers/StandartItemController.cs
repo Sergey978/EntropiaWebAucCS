@@ -35,14 +35,14 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             ViewBag.Categories = getStandartItemCategories();
 
-            return View("Edit", new StandartItem());
+            return View("Edit", new StandartItems());
         }
 
         public ViewResult Edit(int id)
         {
 
-            StandartItem item = repo.StandartItems
-                .FirstOrDefault(p => p.Id == id);
+            StandartItems item = repo.StandartItems
+                .FirstOrDefault<StandartItems>(p => p.Id == id);
 
             ViewBag.Categories = getStandartItemCategories();
 
@@ -50,7 +50,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StandartItem item)
+        public ActionResult Edit(StandartItems item)
         {
 
             if (ModelState.IsValid)
@@ -70,7 +70,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            StandartItem deleteItem = repo.RemoveStandartItem(id);
+            StandartItems deleteItem = repo.RemoveStandartItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",

@@ -33,7 +33,7 @@ namespace EntropiaWebAuc.Infrastructure
         private void AddBindings()
         {
             // конфигурирование контейнера 
-            ninjectKernel.Bind<EntropiaDBDataContext>().ToMethod(c => new EntropiaDBDataContext(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
+            ninjectKernel.Bind<EntropiaModelsDbContext>().ToMethod(c => new EntropiaModelsDbContext());
             ninjectKernel.Bind<IRepository>().To<SqlRepository>().InSingletonScope();
         }
     }

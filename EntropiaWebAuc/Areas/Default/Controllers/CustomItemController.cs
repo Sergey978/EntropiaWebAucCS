@@ -38,14 +38,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
         public ViewResult Create()
         {
-            CustomItem newItem = new CustomItem();
+            CustomItems newItem = new CustomItems();
 
             CurrentUserId = User.Identity.GetUserId();
             newItem.UserId = CurrentUserId;
-            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo); 
+            RoleOptions roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo); 
 
             int currentCountItems = (from custom in repo.CustomItems
-                                     where custom.AspNetUser.Id == CurrentUserId                                    
+                                     where custom.AspNetUsers.Id == CurrentUserId                                    
                                      select custom).Count();
             // check how many custom items the user has
            if (currentCountItems >= roleOption.AmountCustomItems  )
@@ -59,14 +59,14 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public ViewResult Edit(int id)
         {
 
-            CustomItem item = repo.CustomItems
+            CustomItems item = repo.CustomItems
                 .FirstOrDefault(p => p.Id == id);
 
             return View(item);
         }
 
         [HttpPost]
-        public ActionResult Edit(CustomItem item)
+        public ActionResult Edit(CustomItems item)
         {
 
             if (ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            CustomItem deleteItem = repo.RemoveCustomItem(id);
+            CustomItems deleteItem = repo.RemoveCustomItem(id);
             if (deleteItem != null)
             {
                 TempData["message"] = string.Format("{0} was deleted",

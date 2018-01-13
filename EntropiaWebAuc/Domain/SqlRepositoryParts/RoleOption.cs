@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Domain
     public partial class SqlRepository
     {
 
-        public IQueryable<RoleOption> RoleOptions
+        public IQueryable<RoleOptions> RoleOptions
         {
             get
             {
@@ -17,19 +17,19 @@ namespace EntropiaWebAuc.Domain
         }
 
 
-        public bool CreateRoleOption(RoleOption instance)
+        public bool CreateRoleOption(RoleOptions instance)
         {
           
-                Db.RoleOptions.InsertOnSubmit(instance);
-                Db.RoleOptions.Context.SubmitChanges();
+                Db.RoleOptions.Add(instance);
+                Db.SaveChanges();
                 return true;
            
         }
 
 
-        public bool UpdateRoleOption(RoleOption instance)
+        public bool UpdateRoleOption(RoleOptions instance)
         {
-            RoleOption cache = Db.RoleOptions.Where(p => p.Id ==
+            RoleOptions cache = Db.RoleOptions.Where(p => p.Id ==
 instance.Id).FirstOrDefault();
             if (cache != null)
             {
@@ -37,7 +37,7 @@ instance.Id).FirstOrDefault();
                 cache.AmountPoints = instance.AmountPoints;
                 cache.AmountCustomItems = instance.AmountCustomItems;
                 cache.AmountStandartItems = instance.AmountStandartItems;
-                Db.RoleOptions.Context.SubmitChanges();
+                Db.SaveChanges();
                 return true;
             }
 
@@ -47,12 +47,12 @@ instance.Id).FirstOrDefault();
 
         public bool RemoveRoleOption(string idRoleOption)
         {
-            RoleOption instance = Db.RoleOptions.Where(p => p.Id ==
+            RoleOptions instance = Db.RoleOptions.Where(p => p.Id ==
 idRoleOption).FirstOrDefault();
             if (instance != null)
             {
-                Db.RoleOptions.DeleteOnSubmit(instance);
-                Db.RoleOptions.Context.SubmitChanges();
+                Db.RoleOptions.Remove(instance);
+                Db.SaveChanges();
                 return true;
             }
             return false;

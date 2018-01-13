@@ -11,10 +11,10 @@ namespace EntropiaWebAuc.Areas.Default.Models
     public class RoleModels
     {
         
-        public static RoleOption GetUserRoleOption(String userId, IRepository repo)
+        public static RoleOptions GetUserRoleOption(String userId, IRepository repo)
         {
            
-            RoleOption roleOption;
+            RoleOptions roleOption;
 
             using (var context = new ApplicationDbContext())
             {

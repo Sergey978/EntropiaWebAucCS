@@ -37,7 +37,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                List<RoleOption> roleOptions = repo.RoleOptions.ToList<RoleOption>();
+                List<RoleOptions> roleOptions = repo.RoleOptions.ToList<RoleOptions>();
                 List<IdentityRole> roles = roleManager.Roles.ToList();
 
                 roleVM = (from r in roles
@@ -70,7 +70,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
                 IdentityRole role = roleManager.Roles.FirstOrDefault<IdentityRole>(r => r.Id == id);
-                RoleOption roleOptions = repo.RoleOptions.FirstOrDefault<RoleOption>(ro => ro.Id == id);
+                RoleOptions roleOptions = repo.RoleOptions.FirstOrDefault<RoleOptions>(ro => ro.Id == id);
 
                 editRoleVM = new RoleViewModel
                  {
@@ -103,7 +103,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                         roleManager.Create(newRole);
                         context.SaveChanges();
 
-                        repo.CreateRoleOption(new RoleOption
+                        repo.CreateRoleOption(new RoleOptions
                         {
                             Id = newRole.Id,
                             AmountPoints = role.NumberPoint,
@@ -116,7 +116,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 }
                 else
                 {
-                    repo.UpdateRoleOption(new RoleOption
+                    repo.UpdateRoleOption(new RoleOptions
                     {
                         Id = role.Id,
                         AmountPoints = role.NumberPoint,

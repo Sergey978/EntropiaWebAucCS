@@ -55,6 +55,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -187,18 +189,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemController.cs" />
-    <Compile Include="Domain\EntropiaDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntropiaDB.dbml</DependentUpon>
-    </Compile>
+    <Compile Include="Domain\AspNetRoles.cs" />
+    <Compile Include="Domain\AspNetUserClaims.cs" />
+    <Compile Include="Domain\AspNetUserLogins.cs" />
+    <Compile Include="Domain\AspNetUsers.cs" />
+    <Compile Include="Domain\CustomItems.cs" />
+    <Compile Include="Domain\EntropiaModelsDbContext.cs" />
     <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\Messages.cs" />
+    <Compile Include="Domain\RoleOptions.cs" />
+    <Compile Include="Domain\SelectedStandartItems.cs" />
     <Compile Include="Domain\SqlRepository.cs" />
     <Compile Include="Domain\SqlRepositoryParts\CustomItems.cs" />
     <Compile Include="Domain\SqlRepositoryParts\RoleOption.cs" />
     <Compile Include="Domain\SqlRepositoryParts\SelectedStandartItem.cs" />
     <Compile Include="Domain\SqlRepositoryParts\StandartItem.cs" />
     <Compile Include="Domain\SqlRepositoryParts\StandartItemCategory.cs" />
+    <Compile Include="Domain\StandartItemCategories.cs" />
+    <Compile Include="Domain\StandartItems.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -338,11 +346,6 @@
     <Content Include="Areas\Default\Views\SelectItems\_GetStandartItems.cshtml" />
     <Content Include="Areas\Default\Views\Graph\Index.cshtml" />
     <Content Include="Areas\Default\Views\Graph\_GetItem.cshtml" />
-    <Content Include="Domain\EntropiaDB.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>EntropiaDB.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
     <Content Include="Areas\Default\Views\Account\DisplayEmail.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_LayoutIndex.cshtml" />
@@ -402,11 +405,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Domain\EntropiaDB.dbml.layout">
-      <DependentUpon>EntropiaDB.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

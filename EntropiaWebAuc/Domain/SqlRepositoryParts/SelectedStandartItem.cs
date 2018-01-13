@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Domain
     public partial class SqlRepository
     {
         
-        public IQueryable<SelectedStandartItem> SelectedStandartItems
+        public IQueryable<SelectedStandartItems> SelectedStandartItems
         {
             get
             {
@@ -16,24 +16,24 @@ namespace EntropiaWebAuc.Domain
             }
         }
 
-        public bool CreateSelectedStandartItem(SelectedStandartItem instance)
+        public bool CreateSelectedStandartItem(SelectedStandartItems instance)
         {
-            SelectedStandartItem dbEntry = Db.SelectedStandartItems.
+            SelectedStandartItems dbEntry = Db.SelectedStandartItems.
                 FirstOrDefault(i => i.UserId == instance.UserId && i.ItemId == instance.ItemId);
 
             if (dbEntry == null)
             {
-                Db.SelectedStandartItems.InsertOnSubmit(instance);
-                Db.SelectedStandartItems.Context.SubmitChanges();
+                Db.SelectedStandartItems.Add(instance);
+                Db.SaveChanges();
                 return true;
             }
             return false;
         }
 
 
-        public bool UpdateSelectedStandartItem(SelectedStandartItem instance)
+        public bool UpdateSelectedStandartItem(SelectedStandartItems instance)
         {
-            SelectedStandartItem cache = Db.SelectedStandartItems.
+            SelectedStandartItems cache = Db.SelectedStandartItems.
                 FirstOrDefault(i => i.UserId == instance.UserId && i.ItemId == instance.ItemId);
             if (cache != null)
             {
@@ -43,21 +43,21 @@ namespace EntropiaWebAuc.Domain
                 cache.Markup = instance.Markup;
                 cache.PurchasePrice = instance.PurchasePrice;
 
-                Db.SelectedStandartItems.Context.SubmitChanges();
+                Db.SaveChanges();
                 return true;
             }
             return false;
         }
 
 
-        public bool RemoveSelectedStandartItem(SelectedStandartItem instance)
+        public bool RemoveSelectedStandartItem(SelectedStandartItems instance)
         {
-            SelectedStandartItem cache = Db.SelectedStandartItems.
+            SelectedStandartItems cache = Db.SelectedStandartItems.
                 FirstOrDefault(i => i.UserId == instance.UserId && i.ItemId == instance.ItemId);
             if (instance != null)
             {
-                Db.SelectedStandartItems.DeleteOnSubmit(cache);
-                Db.SelectedStandartItems.Context.SubmitChanges();
+                Db.SelectedStandartItems.Remove(cache);
+                Db.SaveChanges();
                 return true;
             }
             return false;

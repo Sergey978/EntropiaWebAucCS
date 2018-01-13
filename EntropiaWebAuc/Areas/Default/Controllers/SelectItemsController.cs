@@ -38,7 +38,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         //   [HttpPost]
         public PartialViewResult CustomItemSelect(FormCollection formCollection, String Command)
         {
-            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
+            RoleOptions roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
             if (Command == " ==> ")
             {
@@ -49,7 +49,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
                 // проверка сколько количества кастом итемов у пользователя 
                 int currentCountItems = (from custom in repo.CustomItems
-                                         where custom.AspNetUser.Id == CurrentUserId
+                                         where custom.AspNetUsers.Id == CurrentUserId
                                          && custom.Chosed == true
                                          select custom).Count();
 
@@ -59,9 +59,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     {
                         int id = Int32.Parse(itemId);
 
-                        CustomItem selectedCustomItem =
+                        CustomItems selectedCustomItem =
                             repo.CustomItems
-                            .FirstOrDefault<CustomItem>(c => c.Id == id);
+                            .FirstOrDefault<CustomItems>(c => c.Id == id);
                         selectedCustomItem.Chosed = true;
 
                         repo.UpdateCustomItem(selectedCustomItem);
@@ -90,9 +90,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     int id = Int32.Parse(itemId);
 
-                    CustomItem selectedCustomItem =
+                    CustomItems selectedCustomItem =
                         repo.CustomItems
-                        .FirstOrDefault<CustomItem>(c => c.Id == id);
+                        .FirstOrDefault<CustomItems>(c => c.Id == id);
                     selectedCustomItem.Chosed = false;
 
                     repo.UpdateCustomItem(selectedCustomItem);
@@ -111,7 +111,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         public PartialViewResult StandartItemSelect(FormCollection formCollection, String Command)
         {
             CurrentUserId = User.Identity.GetUserId();
-            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
+            RoleOptions roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), repo);
             string[] selectedItems = new string[] { };
 
 
@@ -132,8 +132,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     {
                         int id = Int32.Parse(itemId);
 
-                        SelectedStandartItem selectedStandartItem =
-                            new SelectedStandartItem() { UserId = CurrentUserId, ItemId = id };
+                        SelectedStandartItems selectedStandartItem =
+                            new SelectedStandartItems() { UserId = CurrentUserId, ItemId = id };
 
                         repo.CreateSelectedStandartItem(selectedStandartItem);
                     }
@@ -159,7 +159,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 {
                     int id = Int32.Parse(itemId);
 
-                    SelectedStandartItem selectedStandartItem =
+                    SelectedStandartItems selectedStandartItem =
                         repo.SelectedStandartItems
                         .FirstOrDefault(i => i.UserId == CurrentUserId && i.ItemId == id);
 
@@ -213,13 +213,13 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
             // select custom items that were not selected
             ViewModel.CustomItems = repo.CustomItems
-                .Where<CustomItem>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
+                .Where<CustomItems>(c => c.UserId == CurrentUserId && !(c.Chosed ?? false))
                 .ToList();
 
             //select custom items that were selected
 
             ViewModel.SelectedCustomItems = repo.CustomItems
-               .Where<CustomItem>(c => c.UserId == CurrentUserId && (c.Chosed == true))
+               .Where<CustomItems>(c => c.UserId == CurrentUserId && (c.Chosed == true))
                .ToList();
         }
 

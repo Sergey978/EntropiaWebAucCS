@@ -84,7 +84,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             IEnumerable<Item> userItems;
             // получаем список выбранных кастомных элементов
             IEnumerable<Item> selectedCustom = Repo.CustomItems
-             .Where<CustomItem>(c => c.UserId == userId && (c.Chosed == true))
+             .Where<CustomItems>(c => c.UserId == userId && (c.Chosed == true))
              .Select(item => new Item()
              {
                  Id = "custom-" + item.Id.ToString(),
@@ -147,7 +147,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             if (typeItem.Equals("custom"))
             {
 
-                CustomItem cache = Repo.CustomItems.FirstOrDefault<CustomItem>(c => c.Id == id);
+                CustomItems cache = Repo.CustomItems.FirstOrDefault<CustomItems>(c => c.Id == id);
 
                 cache.BeginQuantity = item.BeginQuantity;
                 cache.Step = item.Step;
@@ -158,8 +158,8 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             }
             else if (typeItem.Equals("standart"))
             {
-                SelectedStandartItem cache = Repo.SelectedStandartItems
-                    .FirstOrDefault<SelectedStandartItem>
+                SelectedStandartItems cache = Repo.SelectedStandartItems
+                    .FirstOrDefault<SelectedStandartItems>
                     (c => c.ItemId == id && c.UserId == userId);
 
                 cache.BeginQuantity = item.BeginQuantity;
@@ -179,7 +179,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
         {
             int pointsLimit = 0;
            
-            RoleOption roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), Repo);
+            RoleOptions roleOption = RoleModels.GetUserRoleOption(User.Identity.GetUserId(), Repo);
             pointsLimit = roleOption.AmountPoints == null ? 0: (int)roleOption.AmountPoints ;
             return  pointsLimit;
 

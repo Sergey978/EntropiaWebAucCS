@@ -10,41 +10,41 @@ namespace EntropiaWebAuc.Domain
     {
         
         #region CustomItem
-        IQueryable<CustomItem> CustomItems { get; }
-        bool CreateCustomItem(CustomItem instance);
-        bool UpdateCustomItem(CustomItem instance);
-        CustomItem RemoveCustomItem(int idCustomItem);
+        IQueryable<CustomItems> CustomItems { get; }
+        bool CreateCustomItem(CustomItems instance);
+        bool UpdateCustomItem(CustomItems instance);
+        CustomItems RemoveCustomItem(int idCustomItem);
         #endregion 
 
         
         #region SelectedStandartItem
-        IQueryable<SelectedStandartItem> SelectedStandartItems { get; }
-        bool CreateSelectedStandartItem(SelectedStandartItem instance);
-        bool UpdateSelectedStandartItem(SelectedStandartItem instance);
-        bool RemoveSelectedStandartItem(SelectedStandartItem instance);
+        IQueryable<SelectedStandartItems> SelectedStandartItems { get; }
+        bool CreateSelectedStandartItem(SelectedStandartItems instance);
+        bool UpdateSelectedStandartItem(SelectedStandartItems instance);
+        bool RemoveSelectedStandartItem(SelectedStandartItems instance);
         #endregion 
 
         
         #region StandartItemCategory
-        IQueryable<StandartItemCategory> StandartItemCategories { get; }
-        bool CreateStandartItemCategory(StandartItemCategory instance);
-        bool UpdateStandartItemCategory(StandartItemCategory instance);
-        StandartItemCategory RemoveStandartItemCategory(int idStandartItemCategory);
+        IQueryable<StandartItemCategories> StandartItemCategories { get; }
+        bool CreateStandartItemCategory(StandartItemCategories instance);
+        bool UpdateStandartItemCategories(StandartItemCategories instance);
+        StandartItemCategories RemoveStandartItemCategory(int idStandartItemCategory);
         #endregion 
 
         
         #region StandartItem
-        IQueryable<StandartItem> StandartItems { get; }
-        bool CreateStandartItem(StandartItem instance);
-        bool UpdateStandartItem(StandartItem instance);
-        StandartItem RemoveStandartItem(int idStandartItem);
+        IQueryable<StandartItems> StandartItems { get; }
+        bool CreateStandartItem(StandartItems instance);
+        bool UpdateStandartItem(StandartItems instance);
+        StandartItems RemoveStandartItem(int idStandartItem);
         #endregion 
         
         
         #region RoleOptions
-        IQueryable<RoleOption> RoleOptions { get; }
-        bool CreateRoleOption(RoleOption instance);
-        bool UpdateRoleOption(RoleOption instance);
+        IQueryable<RoleOptions> RoleOptions { get; }
+        bool CreateRoleOption(RoleOptions instance);
+        bool UpdateRoleOption(RoleOptions instance);
         bool RemoveRoleOption(String Id);
         #endregion 
         
