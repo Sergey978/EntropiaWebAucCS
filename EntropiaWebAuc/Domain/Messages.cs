@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Domain
 
     public partial class Messages
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public long Id { get; set; }
 
         [StringLength(128)]
