@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\MessagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\StandartItemCategoriesController.cs" />
     <Compile Include="Areas\Admin\ViewModel\CategoryViewModel.cs" />
@@ -364,6 +365,11 @@
     <Content Include="Areas\Default\Views\Shared\_LayoutLeftSideBar.cshtml" />
     <Content Include="Areas\Default\Views\Shared\_LeftColumn.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_MessageMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Index.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
