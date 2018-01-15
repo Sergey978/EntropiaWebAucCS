@@ -171,7 +171,6 @@
     <Compile Include="Areas\Admin\ViewModel\CategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\RoleViewModel.cs" />
     <Compile Include="Areas\Default\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Default\Controllers\ContactController.cs" />
     <Compile Include="Areas\Default\Controllers\GraphController.cs" />
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
@@ -372,7 +371,6 @@
     <Content Include="Areas\Admin\Views\Messages\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Index.cshtml" />
-    <Content Include="Areas\Default\Views\Contact\Index.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

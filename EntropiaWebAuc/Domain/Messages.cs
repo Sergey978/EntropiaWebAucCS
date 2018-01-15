@@ -8,7 +8,7 @@ namespace EntropiaWebAuc.Domain
 
     public partial class Messages
     {
-        
+
         public long Id { get; set; }
 
         [StringLength(128)]
@@ -20,10 +20,10 @@ namespace EntropiaWebAuc.Domain
         [StringLength(50)]
         public string SenderName { get; set; }
 
-        [Column(TypeName = "timestamp")]
-        [MaxLength(8)]
-        [Timestamp]
-        public byte[] Date { get; set; }
+
+
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime Date { get; set; }
 
         [Required]
         [StringLength(128)]
