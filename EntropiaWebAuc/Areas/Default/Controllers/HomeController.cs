@@ -54,6 +54,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                                                    SenderEmail = contactMessage.Email,
                                                    SenderName = contactMessage.Name,
                                                    RecId = adminId,
+                                                   Date = DateTime.UtcNow,
                                                    Title = contactMessage.Title,
                                                    Text = contactMessage.Text,
                                                    Sent = false,
@@ -68,9 +69,10 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
                     return View();
                 }
-                catch
-                { 
-                    ViewBag.ErrorMessage = "An error has occurred!";
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = "An error has occurred!" + ex.Message;
+                    //ViewBag.ErrorMessage = "An error has occurred!";
                     return View();
                 }
             }

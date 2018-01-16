@@ -72,10 +72,6 @@ namespace EntropiaWebAuc.Domain
                 .Property(e => e.PurchasePrice)
                 .HasPrecision(8, 2);
 
-            modelBuilder.Entity<Messages>()
-                .Property(e => e.Date)
-                .IsFixedLength();
-
             modelBuilder.Entity<SelectedStandartItems>()
                 .Property(e => e.Markup)
                 .HasPrecision(5, 2);

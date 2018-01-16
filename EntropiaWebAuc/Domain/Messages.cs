@@ -8,7 +8,6 @@ namespace EntropiaWebAuc.Domain
 
     public partial class Messages
     {
-
         public long Id { get; set; }
 
         [StringLength(128)]
@@ -20,9 +19,7 @@ namespace EntropiaWebAuc.Domain
         [StringLength(50)]
         public string SenderName { get; set; }
 
-
-
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Date { get; set; }
 
         [Required]
