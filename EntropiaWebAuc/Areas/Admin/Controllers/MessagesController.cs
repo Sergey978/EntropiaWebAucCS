@@ -10,6 +10,7 @@ using EntropiaWebAuc.Domain;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class MessagesController : Controller
     {
         private EntropiaModelsDbContext db = new EntropiaModelsDbContext();
@@ -17,7 +18,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         // GET: Admin/Messages
         public ActionResult Index()
         {
-            var messages = db.Messages.Include(m => m.AspNetUsers);
+            var messages = db.Messages.Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
             return View(messages.ToList());
         }
 

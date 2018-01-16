@@ -10,73 +10,73 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Read)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Read)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@using (Html.BeginForm("RoleAddToUser", "Role"))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr>
+            <th><label><input type="checkbox" value=""></label></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SenderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr style="@(item.Read == false ? "font-weight:bold" : "")">
+
+
+                <td>@Html.CheckBox(item.Id.ToString())</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <label for="sel1">With selectes messages:</label>
+    <div class=" form-group row">
+
+        <div class="col-xs-2">
+            @Html.DropDownList("actionId", new SelectList(
+        new List<SelectListItem>
+            {
+            new SelectListItem { Selected = true, Text = "Set as not read", Value = "notRead"},
+            new SelectListItem { Selected = false, Text = "remove", Value = "remove"},
+
+            }, "Value", "Text", 1), new { @class = "form-control " })
+        </div>
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
+
 }
-
-</table>
