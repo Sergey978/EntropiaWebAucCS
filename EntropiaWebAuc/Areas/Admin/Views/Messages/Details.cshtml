@@ -1,90 +1,48 @@
 ﻿@model EntropiaWebAuc.Domain.Messages
 
 @{
-    ViewBag.Title = "Details";
+    Page.Title = "Message Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+
 
 <div>
-    <h4>Messages</h4>
+    <h4>Message</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUsers.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SenderId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SenderId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SenderEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SenderEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SenderName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SenderName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sent)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sent)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Read)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Read)
-        </dd>
-
-    </dl>
+    <article class="col-xs-12 maincontent">
+        <header class="page-header">
+            <h3 class="page-title">@Html.DisplayFor(model => model.Title)</h3>
+            <div class="row">
+                <div class="col-xs-6">
+                    <p><strong>@Html.DisplayFor(model => model.SenderName)</strong> from <strong> @Html.DisplayFor(model => model.SenderEmail)</strong></p>
+                    <p>@Html.DisplayFor(model => model.Date)</p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary">Btn 1</a>
+                        <a href="#" class="btn btn-primary">Btn 2</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.DisplayNameFor(model => model.Text)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </article>
 </div>
+
+
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
