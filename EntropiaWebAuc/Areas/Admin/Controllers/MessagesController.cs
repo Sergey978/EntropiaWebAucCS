@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
+using EntropiaWebAuc.Areas.Default.Models;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -21,9 +22,35 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             var messages = db.Messages.Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
             return View(messages.ToList());
         }
+        // GET: Admin/Messages/Incoming
+        public ActionResult Incoming()
+        {
+            String adminId;
+            using (var Db = new ApplicationDbContext())
+            {
+                String adminRoleId = Db.Roles.FirstOrDefault(r => r.Name == "SuperAdmin").Id;
+                adminId = Db.Users.FirstOrDefault(user => user.Roles.Select(r => r.RoleId).Contains(adminRoleId)).Id;
+            }
 
+            var messages = db.Messages.Where(u=> u.RecId == adminId).Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
+            return View(messages.ToList());
+        }
+
+        // GET: Admin/Messages/Outgoing
+        public ActionResult Outgoing()
+        {
+            String adminId;
+            using (var Db = new ApplicationDbContext())
+            {
+                String adminRoleId = Db.Roles.FirstOrDefault(r => r.Name == "SuperAdmin").Id;
+                adminId = Db.Users.FirstOrDefault(user => user.Roles.Select(r => r.RoleId).Contains(adminRoleId)).Id;
+            }
+
+            var messages = db.Messages.Where(u => u.SenderId == adminId).Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
+            return View(messages.ToList());
+        }
         // GET: Admin/Messages/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id, bool isAdmin = false )
         {
             if (id == null)
             {
@@ -33,6 +60,13 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             if (messages == null)
             {
                 return HttpNotFound();
+            }
+
+            if (isAdmin)
+            {
+                messages.Read = true;
+                db.SaveChanges();
+
             }
             return View(messages);
         }

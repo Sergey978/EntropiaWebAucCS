@@ -371,6 +371,8 @@
     <Content Include="Areas\Admin\Views\Messages\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Incoming.cshtml" />
+    <Content Include="Areas\Admin\Views\Messages\Outgoing.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EntropiaWebAuc.Domain.Messages>
 
 @{
-    Page.Title = "All Messages";
+    Page.Title = "Incoming Messages";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutSideBar.cshtml";
 }
 
@@ -54,7 +54,7 @@
 
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, isAdmin = true }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
