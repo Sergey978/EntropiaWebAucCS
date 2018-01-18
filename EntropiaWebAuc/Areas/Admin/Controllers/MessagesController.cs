@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
 using EntropiaWebAuc.Areas.Default.Models;
+using EntropiaWebAuc.Areas.Admin.ViewModel;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -32,7 +33,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
                 adminId = Db.Users.FirstOrDefault(user => user.Roles.Select(r => r.RoleId).Contains(adminRoleId)).Id;
             }
 
-            var messages = db.Messages.Where(u=> u.RecId == adminId).Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
+            var messages = db.Messages.Where(u => u.RecId == adminId).Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
             return View(messages.ToList());
         }
 
@@ -50,7 +51,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages.ToList());
         }
         // GET: Admin/Messages/Details/5
-        public ActionResult Details(long? id, bool isAdmin = false )
+        public ActionResult Details(long? id, bool isAdmin = false)
         {
             if (id == null)
             {
@@ -154,6 +155,32 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //POST: Admin/Messages/MessagesAct
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MessageAct(IList<MessageViewModel> messages, FormCollection form)
+        {
+            String action = Convert.ToString(form["actionId"]);
+            bool test = messages[0].IsSelected;
+            switch (action)
+            {
+                case "notRead":
+                    {
+
+                    }
+                    break;
+                case "remove":
+                    {
+
+                    }
+                    break;
+            }
+                
+
+            return RedirectToAction("Incoming");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
