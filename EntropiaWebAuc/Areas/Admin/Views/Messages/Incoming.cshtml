@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EntropiaWebAuc.Domain.Messages>
+﻿@model IEnumerable<EntropiaWebAuc.Areas.Admin.ViewModel.MessagesViewModel>
 
 @{
     Page.Title = "Incoming Messages";
@@ -11,21 +11,21 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("RoleAddToUser", "Role"))
+@using (Html.BeginForm("MessageAct", "Messages"))
 {
     @Html.AntiForgeryToken()
     <table class="table">
         <tr>
             <th><label><input type="checkbox" value=""></label></th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Message.Title)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.SenderName)
+                @Html.DisplayNameFor(model => model.Message.SenderName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model => model.Message.Date)
             </th>
 
 
@@ -34,28 +34,28 @@
 
         @foreach (var item in Model)
         {
-            <tr style="@(item.Read == false ? "font-weight:bold" : "")">
+            <tr style="@(item.Message.Read == false ? "font-weight:bold" : "")">
 
 
-                <td>@Html.CheckBox(item.Id.ToString())</td>
+                <td>@Html.CheckBox(item.Message.Id.ToString())</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.Message.Title)
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.SenderName)
+                    @Html.DisplayFor(modelItem => item.Message.SenderName)
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @Html.DisplayFor(modelItem => item.Message.Date)
                 </td>
 
 
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id, isAdmin = true }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Message.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Message.Id, isAdmin = true }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Message.Id })
                 </td>
             </tr>
         }
