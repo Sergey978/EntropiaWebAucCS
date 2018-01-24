@@ -162,7 +162,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         //POST: Admin/Messages/MessagesAct
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MessageAct(IEnumerable<MessagesViewModel> messages, FormCollection form)
+        public ActionResult MessageAct(List<MessagesViewModel> messages, FormCollection form)
         {
             String action = Convert.ToString(form["actionId"]);
            
