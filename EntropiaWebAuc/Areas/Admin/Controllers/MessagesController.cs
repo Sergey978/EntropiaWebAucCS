@@ -35,7 +35,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             var messages = db.Messages.Where(u => u.RecId == adminId)
                 .Include(m => m.AspNetUsers)
-                .Select(mvm => new MessagesViewModel(){Message = mvm, IsSelected = false}).
+                .Select(mvm => new MessagesViewModel() { Message = mvm, IsSelected = false }).
                OrderByDescending(m => m.Message.Date);
             return View(messages.ToList());
         }
@@ -54,7 +54,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages.ToList());
         }
         // GET: Admin/Messages/Details/5
-        public ActionResult Details(long? id, bool isAdmin = false )
+        public ActionResult Details(long? id, bool isAdmin = false)
         {
             if (id == null)
             {
@@ -165,16 +165,48 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ActionResult MessageAct(List<MessagesViewModel> messages, FormCollection form)
         {
             String action = Convert.ToString(form["actionId"]);
-           
+
             switch (action)
             {
                 case "notRead":
                     {
+                        //Select and change property "Read"
+                        List<long> editMessagesId = messages.Where(m => m.IsSelected == true)
+                            .Select(m => m.Message.Id).ToList();
+                        try
+                        {
+                            var editMessages = db.Messages
+                                                        .Where(m => editMessagesId.Contains(m.Id)).ToList();
+
+
+                            editMessages.ForEach(m => m.Read = false);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
 
                     }
                     break;
                 case "remove":
                     {
+                        List<long> removeMessagesId = messages.Where(m => m.IsSelected == true)
+                            .Select(m => m.Message.Id).ToList();
+                        try
+                        {
+                            var removeMessages = db.Messages
+                                                        .Where(m => removeMessagesId.Contains(m.Id));
+
+
+                            db.Messages.RemoveRange(removeMessages);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+
 
                     }
                     break;
