@@ -303,6 +303,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\adminTemplate.js" />
     <Content Include="Scripts\chekBoxRequire.js" />
     <Content Include="Scripts\someeAdRemove.js" />
     <Content Include="Scripts\bootstrap.js" />

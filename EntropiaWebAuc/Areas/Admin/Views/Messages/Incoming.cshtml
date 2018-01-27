@@ -16,7 +16,7 @@
     @Html.AntiForgeryToken()
     <table class="table">
         <tr>
-            <th><label><input type="checkbox" value=""></label></th>
+            <th><label><input type="checkbox" id ="allCheck" value=""></label></th>
             <th>
                 Title
             </th>
@@ -37,7 +37,7 @@
             <tr style="@(Model[i].Message.Read == false ? "font-weight:bold" : "")">
 
                 @Html.HiddenFor(m => Model[i].Message.Id)
-                <td>@Html.CheckBoxFor(modelItem => Model[i].IsSelected)</td>
+                <td>@Html.CheckBoxFor(modelItem => Model[i].IsSelected, new { @class = "checkable" })</td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].Message.Title)
                 </td>
@@ -79,4 +79,7 @@
         </div>
     </div>
 
+}
+@section scripts {
+@Scripts.Render("~/bundles/adminTemplate")
 }
