@@ -22,12 +22,11 @@
             </th>
 
             <th>
-                Sender Name
+                @Html.ActionLink("Sender Name", "Incoming", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
-                Date
+                @Html.ActionLink("Date", "Incoming", new { sortOrder = ViewBag.DateSortParm })
             </th>
-
 
             <th></th>
         </tr>

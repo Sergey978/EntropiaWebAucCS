@@ -18,9 +18,34 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         private EntropiaModelsDbContext db = new EntropiaModelsDbContext();
 
         // GET: Admin/Messages
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            var messages = db.Messages.Include(m => m.AspNetUsers).OrderByDescending(m => m.Date);
+
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.NameSortParam = sortOrder == "UserName" ? "name_desc" : "UserName";
+
+            var messages = db.Messages.Include(m => m.AspNetUsers);
+            switch (sortOrder)
+            {
+
+                case "date_desc":
+                    messages = messages.OrderByDescending(m => m.Date);
+                    break;
+                case "UserName":
+                    messages = messages.OrderBy(m => m.AspNetUsers.UserName);
+                    break;
+
+                case "name_desc":
+                    messages = messages.OrderByDescending(m => m.AspNetUsers.UserName);
+                    break;
+
+
+                default:
+                    messages = messages.OrderBy(m => m.Date);
+                    break;
+
+
+            }
             return View(messages.ToList());
         }
         // GET: Admin/Messages/Incoming
