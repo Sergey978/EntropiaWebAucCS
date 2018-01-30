@@ -48,6 +48,14 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SendGrid.SmtpApi">
       <HintPath>..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
     </Reference>
@@ -259,6 +267,7 @@
     <Content Include="Content\js\respond.min.js" />
     <Content Include="Content\js\slider_revolution.js" />
     <Content Include="Content\js\template.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\slider.revolution.v4\assets\arrowleft.png" />
     <Content Include="Content\plugins\slider.revolution.v4\assets\arrowright.png" />
     <Content Include="Content\plugins\slider.revolution.v4\assets\arrow_left.png" />

@@ -1,11 +1,12 @@
-﻿@model IEnumerable<EntropiaWebAuc.Domain.Messages>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<EntropiaWebAuc.Domain.Messages>
 
 @{
     Page.Title = "All Messages";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutSideBar.cshtml";
 }
 
-<h2>Page.Title</h2>
+<h2>@Page.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,7 +19,7 @@
         <tr>
             <th><label><input type="checkbox" value=""></label></th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
 
             <th>
@@ -80,3 +81,8 @@
     </div>
 
 }
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort }))

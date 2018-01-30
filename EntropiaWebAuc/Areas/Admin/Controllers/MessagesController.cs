@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
 using EntropiaWebAuc.Areas.Default.Models;
 using EntropiaWebAuc.Areas.Admin.ViewModel;
+using PagedList;
 
 namespace EntropiaWebAuc.Areas.Admin.Controllers
 {
@@ -18,25 +19,26 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         private EntropiaModelsDbContext db = new EntropiaModelsDbContext();
 
         // GET: Admin/Messages
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, int? page)
         {
 
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
-            ViewBag.NameSortParam = sortOrder == "UserName" ? "name_desc" : "UserName";
+            ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
 
             var messages = db.Messages.Include(m => m.AspNetUsers);
+            
             switch (sortOrder)
             {
 
                 case "date_desc":
                     messages = messages.OrderByDescending(m => m.Date);
                     break;
-                case "UserName":
-                    messages = messages.OrderBy(m => m.AspNetUsers.UserName);
+                case "SenderName":
+                    messages = messages.OrderBy(m => m.SenderName);
                     break;
 
                 case "name_desc":
-                    messages = messages.OrderByDescending(m => m.AspNetUsers.UserName);
+                    messages = messages.OrderByDescending(m => m.SenderName);
                     break;
 
 
@@ -46,7 +48,11 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
 
             }
-            return View(messages.ToList());
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(messages.ToPagedList(pageNumber, pageSize));
+           
         }
         // GET: Admin/Messages/Incoming
         public ActionResult Incoming()
