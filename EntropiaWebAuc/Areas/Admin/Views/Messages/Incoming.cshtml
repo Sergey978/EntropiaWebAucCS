@@ -1,4 +1,6 @@
-﻿@model List<EntropiaWebAuc.Areas.Admin.ViewModel.MessagesViewModel>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<EntropiaWebAuc.Areas.Admin.ViewModel.MessagesViewModel>
+
 
 @{
     Page.Title = "Incoming Messages";
@@ -22,10 +24,10 @@
             </th>
 
             <th>
-                @Html.ActionLink("Sender Name", "Incoming", new { sortOrder = ViewBag.NameSortParm })
+                @Html.ActionLink("Sender Name", "Index", new { sortOrder = ViewBag.NameSortParam })
             </th>
             <th>
-                @Html.ActionLink("Date", "Incoming", new { sortOrder = ViewBag.DateSortParm })
+                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
             </th>
 
             <th></th>
@@ -79,6 +81,12 @@
     </div>
 
 }
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Incoming",
+    new { page, sortOrder = ViewBag.CurrentSort }))
+
 @section scripts {
 @Scripts.Render("~/bundles/adminTemplate")
 }

@@ -22,7 +22,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
         public ActionResult Index(string sortOrder, int? page)
         {
 
-            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
             ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
 
             var messages = db.Messages.Include(m => m.AspNetUsers);
@@ -30,8 +30,8 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             switch (sortOrder)
             {
 
-                case "date_desc":
-                    messages = messages.OrderByDescending(m => m.Date);
+                case "Date":
+                    messages = messages.OrderBy(m => m.Date);
                     break;
                 case "SenderName":
                     messages = messages.OrderBy(m => m.SenderName);
@@ -43,21 +43,25 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
 
                 default:
-                    messages = messages.OrderBy(m => m.Date);
+                    messages = messages.OrderByDescending(m => m.Date);
                     break;
 
 
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(messages.ToPagedList(pageNumber, pageSize));
            
         }
         // GET: Admin/Messages/Incoming
-        public ActionResult Incoming()
+        public ActionResult Incoming(string sortOrder, int? page)
         {
             String adminId;
+
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
+            ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
+            
             using (var Db = new ApplicationDbContext())
             {
                 String adminRoleId = Db.Roles.FirstOrDefault(r => r.Name == "SuperAdmin").Id;
@@ -66,9 +70,33 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
 
             var messages = db.Messages.Where(u => u.RecId == adminId)
                 .Include(m => m.AspNetUsers)
-                .Select(mvm => new MessagesViewModel() { Message = mvm, IsSelected = false }).
-               OrderByDescending(m => m.Message.Date);
-            return View(messages.ToList());
+                .Select(mvm => new MessagesViewModel() { Message = mvm, IsSelected = false });
+
+            switch (sortOrder)
+            {
+
+                case "Date":
+                    messages = messages.OrderBy(m => m.Message.Date);
+                    break;
+                case "SenderName":
+                    messages = messages.OrderBy(m => m.Message.SenderName);
+                    break;
+
+                case "name_desc":
+                    messages = messages.OrderByDescending(m => m.Message.SenderName);
+                    break;
+
+
+                default:
+                    messages = messages.OrderByDescending(m => m.Message.Date);
+                    break;
+
+
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(messages.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Messages/Outgoing

@@ -12,7 +12,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("RoleAddToUser", "Role"))
+@using (Html.BeginForm("MessageAct", "Messages"))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -62,23 +62,6 @@
         }
 
     </table>
-
-    <label for="sel1">With selectes messages:</label>
-    <div class=" form-group row">
-
-        <div class="col-xs-4">
-            @Html.DropDownList("actionId", new SelectList(
-        new List<SelectListItem>
-            {
-            new SelectListItem { Selected = true, Text = "Set as not read", Value = "notRead"},
-            new SelectListItem { Selected = false, Text = "remove", Value = "remove"},
-
-            }, "Value", "Text", 1), new { @class = "form-control " })
-        </div>
-        <div class="col-xs-4">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    </div>
 
 }
 
