@@ -1,10 +1,10 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<EntropiaWebAuc.Areas.Admin.ViewModel.MessagesViewModel>
+@model PagedList.IPagedList<EntropiaWebAuc.Areas.Default.ViewModel.MessagesViewModel>
 
 
 @{
-    Page.Title = "Outgoing Messages";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutSideBar.cshtml";
+    Page.Title = "Incoming Messages";
+    Layout = "~/Areas/Default/Views/Shared/_LayoutLeftSideBar.cshtml";
 }
 
 <h2>@Page.Title</h2>
@@ -13,28 +13,27 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("RoleAddToUser", "Role"))
+@using (Html.BeginForm("MessageAct", "Messages"))
 {
     @Html.AntiForgeryToken()
     <table class="table">
         <tr>
-            <th><label><input type="checkbox" value=""></label></th>
+            <th><label><input type="checkbox" id ="allCheck" value=""></label></th>
             <th>
                 Title
             </th>
 
             <th>
-                @Html.ActionLink("Recipient Name", "Index", new { sortOrder = ViewBag.NameSortParam })
+                @Html.ActionLink("Sender Name", "Index", new { sortOrder = ViewBag.NameSortParam })
             </th>
             <th>
                 @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
             </th>
 
-
             <th></th>
         </tr>
 
-        @for (int i = 0; i < Model.Count; i++)
+        @for(int i = 0; i < Model.Count; i++)
         {
             <tr style="@(Model[i].Message.Read == false ? "font-weight:bold" : "")">
 
@@ -45,7 +44,7 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => Model[i].Message.AspNetUsers.UserName)
+                    @Html.DisplayFor(modelItem => Model[i].Message.SenderName)
                 </td>
 
                 <td>
@@ -89,5 +88,5 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     new { page, sortOrder = ViewBag.CurrentSort }))
 
 @section scripts {
-    @Scripts.Render("~/bundles/adminTemplate")
+@Scripts.Render("~/bundles/adminTemplate")
 }

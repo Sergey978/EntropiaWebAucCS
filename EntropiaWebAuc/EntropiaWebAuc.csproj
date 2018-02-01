@@ -184,6 +184,7 @@
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
     <Compile Include="Areas\Default\Controllers\CustomItemController.cs" />
+    <Compile Include="Areas\Default\Controllers\MessagesController.cs" />
     <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
     <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Areas\Default\ViewModels\ContactViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\GraphViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\IItem.cs" />
+    <Compile Include="Areas\Default\ViewModels\MessagesViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
     <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
@@ -384,6 +386,12 @@
     <Content Include="Areas\Admin\Views\Messages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Incoming.cshtml" />
     <Content Include="Areas\Admin\Views\Messages\Outgoing.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Create.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Delete.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Details.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Edit.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Incoming.cshtml" />
+    <Content Include="Areas\Default\Views\Messages\Outgoing.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />

@@ -8,67 +8,35 @@ using System.Web;
 using System.Web.Mvc;
 using EntropiaWebAuc.Domain;
 using EntropiaWebAuc.Areas.Default.Models;
-using EntropiaWebAuc.Areas.Admin.ViewModel;
+using EntropiaWebAuc.Areas.Default.ViewModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 using PagedList;
 
-namespace EntropiaWebAuc.Areas.Admin.Controllers
+namespace EntropiaWebAuc.Areas.Default.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class MessagesController : Controller
     {
         private EntropiaModelsDbContext db = new EntropiaModelsDbContext();
 
-        // GET: Admin/Messages
-        public ActionResult Index(string sortOrder, int? page)
-        {
-
-            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
-            ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
-
-            var messages = db.Messages.Include(m => m.AspNetUsers);
-            
-            switch (sortOrder)
-            {
-
-                case "Date":
-                    messages = messages.OrderBy(m => m.Date);
-                    break;
-                case "SenderName":
-                    messages = messages.OrderBy(m => m.SenderName);
-                    break;
-
-                case "name_desc":
-                    messages = messages.OrderByDescending(m => m.SenderName);
-                    break;
-
-
-                default:
-                    messages = messages.OrderByDescending(m => m.Date);
-                    break;
-
-
-            }
-
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(messages.ToPagedList(pageNumber, pageSize));
-           
-        }
-        // GET: Admin/Messages/Incoming
+       
+        // GET: Default/Messages/Incoming
         public ActionResult Incoming(string sortOrder, int? page)
         {
-            String adminId;
+            String userId;
 
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
             ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
             
             using (var Db = new ApplicationDbContext())
             {
-                String adminRoleId = Db.Roles.FirstOrDefault(r => r.Name == "SuperAdmin").Id;
-                adminId = Db.Users.FirstOrDefault(user => user.Roles.Select(r => r.RoleId).Contains(adminRoleId)).Id;
+
+               userId =  User.Identity.GetUserId();
             }
 
-            var messages = db.Messages.Where(u => u.RecId == adminId)
+            var messages = db.Messages.Where(u => u.RecId == userId)
                 .Include(m => m.AspNetUsers)
                 .Select(mvm => new MessagesViewModel() { Message = mvm, IsSelected = false });
 
@@ -99,21 +67,20 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Admin/Messages/Outgoing
+        // GET: Default/Messages/Outgoing
         public ActionResult Outgoing(string sortOrder, int? page)
         {
-            String adminId;
+            String userId;
 
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
             ViewBag.NameSortParam = sortOrder == "SenderName" ? "name_desc" : "SenderName";
 
             using (var Db = new ApplicationDbContext())
             {
-                String adminRoleId = Db.Roles.FirstOrDefault(r => r.Name == "SuperAdmin").Id;
-                adminId = Db.Users.FirstOrDefault(user => user.Roles.Select(r => r.RoleId).Contains(adminRoleId)).Id;
+                userId = User.Identity.GetUserId();
             }
 
-            var messages = db.Messages.Where(u => u.SenderId == adminId)
+            var messages = db.Messages.Where(u => u.SenderId == userId)
                 .Include(m => m.AspNetUsers)
                 .Select(mvm => new MessagesViewModel() { Message = mvm, IsSelected = false });
 
@@ -143,7 +110,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             int pageNumber = (page ?? 1);
             return View(messages.ToPagedList(pageNumber, pageSize));
         }
-        // GET: Admin/Messages/Details/5
+        // GET: Default/Messages/Details/5
         public ActionResult Details(long? id, bool isAdmin = false)
         {
             if (id == null)
@@ -165,14 +132,14 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages);
         }
 
-        // GET: Admin/Messages/Create
+        // GET: Default/Messages/Create
         public ActionResult Create()
         {
             ViewBag.RecId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Admin/Messages/Create
+        // POST: Default/Messages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -190,7 +157,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages);
         }
 
-        // GET: Admin/Messages/Edit/5
+        // GET: Default/Messages/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -206,7 +173,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages);
         }
 
-        // POST: Admin/Messages/Edit/5
+        // POST: Default/Messages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -223,7 +190,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages);
         }
 
-        // GET: Admin/Messages/Delete/5
+        // GET: Default/Messages/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -238,7 +205,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return View(messages);
         }
 
-        // POST: Admin/Messages/Delete/5
+        // POST: Default/Messages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -249,7 +216,7 @@ namespace EntropiaWebAuc.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        //POST: Admin/Messages/MessagesAct
+        //POST: Default/Messages/MessagesAct
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MessageAct(List<MessagesViewModel> messages, FormCollection form)
