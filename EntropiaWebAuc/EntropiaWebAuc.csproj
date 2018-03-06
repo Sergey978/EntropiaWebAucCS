@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -230,10 +231,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Entropia.ldf">
-      <DependentUpon>Entropia.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\Entropia.mdf" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\css\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap.min.css" />
@@ -419,6 +416,7 @@
     <Content Include="Areas\Default\Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />

@@ -9,6 +9,8 @@
             <a class="navbar-brand" href="index.html"><img src="@Url.Content("~/Content/images/logo.png")" alt="Progressus HTML5 template"></a>
         </div>
         <div class="navbar-collapse collapse">
+
+
             <ul class="nav navbar-nav pull-right">
                 <li class="@Html.IsActive("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
                 <li class="@Html.IsActive("Home", "About")">@Html.ActionLink("About", "About", "Home")</li>
@@ -19,10 +21,15 @@
                     <li class="@Html.IsActive("SelectItems", "Index")">@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
                     <li class="@Html.IsActive("Graph", "Index")">@Html.ActionLink("Graph", "Index", "Graph")</li>
                 }
-
-                @Html.Partial("_LoginPartial2")
+                <li>
+                    
+                </li>
+               
+                    @Html.Partial("_LoginPartial2")
+               
             </ul>
 
+          
 
 
 

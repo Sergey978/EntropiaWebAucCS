@@ -39,27 +39,30 @@ namespace EntropiaWebAuc
 
             // new template budles
 
-            bundles.Add(new StyleBundle("~/Content/style2").Include(
+            bundles.Add(new StyleBundle("~/Content/css/style2").Include(
                      "~/Content/css/bootstrap.min.css",
                      "~/Content/css/font-awesome.min.css",
                      "~/Content/css/bootstrap-theme.css",
-                     "~/Content/css/main.css"));
+                     "~/Content/css/main.css",
+                     "~/Content/css/layout.css"
+                     ));
 
-            bundles.Add(new StyleBundle("~/Content/slider").Include(
-                    "~/Content/css/layout.css",
-                    "~/Content/plugins/slider.revolution.v4/css/settings.css"));
+            bundles.Add(new StyleBundle("~/Content/plugins/slider.revolution.v4/css/slider").Include(
+                     "~/Content/plugins/slider.revolution.v4/css/settings.css"));
 
 
-            bundles.Add(new ScriptBundle("~/Content/js").Include(
+            bundles.Add(new ScriptBundle("~/Content/js/headroom").Include(
              "~/Content/js/headroom.min.js",
              "~/Content/js/jQuery.headroom.min.js",
              "~/Content/js/template.js"));
 
             //revolution slider
-            bundles.Add(new ScriptBundle("~/Content/revolution").Include(
+            bundles.Add(new ScriptBundle("~/Content/js/slider").Include(
+           "~/Content/js/slider_revolution.js"));
+
+            bundles.Add(new ScriptBundle("~/Content/plugins/slider.revolution.v4/js/revolution").Include(
              "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.tools.min.js",
-             "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.revolution.min.js",
-             "~/Content/js/slider_revolution.js"));
+             "~/Content/plugins/slider.revolution.v4/js/jquery.themepunch.revolution.min.js"));
             
             //checkBox required for validator extend jquery
             bundles.Add(new ScriptBundle("~/bundles/chekBoxRequire").Include(
