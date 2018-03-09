@@ -4,89 +4,102 @@
 
 @{
     Page.Title = "Incoming Messages";
-    Layout = "~/Areas/Default/Views/Shared/_LayoutLeftSideBar.cshtml";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
+<header id="head" class="secondary"></header>
+<!-- container -->
+<div class="container">
 
-<h2>@Page.Title</h2>
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="active">Incoming Messages</li>
+    </ol>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <h2>@Page.Title</h2>
 
-@using (Html.BeginForm("MessageAct", "Messages"))
-{
-    @Html.AntiForgeryToken()
-    <table class="table">
-        <tr>
-            <th><label><input type="checkbox" id ="allCheck" value=""></label></th>
-            <th>
-                Title
-            </th>
+    <hr>
 
-            <th>
-                @Html.ActionLink("Sender Name", "Index", new { sortOrder = ViewBag.NameSortParam })
-            </th>
-            <th>
-                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-            </th>
+    @using (Html.BeginForm("MessageAct", "Messages"))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table">
+            <tr>
+                <th><label><input type="checkbox" id="allCheck" value=""></label></th>
+                <th>
+                    Title
+                </th>
 
-            <th></th>
-        </tr>
+                <th>
+                    @Html.ActionLink("Sender Name", "Index", new { sortOrder = ViewBag.NameSortParam })
+                </th>
+                <th>
+                    @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                </th>
 
-        @for(int i = 0; i < Model.Count; i++)
-        {
-            <tr style="@(Model[i].Message.Read == false ? "font-weight:bold" : "")">
-
-                @Html.HiddenFor(m => Model[i].Message.Id)
-                <td>@Html.CheckBoxFor(modelItem => Model[i].IsSelected, new { @class = "checkable" })</td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].Message.Title)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].Message.SenderName)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].Message.Date)
-                </td>
-
-
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model[i].Message.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = Model[i].Message.Id, isAdmin = true }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = Model[i].Message.Id })
-                </td>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr style="@(Model[i].Message.Read == false ? "font-weight:bold" : "")">
 
-    <label for="sel1">With selectes messages:</label>
-    <div class=" form-group row">
+                    @Html.HiddenFor(m => Model[i].Message.Id)
+                    <td>@Html.CheckBoxFor(modelItem => Model[i].IsSelected, new { @class = "checkable" })</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].Message.Title)
+                    </td>
 
-        <div class="col-xs-4">
-            @Html.DropDownList("actionId", new SelectList(
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].Message.SenderName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].Message.Date)
+                    </td>
+
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model[i].Message.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = Model[i].Message.Id, isAdmin = true }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = Model[i].Message.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <label for="sel1">With selectes messages:</label>
+        <div class=" form-group row">
+
+            <div class="col-xs-4">
+                @Html.DropDownList("actionId", new SelectList(
         new List<SelectListItem>
             {
             new SelectListItem { Selected = true, Text = "Set as not read", Value = "notRead"},
             new SelectListItem { Selected = false, Text = "remove", Value = "remove"},
 
             }, "Value", "Text", 1), new { @class = "form-control " })
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
-        <div class="col-xs-4">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    </div>
 
-}
+    }
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Incoming",
+    @Html.PagedListPager(Model, page => Url.Action("Incoming",
     new { page, sortOrder = ViewBag.CurrentSort }))
-
+</div>
 @section scripts {
-@Scripts.Render("~/bundles/adminTemplate")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/someeAdRemove")
+    @Scripts.Render("~/Content/js/headroom")
+    @Scripts.Render("~/Scripts/checkboxes")
+
+
 }

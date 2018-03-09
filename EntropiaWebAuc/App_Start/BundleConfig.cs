@@ -69,8 +69,8 @@ namespace EntropiaWebAuc
             "~/Scripts/chekBoxRequire.js"));
 
             //helpers for admin template
-            bundles.Add(new ScriptBundle("~/bundles/adminTemplate").Include(
-            "~/Scripts/adminTemplate.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/checkboxes").Include(
+            "~/Scripts/checkAllCheckBox.js"));
 
         }
     }

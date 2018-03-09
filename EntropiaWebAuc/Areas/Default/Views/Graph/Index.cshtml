@@ -1,13 +1,16 @@
 ﻿@{
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
+@section css{
+    @Styles.Render("~/Content/Graph")
+}
 <header id="head" class="secondary"></header>
 <!-- container -->
 <div class="container">
 
     <ol class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
-        <li class="active">About</li>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="active">Graph</li>
     </ol>
 
     <h2>@Page.Title</h2>
@@ -17,10 +20,10 @@
     <div class="container well">
 
         @using (Ajax.BeginForm("_GetItem", new AjaxOptions
-    {
-        UpdateTargetId = "getItem",
-        OnSuccess = "{populateChartAndTable(data); reinitItem();removeSomeeAd()}"
-    }))
+        {
+            UpdateTargetId = "getItem",
+            OnSuccess = "{populateChartAndTable(data); reinitItem()}"
+        }))
         {
             <div id="getItem">
                 @Html.Action("_GetItem")

@@ -15,21 +15,29 @@
                 <li class="@Html.IsActive("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
                 <li class="@Html.IsActive("Home", "About")">@Html.ActionLink("About", "About", "Home")</li>
                 <li class="@Html.IsActive("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="@Html.IsActive("Account", "Index")">@Html.ActionLink("Custom Items", "Index", "CustomItem") </li>
-                    <li class="@Html.IsActive("SelectItems", "Index")">@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
-                    <li class="@Html.IsActive("Graph", "Index")">@Html.ActionLink("Graph", "Index", "Graph")</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Items <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="@Html.IsActive("Account", "Index")">@Html.ActionLink("Custom Items", "Index", "CustomItem") </li>
+                            <li class="@Html.IsActive("SelectItems", "Index")">@Html.ActionLink("Select Items", "Index", "SelectItems")</li>
+                            <li class="@Html.IsActive("Graph", "Index")">@Html.ActionLink("Graph", "Index", "Graph")</li>
+                        </ul>
+                    </li>
+
                 }
-                <li>
-                    
-                </li>
-               
-                    @Html.Partial("_LoginPartial2")
-               
+
+
+
+
+                @Html.Partial("_LoginPartial2")
+
             </ul>
 
-          
+
 
 
 
