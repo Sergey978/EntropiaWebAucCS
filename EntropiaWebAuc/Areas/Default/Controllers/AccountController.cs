@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EntropiaWebAuc.Areas.Default.Models;
+using EntropiaWebAuc.Areas.Default.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 

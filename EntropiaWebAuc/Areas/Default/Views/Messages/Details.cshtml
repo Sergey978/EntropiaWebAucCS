@@ -2,43 +2,64 @@
 
 @{
     Page.Title = "Message Details";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutSideBar.cshtml";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
 }
+<header id="head" class="secondary"></header>
+<!-- container -->
+<div class="container">
 
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Messages", "Incoming", "Messages")</li>
+        <li class="active">Details</li>
+    </ol>
 
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
 
-<div>
-    <h4>Message</h4>
-    <hr />
+    <hr>
 
-    <article class="col-xs-12 maincontent">
-        <header class="page-header">
-            <h3 class="page-title">@Html.DisplayFor(model => model.Title)</h3>
+    <div>
+       
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p><strong>@Html.DisplayFor(model => model.SenderName)</strong> from <strong> @Html.DisplayFor(model => model.SenderEmail)</strong></p>
+                        <p>@Html.DisplayFor(model => model.Date)</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div class="btn-group">
+
+                        </div>
+                    </div>
+                </div>
+            </header>
             <div class="row">
-                <div class="col-xs-6">
-                    <p><strong>@Html.DisplayFor(model => model.SenderName)</strong> from <strong> @Html.DisplayFor(model => model.SenderEmail)</strong></p>
-                    <p>@Html.DisplayFor(model => model.Date)</p>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <div class="btn-group">
-                       
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.Text)
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        @Html.DisplayFor(model => model.Text)
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </article>
-</div>
 
+        </article>
+    </div>
+
+
+
+    @section scripts {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/someeAdRemove")
+        @Scripts.Render("~/Content/js/headroom")
+        @Scripts.Render("~/Scripts/checkboxes")
+
+
+    }
 
 
 

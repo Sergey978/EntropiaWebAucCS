@@ -111,7 +111,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             return View(messages.ToPagedList(pageNumber, pageSize));
         }
         // GET: Default/Messages/Details/5
-        public ActionResult Details(long? id, bool isAdmin = false)
+        public ActionResult Details(long? id)
         {
             if (id == null)
             {
@@ -122,13 +122,11 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
             {
                 return HttpNotFound();
             }
-
-            if (isAdmin)
-            {
+            
                 messages.Read = true;
                 db.SaveChanges();
 
-            }
+            
             return View(messages);
         }
 

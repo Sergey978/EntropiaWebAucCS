@@ -188,7 +188,7 @@
     <Compile Include="Areas\Default\Controllers\MessagesController.cs" />
     <Compile Include="Areas\Default\Controllers\SelectItemsController.cs" />
     <Compile Include="Areas\Default\DefaultAreaRegistration.cs" />
-    <Compile Include="Areas\Default\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Default\ViewModels\AccountViewModels.cs" />
     <Compile Include="Areas\Default\Models\RoleModels.cs" />
     <Compile Include="Areas\Default\ViewModels\ContactViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\GraphViewModel.cs" />
@@ -196,7 +196,7 @@
     <Compile Include="Areas\Default\ViewModels\MessagesViewModel.cs" />
     <Compile Include="Areas\Default\ViewModels\SelectItemsViewModel.cs" />
     <Compile Include="Areas\Default\Models\IdentityModels.cs" />
-    <Compile Include="Areas\Default\Models\ManageViewModels.cs" />
+    <Compile Include="Areas\Default\ViewModels\ManageViewModels.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
