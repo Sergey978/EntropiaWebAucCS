@@ -11,7 +11,7 @@ namespace EntropiaWebAuc.Services
         public void SendMail(string recipient, string subject, string message)
         {
             SmtpClient client = new SmtpClient();
-          //  client.EnableSsl = true; // comment if local test to directory
+            client.EnableSsl = true; // comment if local test to directory
 
             try
             {
