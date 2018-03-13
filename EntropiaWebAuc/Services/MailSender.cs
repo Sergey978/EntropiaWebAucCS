@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace EntropiaWebAuc.Services
 {
     public class MailSender
     {
-        public void SendMail(string recipient, string subject, string message)
+        public async Task<string> SendMail(string recipient, string subject, string message)
         {
             SmtpClient client = new SmtpClient();
             client.EnableSsl = true; // comment if local test to directory
@@ -20,13 +21,15 @@ namespace EntropiaWebAuc.Services
                 mail.Subject = subject;
                 mail.Body = message;
                 mail.IsBodyHtml = true;
-                client.SendMailAsync(mail);
+               await  client.SendMailAsync(mail);
+                return "Success";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 throw ex;
             }
+
         }
     }
 }

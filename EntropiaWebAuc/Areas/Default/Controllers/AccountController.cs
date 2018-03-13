@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using EntropiaWebAuc.Areas.Default.Models;
 using EntropiaWebAuc.Areas.Default.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections.Generic;
+using EntropiaWebAuc.Services;
 
 namespace EntropiaWebAuc.Areas.Default.Controllers
 {
@@ -180,8 +180,9 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
                     // отправка письма
-
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    MailSender mailSender = new MailSender();
+                 await   mailSender.SendMail(user.Email, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //  await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     // set new User default role
                     using (var context = new ApplicationDbContext())
@@ -198,7 +199,7 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
 
                     }
 
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                   // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
 
                     return View("DisplayEmail");
@@ -250,9 +251,16 @@ namespace EntropiaWebAuc.Areas.Default.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                  string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                // отправка письма
+                MailSender mailSender = new MailSender();
+                await mailSender.SendMail(user.Email, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
