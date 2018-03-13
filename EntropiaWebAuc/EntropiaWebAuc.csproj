@@ -181,6 +181,7 @@
     <Compile Include="Areas\Admin\ViewModel\MessagesViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\RoleViewModel.cs" />
     <Compile Include="Areas\Default\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Default\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Default\Controllers\GraphController.cs" />
     <Compile Include="Areas\Default\Controllers\HomeController.cs" />
     <Compile Include="Areas\Default\Controllers\ManageController.cs" />
@@ -389,6 +390,8 @@
     <Content Include="Areas\Default\Views\Messages\Edit.cshtml" />
     <Content Include="Areas\Default\Views\Messages\Incoming.cshtml" />
     <Content Include="Areas\Default\Views\Messages\Outgoing.cshtml" />
+    <Content Include="Areas\Default\Views\Error\NotFound.cshtml" />
+    <Content Include="Areas\Default\Views\Error\Forbidden.cshtml" />
     <None Include="Properties\PublishProfiles\entropia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GraphDraw.js" />
@@ -419,6 +422,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
+    <Folder Include="error\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
